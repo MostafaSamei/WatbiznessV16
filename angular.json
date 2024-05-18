@@ -6,14 +6,18 @@
     "WatbiznessV16": {
       "projectType": "application",
       "schematics": {
+
         "@schematics/angular:component": {
+          "skipTests": false,
           "style": "scss",
           "standalone": true
         },
         "@schematics/angular:directive": {
+          "skipTests": false,
           "standalone": true
         },
         "@schematics/angular:pipe": {
+          "skipTests": false,
           "standalone": true
         }
       },
@@ -37,9 +41,11 @@
               "src/assets"
             ],
             "styles": [
-              "src/styles.scss"
+              "src/styles.scss",
+              "node_modules/@ctrl/ngx-emoji-mart/picker.css",
+              "node_modules/ngx-spinner/animations/ball-clip-rotate-multiple.css"
             ],
-            "scripts": []
+            "scripts": [ "./node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"]
           },
           "configurations": {
             "production": {

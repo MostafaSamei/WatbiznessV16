@@ -1,0 +1,97 @@
+<div class="container">
+  <div class="min-vh-100 d-flex flex-column">
+    <div class="logo mt-5">
+      <img width="297" class="" src="./assets/images/Logo.png" alt="">
+    </div>
+    <div class="row flex-grow-1">
+      <div class="col-lg-8 align-self-end d-none d-lg-block">
+        <div>
+          <div class="landing d-flex">
+            <div>
+              <h2 class="fw-bold fs-1">Login to</h2>
+              <p class="fs-3 fw-medium">
+                Grow your business on <span class="text-success d-block">WhatsApp</span>
+              </p>
+            </div>
+            <img src="../../../assets/images/Saly-14.png" alt="">
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-4 align-self-center">
+        <div class="form">
+          <h1 class="mb-5 text-center text-lg-start ">Login</h1>
+          <form [formGroup]="loginForm" (ngSubmit)="login()">
+            <div class="email">
+              <label for="email">Email:</label>
+              <div class="form-control d-flex justify-content-between align-items-center py-0 mb-3 mt-2"
+                [ngClass]="loginForm.get('emailAddress')?.errors && loginForm.get('emailAddress')?.touched ? 'border-danger ':''">
+                <label for="email" class="border-0 pe-2" id="basic-addon1">
+                  <i class="fa-solid fa-envelope text-secondary"
+                    [ngClass]="loginForm.get('emailAddress')?.errors && loginForm.get('emailAddress')?.touched ? 'text-danger ':''"></i>
+                </label>
+                <input formControlName="emailAddress" type="email" name="email" id="email"
+                  [ngClass]="loginForm.get('emailAddress')?.errors && loginForm.get('emailAddress')?.touched ? 'placeholder-danger':''"
+                  class="border-0 flex-grow-1 h-100 py-3" placeholder="user@email.com" aria-label="Username"
+                  aria-describedby="basic-addon1">
+                <button class="btn border-0 text-secondary"
+                  [ngClass]="loginForm.get('emailAddress')?.errors && loginForm.get('emailAddress')?.touched ? 'text-danger ':''"
+                  type="button" id="button-addon1" (click)="loginForm.get('emailAddress')?.reset()">
+                  <i class="fa-solid fa-xmark"></i>
+                </button>
+              </div>
+              <ng-container *ngIf="loginForm.get('emailAddress')?.errors && loginForm.get('emailAddress')?.touched">
+                <div class="text-danger small">
+                  <ng-container *ngIf="loginForm.get('emailAddress')?.errors?.['required']">
+                    <span>Email is required</span>
+                  </ng-container>
+                  <ng-container *ngIf="loginForm.get('emailAddress')?.errors?.['email']">
+                    <span>Wrong email format, please check!</span>
+                  </ng-container>
+                </div>
+              </ng-container>
+
+            </div>
+            <div class="password">
+              <label for="password">Password:</label>
+              <div class="form-control d-flex justify-content-between align-items-center py-0 mb-3 mt-2"
+                [ngClass]="loginForm.get('password')?.errors && loginForm.get('password')?.touched ? 'border-danger ':''">
+                <label for="password" class="border-0 pe-2" id="basic-addon1"
+                  [ngClass]="loginForm.get('password')?.errors && loginForm.get('password')?.touched ? 'text-danger ':''">
+                  <i class="fa-solid fa-lock text-secondary"
+                    [ngClass]="loginForm.get('password')?.errors && loginForm.get('password')?.touched ? 'text-danger ':''"></i>
+                </label>
+                <input formControlName="password" [type]="showPassword?'password':'text'"
+                  [ngClass]="loginForm.get('password')?.errors && loginForm.get('password')?.touched ? 'placeholder-danger ':''"
+                  class="border-0 flex-grow-1 h-100 py-3" name="password" id="password"
+                  placeholder="● ● ● ● ● ● ● ● ● ●" aria-label="Username" aria-describedby="basic-addon1">
+                <button class="btn border border-0 text-secondary" type="button" id="button-addon2"
+                  [ngClass]="loginForm.get('password')?.errors && loginForm.get('password')?.touched ? 'text-danger ':''"
+                  (click)="showPassword=!showPassword">
+                  <i class="fa-solid fa-eye"></i>
+                </button>
+              </div>
+              <ng-container *ngIf="loginForm.get('password')?.invalid && loginForm.get('password')?.touched">
+                <div class="text-danger small mt-3">
+                  <ng-container *ngIf="loginForm.get('password')?.errors?.['required']">
+                    <span>Password is required</span>
+                  </ng-container>
+                </div>
+              </ng-container>
+              <a class="text-secondary mt-4 text-end d-block" [routerLink]="['/forget-password']"
+                routerLinkActive="router-link-active">Forgor password ?</a>
+            </div>
+
+            <button class="btn btn-primary d-block w-100 p-3 mt-5 mb-4" type="submit">Login</button>
+            <!-- @if() {
+            <span class="text-danger small">Wrong email or password, please check!</span>
+            } -->
+          </form>
+          <div class="text-start d-flex">
+            <p class=" fw-medium">Don't have an account ?</p>
+            <a class="text-primary fw-bold ms-2" [routerLink]="['/sign-up']">Sign up Now</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

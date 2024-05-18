@@ -1,0 +1,236 @@
+<div class="container">
+  <div class="min-vh-100 d-flex flex-column">
+
+    <div class="row flex-grow-1">
+      <div class="col-lg-8 align-self-stretch d-none d-lg-block">
+        <div class="d-flex flex-column h-100 justify-content-between">
+          <div class="logo mt-5 w-100 h-100">
+            <img width="297" class="" src="../../../assets/images/Logo.png" alt="">
+          </div>
+          <div class="">
+            <div class="landing d-flex">
+              <div>
+                <h2 class="fw-bold fs-1">Sign Up to</h2>
+                <p class="fs-3 fw-medium">
+                  Grow your business on <span class="text-success d-block">WhatsApp</span>
+                </p>
+              </div>
+              <img src="./assets/images/Saly-14.png" alt="">
+            </div>
+          </div>
+        </div>
+
+      </div>
+      <div class="col-lg-4 align-self-center ">
+        <div class="form" [formGroup]="SignUpForm">
+          <h1 class="my-3 my-lg-5 text-center text-lg-start">Sign Up</h1>
+          <form (ngsubmit)="login()">
+            <div class="full-name">
+              <label for="f-name">Full Name:</label>
+              <div class="row">
+                <div class="f-name col-6">
+                  <div class="form-control d-flex justify-content-between align-items-center py-0 mb-3 mt-2"
+                    [ngClass]="SignUpForm.get('fName')?.errors && SignUpForm.get('fName')?.touched ? 'border-danger ':''">
+                    <label for="f-name" class="border-0 pe-2" id="basic-addon1">
+                      <i class="fa-solid fa-user text-secondary"
+                        [ngClass]="SignUpForm.get('fName')?.errors && SignUpForm.get('fName')?.touched ? 'text-danger ':''"></i>
+                    </label>
+                    <input formControlName="fName" type="text" name="fName" id="f-name"
+                      [ngClass]="SignUpForm.get('fName')?.errors && SignUpForm.get('fName')?.touched ? 'placeholder-danger':''"
+                      class="border-0 w-50 flex-grow-1 h-100 py-3" placeholder="First Name">
+                    <button class="btn border-0 text-secondary"
+                      [ngClass]="SignUpForm.get('fName')?.errors && SignUpForm.get('fName')?.touched ? 'text-danger ':''"
+                      type="button" (click)="SignUpForm.get('fName')?.reset()">
+                      <i class="fa-solid fa-xmark"></i>
+                    </button>
+                  </div>
+                  <ng-container *ngIf="SignUpForm.get('fName')?.errors && SignUpForm.get('fName')?.touched">
+                    <div class="text-danger small">
+                      <ng-container *ngIf="SignUpForm.get('fName')?.errors?.['required']">
+                        <span>First name is required</span>
+                      </ng-container>
+                    </div>
+                  </ng-container>
+                </div>
+                <div class="l-name col-6">
+                  <div class="form-control d-flex justify-content-between align-items-center py-0 mb-3 mt-2"
+                    [ngClass]="SignUpForm.get('lName')?.errors && SignUpForm.get('lName')?.touched ? 'border-danger ':''">
+                    <label for="lName" class="border-0 pe-2" id="basic-addon1">
+                      <i class="fa-solid fa-user text-secondary"
+                        [ngClass]="SignUpForm.get('lName')?.errors && SignUpForm.get('lName')?.touched ? 'text-danger ':''"></i>
+                    </label>
+                    <input formControlName="lName" type="text" name="lName" id="lName"
+                      [ngClass]="SignUpForm.get('lName')?.errors && SignUpForm.get('lName')?.touched ? 'placeholder-danger':''"
+                      class="border-0 w-50 flex-grow-1 h-100 py-3" placeholder="Last Name" aria-label="Username"
+                      aria-describedby="basic-addon1">
+                    <button class="btn border-0 text-secondary"
+                      [ngClass]="SignUpForm.get('lName')?.errors && SignUpForm.get('lName')?.touched ? 'text-danger ':''"
+                      type="button" (click)="SignUpForm.get('lName')?.reset()">
+                      <i class="fa-solid fa-xmark"></i>
+                    </button>
+                  </div>
+                  <ng-container *ngIf="SignUpForm.get('lName')?.errors && SignUpForm.get('lName')?.touched">
+                    <div class="text-danger small">
+                      <ng-container *ngIf="SignUpForm.get('lName')?.errors?.['required']">
+                        <span>Last name is required</span>
+                      </ng-container>
+                    </div>
+                  </ng-container>
+                </div>
+              </div>
+            </div>
+            <div class="email">
+              <label for="email">Business Email Address:</label>
+              <div class="form-control d-flex justify-content-between align-items-center py-0 mb-3 mt-2"
+                [ngClass]="SignUpForm.get('email')?.errors && SignUpForm.get('email')?.touched ? 'border-danger ':''">
+                <label for="email" class="border-0 pe-2" id="basic-addon1">
+                  <i class="fa-solid fa-envelope text-secondary"
+                    [ngClass]="SignUpForm.get('email')?.errors && SignUpForm.get('email')?.touched ? 'text-danger ':''"></i>
+                </label>
+                <input formControlName="email" type="email" name="email" id="email"
+                  [ngClass]="SignUpForm.get('email')?.errors && SignUpForm.get('email')?.touched ? 'placeholder-danger':''"
+                  class="border-0 flex-grow-1 h-100 py-3" placeholder="user@email.com" aria-label="Username"
+                  aria-describedby="basic-addon1">
+                <button class="btn border-0 text-secondary"
+                  [ngClass]="SignUpForm.get('email')?.errors && SignUpForm.get('email')?.touched ? 'text-danger ':''"
+                  type="button" (click)="SignUpForm.get('email')?.reset()">
+                  <i class="fa-solid fa-xmark"></i>
+                </button>
+              </div>
+              <ng-container *ngIf="SignUpForm.get('email')?.errors && SignUpForm.get('email')?.touched">
+                <div class="text-danger small">
+                  <ng-container *ngIf="SignUpForm.get('email')?.errors?.['required']">
+                    <span>Email is required</span>
+                  </ng-container>
+                  <ng-container *ngIf="SignUpForm.get('email')?.errors?.['email']">
+                    <span>Wrong email format, please check!</span>
+                  </ng-container>
+                </div>
+              </ng-container>
+              <!-- @if () {
+
+              } -->
+            </div>
+            <div class="phone-number">
+              <label for="phNumber">Phone Number:</label>
+              <div class="form-control d-flex justify-content-between align-items-center py-0 mb-3 mt-2 ps-0"
+                [ngClass]="SignUpForm.get('phNumber')?.errors && SignUpForm.get('phNumber')?.touched ? 'border-danger ':''">
+                <!-- <label for="phNumber" class="border-0 pe-2" id="basic-addon1">
+                  <i class="fa-solid fa-briefcase text-secondary"
+                    [ngClass]="SignUpForm.get('phNumber')?.errors && SignUpForm.get('phNumber')?.touched ? 'text-danger ':''"></i>
+                </label> -->
+
+
+                <input formControlName="phNumber" type="tel" name="phNumber" id="phNumber"
+                  [ngClass]="SignUpForm.get('phNumber')?.errors && SignUpForm.get('phNumber')?.touched ? 'placeholder-danger':''"
+                  class="border-0 flex-grow-1 h-100 py-3 ms-2" placeholder="123 4567 890" aria-label="Username"
+                  aria-describedby="basic-addon1">
+                <button class="btn border-0 text-secondary"
+                  [ngClass]="SignUpForm.get('phNumber')?.errors && SignUpForm.get('phNumber')?.touched ? 'text-danger ':''"
+                  type="button" (click)="SignUpForm.get('phNumber')?.reset()">
+                  <i class="fa-solid fa-xmark"></i>
+                </button>
+              </div>
+              <ng-container *ngIf="SignUpForm.get('phNumber')?.errors && SignUpForm.get('phNumber')?.touched">
+                <div class="text-danger small">
+                  <ng-container *ngIf="SignUpForm.get('phNumber')?.errors?.['required']">
+                    <span>Phone number is required</span>
+                  </ng-container>
+                </div>
+              </ng-container>
+            </div>
+            <div class="company-name">
+              <label for="cName">Company Name:</label>
+              <div class="form-control d-flex justify-content-between align-items-center py-0 mb-3 mt-2"
+                [ngClass]="SignUpForm.get('cName')?.errors && SignUpForm.get('cName')?.touched ? 'border-danger ':''">
+                <label for="cName" class="border-0 pe-2" id="basic-addon1">
+                  <i class="fa-solid fa-briefcase text-secondary"
+                    [ngClass]="SignUpForm.get('cName')?.errors && SignUpForm.get('cName')?.touched ? 'text-danger ':''"></i>
+                </label>
+                <input formControlName="cName" type="text" name="cName" id="cName"
+                  [ngClass]="SignUpForm.get('cName')?.errors && SignUpForm.get('cName')?.touched ? 'placeholder-danger':''"
+                  class="border-0 flex-grow-1 h-100 py-3" placeholder="Company Name" aria-label="Username"
+                  aria-describedby="basic-addon1">
+                <button class="btn border-0 text-secondary"
+                  [ngClass]="SignUpForm.get('cName')?.errors && SignUpForm.get('cName')?.touched ? 'text-danger ':''"
+                  type="button" (click)="SignUpForm.get('cName')?.reset()">
+                  <i class="fa-solid fa-xmark"></i>
+                </button>
+              </div>
+              <ng-container *ngIf="SignUpForm.get('cName')?.errors && SignUpForm.get('cName')?.touched">
+                <div class="text-danger small">
+                  <ng-container *ngIf="SignUpForm.get('cName')?.errors?.['required']">
+                    <span>Company name is required</span>
+                  </ng-container>
+                </div>
+              </ng-container>
+
+            </div>
+            <div class="company-Website">
+              <label for="cWebsite">Company Website:</label>
+              <div class="form-control d-flex justify-content-between align-items-center py-0 mb-3 mt-2"
+                [ngClass]="SignUpForm.get('cWebsite')?.errors && SignUpForm.get('cWebsite')?.touched ? 'border-danger ':''">
+                <label for="cWebsite" class="border-0 pe-2" id="basic-addon1">
+                  <i class="fa-solid fa-earth-africa text-secondary"
+                    [ngClass]="SignUpForm.get('cWebsite')?.errors && SignUpForm.get('cWebsite')?.touched ? 'text-danger ':''"></i>
+                </label>
+                <input formControlName="cWebsite" type="text" name="cWebsite" id="cWebsite"
+                  [ngClass]="SignUpForm.get('cWebsite')?.errors && SignUpForm.get('cWebsite')?.touched ? 'placeholder-danger':''"
+                  class="border-0 flex-grow-1 h-100 py-3" placeholder="www.domain.com" aria-label="Username"
+                  aria-describedby="basic-addon1">
+                <button class="btn border-0 text-secondary"
+                  [ngClass]="SignUpForm.get('cWebsite')?.errors && SignUpForm.get('cWebsite')?.touched ? 'text-danger ':''"
+                  type="button" (click)="SignUpForm.get('cWebsite')?.reset()">
+                  <i class="fa-solid fa-xmark"></i>
+                </button>
+              </div>
+              <ng-container *ngIf="SignUpForm.get('cWebsite')?.errors && SignUpForm.get('cWebsite')?.touched">
+                <div class="text-danger small">
+                  <ng-container *ngIf="SignUpForm.get('cWebsite')?.errors?.['required']">
+                    <span>Company Website is required</span>
+                  </ng-container>
+                </div>
+              </ng-container>
+            </div>
+            <div class="password">
+              <label for="password">Password:</label>
+              <div class="form-control d-flex justify-content-between align-items-center py-0 mb-3 mt-2"
+                [ngClass]="SignUpForm.get('password')?.errors && SignUpForm.get('password')?.touched ? 'border-danger ':''">
+                <label for="password" class="border-0 pe-2" id="basic-addon1"
+                  [ngClass]="SignUpForm.get('password')?.errors && SignUpForm.get('password')?.touched ? 'text-danger ':''">
+                  <i class="fa-solid fa-lock text-secondary"
+                    [ngClass]="SignUpForm.get('password')?.errors && SignUpForm.get('password')?.touched ? 'text-danger ':''"></i>
+                </label>
+                <input formControlName="password" [type]="showPassword?'password':'text'"
+                  [ngClass]="SignUpForm.get('password')?.errors && SignUpForm.get('password')?.touched ? 'placeholder-danger ':''"
+                  class="border-0 flex-grow-1 h-100 py-3" name="password" id="password"
+                  placeholder="● ● ● ● ● ● ● ● ● ●" aria-label="Username" aria-describedby="basic-addon1">
+                <button class="btn border border-0 text-secondary" type="button"
+                  [ngClass]="SignUpForm.get('password')?.errors && SignUpForm.get('password')?.touched ? 'text-danger ':''"
+                  (click)="showPassword=!showPassword">
+                  <i class="fa-solid fa-eye"></i>
+                </button>
+              </div>
+              <ng-container *ngIf="SignUpForm.get('password')?.invalid && SignUpForm.get('password')?.touched">
+                <div class="text-danger small mt-3">
+                  <ng-container *ngIf="SignUpForm.get('password')?.errors?.['required']">
+                    <span>Password is required</span>
+                  </ng-container>
+                </div>
+              </ng-container>
+            </div>
+            <button class="btn btn-primary d-block w-100 p-3  mb-4" type="submit">Login</button>
+            <!-- @if() {
+            <span class="text-danger small">Wrong email or password, please check!</span>
+            } -->
+          </form>
+          <div class="text-start d-flex">
+            <p class=" fw-medium">Have an account?</p>
+            <a class="text-primary fw-bold ms-2" [routerLink]="['/login']" routerLinkActive="router-link-active">Login
+              Now</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,180 @@
+$grays:(
+  "gray-50" :#F9FAFB,
+  "gray-100":#F3F4F6,
+  "gray-200":#E5E7EB,
+  "gray-300":#D1D5DB,
+  "gray-400":#9CA3AF,
+  "gray-500":#6B7280,
+  "gray-600":#4B5563,
+  "gray-700":#374151,
+  "gray-800":#1F2A37,
+  "gray-900":#111928
+);
+///bg all colors pallet
+@each $name,$value in $blues{
+  .bg-#{$name}{
+    background-color: $value;
+  }
+}
+@each $name,$value in $grays{
+  .bg-#{$name}{
+    background-color: $value;
+  }
+}
+@each $name,$value in $reds{
+  .bg-#{$name}{
+    background-color: $value;
+  }
+}
+@each $name,$value in $oranges{
+  .bg-#{$name}{
+    background-color: $value;
+  }
+}
+@each $name,$value in $yellows{
+  .bg-#{$name}{
+    background-color: $value;
+  }
+}
+@each $name,$value in $greens{
+  .bg-#{$name}{
+    background-color: $value;
+  }
+}
+@each $name,$value in $teals{
+  .bg-#{$name}{
+    background-color: $value;
+  }
+}
+@each $name,$value in $indigos{
+  .bg-#{$name}{
+    background-color: $value;
+  }
+}
+@each $name,$value in $purples{
+  .bg-#{$name}{
+    background-color: $value;
+  }
+}
+@each $name,$value in $pinks{
+  .bg-#{$name}{
+    background-color: $value;
+  }
+}
+.bg-blue-50{
+  background-color: #EBF5FF;
+}
+.bg-gray-50{
+  background-color: #F9FAFB;
+}
+.bg-red-50{
+  background-color: #FDF2F2;
+}
+.bg-orange-50{
+  background-color: #FFF8F1;
+}
+.bg-yellow-50{
+  background-color: #FDFDEA;
+}
+.bg-green-50{
+  background-color: #F3FAF7;
+}
+.bg-teal-50{
+  background-color: #EDFAFA;
+}
+.bg-indigo-50{
+  background-color: #F0F5FF;
+}
+.bg-purple-50{
+  background-color: #F6F5FF;
+}
+.bg-pink-50{
+  background-color: #FDF2F8;
+}
+///text all colors pallet
+@each $name,$value in $blues{
+  .color-#{$name}{
+    color: $value;
+  }
+}
+@each $name,$value in $grays{
+  .color-#{$name}{
+    color: $value;
+  }
+}
+@each $name,$value in $reds{
+  .color-#{$name}{
+    color: $value;
+  }
+}
+@each $name,$value in $oranges{
+  .color-#{$name}{
+    color: $value;
+  }
+}
+@each $name,$value in $yellows{
+  .color-#{$name}{
+    color: $value;
+  }
+}
+@each $name,$value in $greens{
+  .color-#{$name}{
+    color: $value;
+  }
+}
+@each $name,$value in $teals{
+  .color-#{$name}{
+    color: $value;
+  }
+}
+@each $name,$value in $indigos{
+  .color-#{$name}{
+    color: $value;
+  }
+}
+@each $name,$value in $purples{
+  .color-#{$name}{
+    color: $value;
+  }
+}
+@each $name,$value in $pinks{
+  .color-#{$name}{
+    color: $value;
+  }
+}
+
+.color-blue-50{
+  color: #EBF5FF;
+}
+.color-gray-50{
+  color: #F9FAFB;
+}
+.color-red-50{
+  color: #FDF2F2;
+}
+.color-orange-50{
+  color: #FFF8F1;
+}
+.color-yellow-50{
+  color: #FDFDEA;
+}
+.color-green-50{
+  color: #F3FAF7;
+}
+.color-teal-50{
+  color: #EDFAFA;
+}
+.color-indigo-50{
+  color: #F0F5FF;
+}
+.color-purple-50{
+  color: #F6F5FF;
+}
+.color-pink-50{
+  color: #FDF2F8;
+}
+
+
+
+
+

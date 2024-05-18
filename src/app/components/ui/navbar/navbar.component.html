@@ -1,0 +1,72 @@
+<nav class="navbar navbar-expand-lg border-bottom border-2">
+  <div class="container-fluid">
+    <a class="navbar-brand" style="width: 200px;" [routerLink]="['/routePath']">
+      <app-logo></app-logo>
+    </a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse text-lg-center text-xl-start" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link" aria-current="page" [routerLink]="['/home']" routerLinkActive="text-primary">
+            <i class="fa-regular fa-hard-drive"></i>
+            Inbox
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link " aria-current="page" [routerLink]="['/broadcast']" routerLinkActive="text-primary">
+            <i class="fa-solid fa-bullhorn"></i>
+            Broadcast
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link " aria-current="page" [routerLink]="['/contacts']" routerLinkActive="text-primary">
+            <i class="fa-regular fa-address-book"></i>
+            Contacts
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link " aria-current="page" [routerLink]="['/board']" routerLinkActive="text-primary">
+            <i class="fa-solid fa-square-poll-vertical"></i>
+            Board
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link " aria-current="page" [routerLink]="['/analysis']" routerLinkActive="text-primary">
+            <i class="fa-solid fa-chart-line"></i>
+            Analysis
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link " aria-current="page" [routerLink]="['/users-management']" routerLinkActive="text-primary">
+            <i class="fa-solid fa-gear"></i>
+            Users Management
+          </a>
+        </li>
+
+      </ul>
+      <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link me-3" aria-current="page" [routerLink]="['/routePath']" routerLinkActive="text-primary">
+            <span class="bg-secondary-subtle d-flex justify-content-center align-items-center rounded-circle"
+              style="width: 40px; height: 40px;">
+              <i class="fa-solid fa-bell"></i>
+            </span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link d-flex justify-content-center align-items-center" aria-current="page"
+            [routerLink]="['/routePath']" routerLinkActive="text-primary">
+            <span>Ysn Maher</span>
+            <span class="bg-secondary-subtle d-flex justify-content-center align-items-center rounded-circle ms-2"
+              style="width: 40px; height: 40px;">
+              <i class="fa-solid fa-user"></i>
+            </span>
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>

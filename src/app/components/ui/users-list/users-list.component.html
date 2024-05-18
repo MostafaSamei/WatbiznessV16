@@ -1,0 +1,298 @@
+<div class="row py-3 px-lg-3">
+  <div class="col-12">
+    <div class="overview row align-items-center justify-content-between g-2">
+      <h6 class="fw-semibold">Overview</h6>
+      <div class="col-4 col-lg-2">
+        <div class="bg-gray-100 px-3 py-2 rounded-3">
+          <div class="d-flex align-items-center justify-content-between">
+            <span class="fw-bold fs-2">0</span>
+            <i class="fa-solid fa-check text-primary rounded-icon bg-white"></i>
+          </div>
+          <span class="simi-small color-gray-600">Sent</span>
+        </div>
+      </div>
+      <div class="col-4 col-lg-2">
+        <div class="bg-gray-100 px-3 py-2 rounded-3">
+          <div class="d-flex align-items-center justify-content-between">
+            <span class="fw-bold fs-2">0</span>
+            <i class="fa-solid fa-check-double text-primary rounded-icon bg-white"></i>
+          </div>
+          <span class="simi-small color-gray-600">Delivered</span>
+        </div>
+      </div>
+      <div class="col-4 col-lg-2">
+        <div class="bg-gray-100 px-3 py-2 rounded-3">
+          <div class="d-flex align-items-center justify-content-between">
+            <span class="fw-bold fs-2">0</span>
+            <i class="fa-regular fa-eye text-primary rounded-icon bg-white"></i>
+          </div>
+          <span class="simi-small color-gray-600">Read</span>
+        </div>
+      </div>
+      <div class="col-4 col-lg-2">
+        <div class="bg-gray-100 px-3 py-2 rounded-3">
+          <div class="d-flex align-items-center justify-content-between">
+            <span class="fw-bold fs-2">0</span>
+            <i class="fa-solid fa-reply-all text-primary rounded-icon bg-white"></i>
+          </div>
+          <span class="simi-small color-gray-600">Replied</span>
+        </div>
+      </div>
+      <div class="col-4 col-lg-2">
+        <div class="bg-gray-100 px-3 py-2 rounded-3">
+          <div class="d-flex align-items-center justify-content-between">
+            <span class="fw-bold fs-2">0</span>
+            <i class="fa-solid fa-arrows-rotate text-primary rounded-icon bg-white"></i>
+          </div>
+          <span class="simi-small color-gray-600">Processing</span>
+        </div>
+      </div>
+      <div class="col-4 col-lg-2">
+        <div class="bg-gray-100 px-3 py-2 rounded-3">
+          <div class="d-flex align-items-center justify-content-between">
+            <span class="fw-bold fs-2">0</span>
+            <i class="fa-solid fa-comment-slash text-primary rounded-icon bg-white"></i>
+          </div>
+          <span class="simi-small color-gray-600">Failed</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="w-100 bg-gray-100 mt-3 py-4 px-3">
+  <div class="d-flex align-items-center justify-content-between">
+    <h5 class="fw-bold m-0">
+      Users list
+    </h5>
+    <div class="controll-buttons d-none d-md-block">
+      <button class="btn btn-outline-primary me-3">
+        <i class="fa-solid fa-filter me-1"></i>
+        <span>
+          Filter
+        </span>
+      </button>
+      <button class="btn btn-outline-primary me-3">
+        <i class="fa-solid fa-download me-1"></i>
+        <span>
+          Export
+        </span>
+      </button>
+      <button class="btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#addNewUsers"
+        aria-controls="addNewUsers">
+        <i class="fa-solid fa-circle-plus me-1"></i>
+        <span>
+          New Users
+        </span>
+      </button>
+    </div>
+    <div class="dropdown d-block d-md-none">
+      <button class="btn btn-secondary rounded-icon" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+        <i class="fa-solid fa-angle-down"></i>
+      </button>
+      <ul class="dropdown-menu ">
+        <li class="btn text-primary">
+          <i class="fa-solid fa-filter me-1"></i>
+          Filter
+        </li>
+        <li class="btn text-primary">
+          <i class="fa-solid fa-download me-1"></i>
+          Export
+        </li>
+        <li class="btn  text-nowrap">
+          <button class="btn p-0 text-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#addNewUsers"
+            aria-controls="addNewUsers">
+            <i class="fa-solid fa-circle-plus me-1"></i>
+            New Users
+          </button>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+<div class="px-3 pt-3 table-responsive">
+  <table class="table align-middle">
+    <thead>
+      <tr class="text-center">
+        <th scope="col" class="py-3 text-start">Name</th>
+        <th scope="col" class="py-3">Successful</th>
+        <th scope="col" class="py-3">Read</th>
+        <th scope="col" class="py-3">Replied</th>
+        <th scope="col" class="py-3">Recipients</th>
+        <th scope="col" class="py-3">Failed</th>
+        <th scope="col" class="py-3">Status</th>
+        <th scope="col" class="py-3">Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr class="text-center text-nowrap">
+        <td class="text-start">
+          <h6 class="text-primary">Test - 01</h6>
+          <span>2023-12-09 05:51 PM</span>
+        </td>
+        <td>0%</td>
+        <td>0%</td>
+        <td>0%</td>
+        <td> 1 Contacts</td>
+        <td> 0 Contacts</td>
+        <td> completed</td>
+        <td>
+          <button class="btn btn-outline-secondary me-2">
+            <i class="fa-regular fa-pen-to-square"></i>
+          </button>
+          <button class="btn btn-outline-secondary">
+            <i class="fa-regular fa-eye"></i>
+          </button>
+        </td>
+      </tr>
+      <tr class="text-center">
+        <td class="text-start">
+          <h6 class="text-primary">Test - 02</h6>
+          <span>2023-12-09 05:51 PM</span>
+        </td>
+        <td>0%</td>
+        <td>0%</td>
+        <td>0%</td>
+        <td> 1 Contacts</td>
+        <td> 0 Contacts</td>
+        <td> completed</td>
+        <td>
+          <button class="btn btn-outline-secondary me-2">
+            <i class="fa-regular fa-pen-to-square"></i>
+          </button>
+          <button class="btn btn-outline-secondary">
+            <i class="fa-regular fa-eye"></i>
+          </button>
+        </td>
+      </tr>
+      <tr class="text-center">
+        <td class="text-start">
+          <h6 class="text-primary">Test - 03</h6>
+          <span>2023-12-09 05:51 PM</span>
+        </td>
+        <td>0%</td>
+        <td>0%</td>
+        <td>0%</td>
+        <td> 1 Contacts</td>
+        <td> 0 Contacts</td>
+        <td> completed</td>
+        <td>
+          <button class="btn btn-outline-secondary me-2">
+            <i class="fa-regular fa-pen-to-square"></i>
+          </button>
+          <button class="btn btn-outline-secondary">
+            <i class="fa-regular fa-eye"></i>
+          </button>
+        </td>
+      </tr>
+      <tr class="text-center">
+        <td class="text-start">
+          <h6 class="text-primary">Test - 04</h6>
+          <span>2023-12-09 05:51 PM</span>
+        </td>
+        <td>0%</td>
+        <td>0%</td>
+        <td>0%</td>
+        <td> 1 Contacts</td>
+        <td> 0 Contacts</td>
+        <td> completed</td>
+        <td>
+          <button class="btn btn-outline-secondary me-2">
+            <i class="fa-regular fa-pen-to-square"></i>
+          </button>
+          <button class="btn btn-outline-secondary">
+            <i class="fa-regular fa-eye"></i>
+          </button>
+        </td>
+      </tr>
+      <tr class="text-center">
+        <td class="text-start">
+          <h6 class="text-primary">Test - 05</h6>
+          <span>2023-12-09 05:51 PM</span>
+        </td>
+        <td>0%</td>
+        <td>0%</td>
+        <td>0%</td>
+        <td> 1 Contacts</td>
+        <td> 0 Contacts</td>
+        <td> completed</td>
+        <td>
+          <button class="btn btn-outline-secondary me-2">
+            <i class="fa-regular fa-pen-to-square"></i>
+          </button>
+          <button class="btn btn-outline-secondary">
+            <i class="fa-regular fa-eye"></i>
+          </button>
+        </td>
+      </tr>
+      <tr class="text-center">
+        <td class="text-start">
+          <h6 class="text-primary">Test - 05</h6>
+          <span>2023-12-09 05:51 PM</span>
+        </td>
+        <td>0%</td>
+        <td>0%</td>
+        <td>0%</td>
+        <td> 1 Contacts</td>
+        <td> 0 Contacts</td>
+        <td> completed</td>
+        <td>
+          <button class="btn btn-outline-secondary me-2">
+            <i class="fa-regular fa-pen-to-square"></i>
+          </button>
+          <button class="btn btn-outline-secondary">
+            <i class="fa-regular fa-eye"></i>
+          </button>
+        </td>
+      </tr>
+
+
+    </tbody>
+  </table>
+
+</div>
+<div class="start-0 position-fixed bottom-0 w-100 mx-0 bg-white">
+  <div class="pagination row text-nowrap justify-content-center align-items-center py-4 pb-5 text-center">
+    <div class="row-control col-6 col-md-3 col-lg-2">
+      <div>
+        <span class="ms-3">Rows per page:</span>
+        <select name="" id="" class="border-0 ms-3">
+          <option selected value="5">5</option>
+          <option value="10">10</option>
+          <option value="20">20</option>
+          <option value="35">35</option>
+          <option value="50">50</option>
+        </select>
+      </div>
+    </div>
+    <div class="pages col-6 col-md-2 col-lg-1">
+      <div>
+        1-1 of 1
+      </div>
+    </div>
+    <div class="pages-control color-gray-600 col-12 col-md-3 col-lg-2">
+      <div class="mx-auto mt-3 mt-md-0">
+        <a class="prev color-gray-600 me-3">
+          <i class="fa-solid fa-arrow-left-long me-2"></i>
+          Previous
+        </a>
+        <a class="next color-gray-600">
+          Next
+          <i class="fa-solid fa-arrow-right-long ms-2"></i>
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="offcanvas offcanvas-end" tabindex="-1" id="addNewUsers" aria-labelledby="offcanvasExampleLabel">
+  <div class="offcanvas-header d-flex justify-content-between">
+    <h5 class="offcanvas-title" id="offcanvasExampleLabel">Add New Users</h5>
+    <button type="button" class="btn p-0" data-bs-dismiss="offcanvas" aria-label="Close">
+      <i class="fa-regular fa-circle-xmark"></i>
+    </button>
+  </div>
+  <div class="offcanvas-body px-0 px-md-2 px-lg-3">
+    <!-- <app-new-Users></app-new-Users> -->
+  </div>
+</div>

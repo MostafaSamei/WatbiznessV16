@@ -1,0 +1,14 @@
+<div class="container-fluid">
+  <div class="row  align-items-stretch" style="height: calc(100vh - 75px);">
+    <div class="col-12 col-lg-3 p-0 bg-white max-w-360" [ngClass]="selection?'d-none':'d-lg-block'">
+      <app-sidebar></app-sidebar>
+    </div>
+    <div class=" col-12 col-lg-6 p-0 flex-grow-1" [ngClass]="selection?'':'d-none d-lg-block'">
+      <app-chat-vp></app-chat-vp>
+    </div>
+    <div class="col-12 col-lg-3 p-0 bg-white d-none d-lg-block max-w-360">
+      <app-chat-settings></app-chat-settings>
+    </div>
+  </div>
+
+</div>

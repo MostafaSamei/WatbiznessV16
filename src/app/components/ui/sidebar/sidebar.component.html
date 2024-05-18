@@ -1,0 +1,156 @@
+<div>
+  <div class="header border-bottom p-3 ">
+    <div class="search">
+      <div class="input-group mb-3 border rounded-3 bg-light">
+        <input type="text" class="form-control border-0 bg-light text-sm font-medium" placeholder="&#xF002; Search"
+          style="font-family: arial , fontawesome;" aria-label="Text input with dropdown button">
+        <button class="btn color-gray-600 dropdown-toggle border-0 text-sm font-medium" type="button"
+          data-bs-toggle="dropdown" aria-expanded="false">
+          <span class="border-start ps-2">Name or Phone</span>
+        </button>
+        <ul class="dropdown-menu dropdown-menu-end">
+          <li><a class="dropdown-item" href="#">Name</a></li>
+          <li><a class="dropdown-item" href="#">Phone</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="active-chat d-flex justify-content-between color-gray-600">
+      <div>
+        <div class="text-lg font-medium ff-poppins">
+          Active Chats
+          <i class="fa-solid fa-chevron-down mb-0"></i>
+          <div class="text-xs">
+            <span class=" ">
+              1 Chats
+            </span>
+            <span class="">
+              &bull;
+            </span>
+            <span class="">
+              0 unread
+            </span>
+          </div>
+        </div>
+
+      </div>
+      <div class="buttons d-flex text-lg">
+        <div class="filter me-2">
+          <button class="btn color-gray-600 rounded-circle" style="background-color: #F3F4F6;">
+            <i class="fa-solid fa-filter"></i>
+          </button>
+        </div>
+        <div class="add">
+          <button class="btn text-white bg-blue-800 rounded-circle border-3 border-primary-subtle">
+            <i class="fa-solid fa-plus"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="body">
+    <div class="day d-flex align-items-center ps-3 py-2 text-xs font-bold">
+      <span class="color-gray-600 m-0 me-2">Today</span>
+      <div class="border-bottom flex-grow-1"></div>
+    </div>
+    <div class="chat-lable px-3 py-2 bg-blue-50 border-start border-5 border-primary" (click)="toggle()">
+      <div class="ch-head d-flex justify-content-between align-items-center">
+        <div class="d-flex align-items-center">
+          <div class="text-sm font-semibold me-2">
+            Gouda Mandor
+          </div>
+          <span class="state bg-yellow-50 color-yellow-500  p-1 rounded-1 text-11 font-bold">
+            pending
+          </span>
+        </div>
+        <span class=" color-gray-600 time text-xs font-semibold">
+          11:11 AM
+        </span>
+      </div>
+      <p class="ch-body m-0 text-xs">
+        Hi Gouda 👋, Thank you for your message. How can we help you today? 1. Know the Pricing 2.…
+      </p>
+    </div>
+
+    <div class="chat-lable px-3 py-2 ">
+      <div class="ch-head d-flex justify-content-between align-items-center ps-2">
+        <div class="d-flex align-items-center">
+          <div class="text-sm font-semibold me-2">
+            Ysn Maher
+          </div>
+          <span class="state bg-green-50 color-green-500  p-1 rounded-1 text-11 font-bold">
+            solved
+          </span>
+        </div>
+        <span class=" color-gray-600 time text-xs font-semibold">
+          11:11 AM
+        </span>
+      </div>
+      <p class="ch-body m-0 text-xs">
+        Hi Ysn 👋, Thank you for your message. How can we help you today? 1. Know the Pricing 2.…
+      </p>
+    </div>
+
+    <div class="chat-lable px-3 py-2 border-top">
+      <div class="ch-head d-flex justify-content-between align-items-center ps-2">
+        <div class="d-flex align-items-center">
+          <div class="text-sm font-semibold me-2">
+            Ahmed Khaled
+          </div>
+          <span class="state bg-blue-50 color-blue-500 p-1 rounded-1 text-11 font-bold">
+            open
+          </span>
+        </div>
+        <span class=" color-gray-600 time text-xs font-semibold">
+          11:11 AM
+        </span>
+      </div>
+      <p class="ch-body m-0 text-xs">
+        Hi Ahmed 👋, Thank you for your message. How can we help you today? 1. Know the Pricing 2.…
+      </p>
+    </div>
+    <div class="day d-flex align-items-center ps-3 py-2">
+      <span class="color-gray-600 m-0 me-2 text-xs font-bold">Yesterday</span>
+      <div class="border-bottom flex-grow-1"></div>
+    </div>
+    <div class="chat-lable px-3 py-2 ">
+      <div class="ch-head d-flex justify-content-between align-items-center ps-2">
+        <div class="d-flex align-items-center">
+          <div class="text-sm font-semibold me-2">
+            Mohamed Salem
+          </div>
+          <span class="state bg-yellow-50 color-yellow-500  p-1 rounded-1 text-11 font-bold">
+            Pending
+          </span>
+        </div>
+        <span class=" color-gray-600 time text-xs font-semibold">
+          11:11 AM
+        </span>
+      </div>
+      <p class="ch-body m-0 text-xs">
+        Hi Mohamed 👋, Thank you for your message. How can we help you today? 1. Know the Pricing 2.…
+      </p>
+    </div>
+    <div class="day d-flex align-items-center ps-3 py-2">
+      <span class="color-gray-600 m-0 me-2 text-xs font-bold">THURSDAY</span>
+      <div class="border-bottom flex-grow-1"></div>
+    </div>
+    <div class="chat-lable px-3 py-2 ">
+      <div class="ch-head d-flex justify-content-between align-items-center ps-2">
+        <div class="d-flex align-items-center">
+          <div class="text-sm font-semibold me-2">
+            Mohanad Hossam
+          </div>
+          <span class="state bg-green-50 color-green-500  p-1 rounded-1 text-11 font-bold">
+            Solved
+          </span>
+        </div>
+        <span class=" color-gray-600 time text-xs font-semibold">
+          11:11 AM
+        </span>
+      </div>
+      <p class="ch-body m-0 text-xs">
+        Hi Mohanad 👋, Thank you for your message. How can we help you today? 1. Know the Pricing 2.…
+      </p>
+    </div>
+  </div>
+</div>

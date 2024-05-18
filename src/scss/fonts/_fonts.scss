@@ -1,0 +1,46 @@
+
+
+/// font mixins
+
+$fs-list: 'xs','sm','base','lg','xl','2xl','3xl','4xl','5xl','6xl','7xl','8xl','9xl';
+$fw-list: 'thin','extralight','light','normal','medium','semibold','bold','extrabold','black';
+
+@mixin fonts{
+  $i:0;
+  @each $size in $fs-list {
+    .text-#{$size}{
+      font-size: 12px + $i;
+      $i: $i + 2;
+    }
+  }
+  $i:0;
+  @each $size in $fw-list {
+    .font-#{$size}{
+      font-weight: ($i*100) + 100;
+      $i: $i + 1;
+    }
+  }
+}
+
+@include fonts;
+
+.text-10{
+  font-size: 10px !important;
+}
+.text-11{
+  font-size: 11px !important;
+}
+.text-15{
+  font-size: 15px !important;
+}
+
+body {
+  font-family: "Inter", sans-serif !important;
+  font-size: 14px;
+}
+.ff-inter{
+  font-family: "Inter", sans-serif !important;
+}
+.ff-poppins{
+  font-family: "Poppins", sans-serif;
+}
