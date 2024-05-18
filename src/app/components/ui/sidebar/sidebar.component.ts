@@ -1,19 +1,40 @@
-import { Component } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import { SmallMediaNavigationService } from '../../pages/main-page/small-media-navigation.service';
+import {ChatService} from "../../../core/services/chat.service";
+import {groupchat} from "../../../core/models/groupchat";
+import {NgForOf} from "@angular/common";
 
 @Component({
   selector: 'app-sidebar',
   standalone: true,
-  imports: [],
+  imports: [
+    NgForOf
+  ],
   templateUrl: './sidebar.component.html',
   styleUrls: ['./sidebar.component.scss'],
 })
-export class SidebarComponent {
+export class SidebarComponent implements OnInit {
   selection: boolean = false;
-  constructor(private _smallMediaNav: SmallMediaNavigationService) {}
+  groupChats: groupchat[];
+  activeChatId: string;
 
-  toggle() {
-    this.selection = true;
-    this._smallMediaNav.selected.next(this.selection);
+  constructor(private _smallMediaNav: SmallMediaNavigationService, private chatService: ChatService) {}
+
+  ngOnInit() {
+    this.loadGroupChats();
   }
+
+  toggleAndOpen(chatId: string) {
+    if (window.innerWidth <= 991) {
+      this.selection = true;
+      this._smallMediaNav.selected.next(this.selection);
+    }
+
+    this.activeChatId = chatId;
+  }
+
+  private loadGroupChats() {
+    this.chatService.GetGroupChats().subscribe(groupChats => this.groupChats = groupChats);
+  }
+
 }

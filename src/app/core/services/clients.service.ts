@@ -1,17 +1,17 @@
-import { ApiMainDataService } from './api-main-data.service';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import {environment} from "../../../environments/environment";
 
 @Injectable({
   providedIn: 'root',
 })
 export class ClientsService {
-  constructor(private http: HttpClient, private api: ApiMainDataService) {}
+  constructor(private http: HttpClient) {}
 
   getClients(): Observable<any> {
     return this.http.get(
-      `${this.api.baseURL}/Client/v${this.api.version}/Client/GetClients`
+      `${environment.baseURL}/Client/v1.0/Client/GetClients`
     );
   }
 }
