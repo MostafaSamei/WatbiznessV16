@@ -56,8 +56,8 @@ export class LoginPageComponent {
         next: (response: LoginResponse) => {
           sessionStorage.setItem('currentUser', JSON.stringify(response));
           // sessionStorage.setItem('toast', 'true');
-          // this.authService.setCurrentUser(user);
-          // this.spinner.hide('loading');
+          this.loginservice.setCurrentUser(response);
+          this.spinner.hide('loading');
           this.router.navigate(['/']);
         },
         error: (err) => {
@@ -69,7 +69,7 @@ export class LoginPageComponent {
           this.spinner.show('login');
           setTimeout(() => {
             this.spinner.hide('login');
-          }, 500);
+          }, 750);
         },
       });
     }

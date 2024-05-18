@@ -1,35 +1,27 @@
-import { Injectable } from '@angular/core';
-import {
-  HttpRequest,
-  HttpHandler,
-  HttpEvent,
-  HttpInterceptor,
-} from '@angular/common/http';
-import { Observable, finalize } from 'rxjs';
+import { inject } from '@angular/core';
+import { HttpInterceptorFn } from '@angular/common/http';
+import { finalize } from 'rxjs';
 import { NgxSpinnerService } from 'ngx-spinner';
 
-@Injectable()
-export class LoadingSpinnerInterceptor implements HttpInterceptor {
-  counter: number = 0;
-  constructor(private spinner: NgxSpinnerService) {}
+export const spinnerInterceptor: HttpInterceptorFn = (req, next) => {
+  let counter: number = 0;
+  let spinner = inject(NgxSpinnerService);
 
-  intercept(
-    request: HttpRequest<unknown>,
-    next: HttpHandler
-  ): Observable<HttpEvent<unknown>> {
-    if (this.counter == 0) {
-      this.spinner.show();
-      document.getElementsByTagName('html')[0].style.overflow = 'hidden';
-    }
-    this.counter++;
-    return next.handle(request).pipe(
-      finalize(() => {
-        this.counter--;
-        if (this.counter == 0) {
-          this.spinner.hide();
-          document.getElementsByTagName('html')[0].style.overflow = 'auto';
-        }
-      })
-    );
+  if (counter == 0) {
+    spinner.show();
+    document.getElementsByTagName('html')[0].style.overflow = 'hidden';
   }
-}
+  counter++;
+  return next(req).pipe(
+    finalize(() => {
+      counter--;
+      if (counter == 0) {
+        setTimeout(() => {
+          spinner.hide();
+        }, 300);
+
+        document.getElementsByTagName('html')[0].style.overflow = 'auto';
+      }
+    })
+  );
+};
