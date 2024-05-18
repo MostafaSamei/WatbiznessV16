@@ -1,16 +1,32 @@
-import { inject } from '@angular/core';
-import { HttpInterceptorFn } from '@angular/common/http';
+import { inject, Injectable } from '@angular/core';
+import {
+  HttpRequest,
+  HttpHandler,
+  HttpEvent,
+  HttpInterceptor,
+  HttpInterceptorFn,
+  HttpHandlerFn,
+} from '@angular/common/http';
+import { Observable } from 'rxjs';
+
 import { AuthService } from '../services/auth.service';
 
-export const JwtInterceptor: HttpInterceptorFn = (req, next) => {
-  let authService = inject(AuthService);
-  let currentUser = authService.currentUser();
+export const JwtInterceptor: HttpInterceptorFn = (
+  req: HttpRequest<any>,
+  next: HttpHandlerFn
+): Observable<HttpEvent<any>> => {
+  const authService = inject(AuthService);
+
+  let currentUser = authService.getCurrentUser();
+
   if (currentUser && currentUser.token) {
-    req = req.clone({
+    const cloned = req.clone({
       setHeaders: {
-        Authorization: `Bearer ${currentUser.token}`,
+        authorization: `Bearer ${currentUser.token}`,
       },
     });
+    return next(cloned);
+  } else {
+    return next(req);
   }
-  return next(req);
 };
