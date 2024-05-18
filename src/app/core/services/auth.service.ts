@@ -19,7 +19,9 @@ export class AuthService {
     );
   }
 
-  getCurrentUser(): boolean {
-    return sessionStorage.getItem('currentUser') != null;
+  getCurrentUser(): LoginResponse {
+    return JSON.parse(sessionStorage.getItem('currentUser'));
   }
+
+
 }

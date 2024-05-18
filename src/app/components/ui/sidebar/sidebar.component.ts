@@ -2,13 +2,15 @@ import {Component, OnInit} from '@angular/core';
 import { SmallMediaNavigationService } from '../../pages/main-page/small-media-navigation.service';
 import {ChatService} from "../../../core/services/chat.service";
 import {groupchat} from "../../../core/models/groupchat";
-import {NgForOf} from "@angular/common";
+import {DatePipe, NgForOf} from "@angular/common";
+import {chatStatusEnum} from "../../../core/models/chat";
 
 @Component({
   selector: 'app-sidebar',
   standalone: true,
   imports: [
-    NgForOf
+    NgForOf,
+    DatePipe
   ],
   templateUrl: './sidebar.component.html',
   styleUrls: ['./sidebar.component.scss'],
@@ -37,4 +39,5 @@ export class SidebarComponent implements OnInit {
     this.chatService.GetGroupChats().subscribe(groupChats => this.groupChats = groupChats);
   }
 
+  protected readonly chatStatusEnum = chatStatusEnum;
 }
