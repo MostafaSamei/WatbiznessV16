@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import { SmallMediaNavigationService } from '../../pages/main-page/small-media-navigation.service';
 import {ChatService} from "../../../core/services/chat.service";
 import {groupchat} from "../../../core/models/groupchat";
@@ -16,9 +16,11 @@ import {chatStatusEnum} from "../../../core/models/chat";
   styleUrls: ['./sidebar.component.scss'],
 })
 export class SidebarComponent implements OnInit {
+  @Output() openChat = new EventEmitter<string>();
+
   selection: boolean = false;
   groupChats: groupchat[];
-  activeChatId: string;
+  clientActiveId: string;
 
   constructor(private _smallMediaNav: SmallMediaNavigationService, private chatService: ChatService) {}
 
@@ -26,13 +28,15 @@ export class SidebarComponent implements OnInit {
     this.loadGroupChats();
   }
 
-  toggleAndOpen(chatId: string) {
+  toggleAndOpen(clientId: string) {
     if (window.innerWidth <= 991) {
       this.selection = true;
       this._smallMediaNav.selected.next(this.selection);
     }
 
-    this.activeChatId = chatId;
+    this.clientActiveId = clientId;
+
+    this.openChat.emit(clientId);
   }
 
   private loadGroupChats() {

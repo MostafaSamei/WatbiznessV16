@@ -1,17 +1,20 @@
-import { Component, ElementRef } from '@angular/core';
+import {Component, ElementRef, Input} from '@angular/core';
 import { SmallMediaNavigationService } from '../../pages/main-page/small-media-navigation.service';
 import { ChatSettingsComponent } from '../chat-settings/chat-settings.component';
 import { QuickRepliesComponent } from '../quick-replies/quick-replies.component';
 import { PickerComponent } from '@ctrl/ngx-emoji-mart';
+import {DatePipe, NgForOf, NgIf} from "@angular/common";
 
 @Component({
   selector: 'app-chat-vp',
   standalone: true,
-  imports: [ChatSettingsComponent, QuickRepliesComponent, PickerComponent],
+  imports: [ChatSettingsComponent, QuickRepliesComponent, PickerComponent, NgForOf, NgIf, DatePipe],
   templateUrl: './chat-vp.component.html',
   styleUrls: ['./chat-vp.component.scss'],
 })
 export class ChatVPComponent {
+  @Input() chat;
+
   values: string = '';
   selectedEmoji: any;
   selected = false;
