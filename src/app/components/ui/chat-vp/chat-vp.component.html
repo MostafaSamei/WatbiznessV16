@@ -143,7 +143,7 @@
               <label for="file-input" class="cursor-pointer">
                 <i class="fa-solid fa-paperclip"></i>
               </label>
-              <input class="d-none" id="file-input" type="file" />
+              <input class="d-none" id="file-input" type="file" (change)="onFileSelected($event)"/>
             </div>
             <div class="dropdown me-2">
               <button class="p-0 bg-transparent border-0 color-gray-600" type="button" data-bs-toggle="dropdown"

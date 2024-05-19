@@ -24,6 +24,10 @@ export class ChatVPComponent implements OnInit, AfterViewChecked {
   }
 
   messageContent: string = '';
+
+  selectedFile: File | null = null;
+  fileContent: string | ArrayBuffer | null = '';
+
   selectedEmoji: any;
   selected = false;
   constructor(private _smallMediaNav: SmallMediaNavigationService,
@@ -54,7 +58,7 @@ export class ChatVPComponent implements OnInit, AfterViewChecked {
 
   sendMessage() {
     let message = {
-      file: null,
+      file: this.selectedFile,
       content: this.messageContent,
       chatId: this.chat.id
     }
@@ -96,6 +100,13 @@ export class ChatVPComponent implements OnInit, AfterViewChecked {
   onKey(event: any) {
     // without type info
     this.messageContent = event.target.value;
+  }
+
+  onFileSelected(event: Event) {
+    const input = event.target as HTMLInputElement;
+    if (input.files && input.files.length > 0) {
+      this.selectedFile = input.files[0];
+    }
   }
 
   private scrollToBottom(): void {
