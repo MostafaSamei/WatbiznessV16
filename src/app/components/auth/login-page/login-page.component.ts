@@ -56,7 +56,7 @@ export class LoginPageComponent {
         next: (response: LoginResponse) => {
           sessionStorage.setItem('currentUser', JSON.stringify(response));
           // sessionStorage.setItem('toast', 'true');
-          this.loginservice.setCurrentUser(response);
+          // this.loginservice.setCurrentUser(response);
           this.spinner.hide('loading');
           this.router.navigate(['/']);
         },
