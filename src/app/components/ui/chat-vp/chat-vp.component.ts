@@ -1,9 +1,11 @@
-import {Component, ElementRef, Input} from '@angular/core';
+import {AfterViewChecked, Component, ElementRef, Input, OnInit, ViewChild} from '@angular/core';
 import { SmallMediaNavigationService } from '../../pages/main-page/small-media-navigation.service';
 import { ChatSettingsComponent } from '../chat-settings/chat-settings.component';
 import { QuickRepliesComponent } from '../quick-replies/quick-replies.component';
 import { PickerComponent } from '@ctrl/ngx-emoji-mart';
 import {DatePipe, NgForOf, NgIf} from "@angular/common";
+import {MessageService} from "../../../core/services/message.service";
+import {SignalRService} from "../../../core/services/signalr.service";
 
 @Component({
   selector: 'app-chat-vp',
@@ -12,15 +14,36 @@ import {DatePipe, NgForOf, NgIf} from "@angular/common";
   templateUrl: './chat-vp.component.html',
   styleUrls: ['./chat-vp.component.scss'],
 })
-export class ChatVPComponent {
+export class ChatVPComponent implements OnInit, AfterViewChecked {
   @Input() chat;
 
-  values: string = '';
+  @ViewChild('scrollableDiv') private myScrollContainer: ElementRef;
+
+  ngAfterViewChecked() {
+    this.scrollToBottom();
+  }
+
+  messageContent: string = '';
   selectedEmoji: any;
   selected = false;
-  constructor(private _smallMediaNav: SmallMediaNavigationService) {}
+  constructor(private _smallMediaNav: SmallMediaNavigationService,
+              private messageService: MessageService,
+              private signalRService: SignalRService) {
+
+    signalRService.messageReceived$.subscribe(msg => {
+      // Handle incoming messages
+      this.chat.messages.push({
+        content: msg.message,
+        sentByUser: false,
+        createdAt: Date.now()
+      });
+
+      this.scrollToBottom();
+    });
+  }
   ngOnInit() {
     this.selectionListener();
+    this.scrollToBottom();
   }
 
   selectionListener() {
@@ -28,6 +51,29 @@ export class ChatVPComponent {
       this.selected = value;
     });
   }
+
+  sendMessage() {
+    let message = {
+      file: null,
+      content: this.messageContent,
+      chatId: this.chat.id
+    }
+
+    if (this.messageContent == '') return;
+
+    this.messageService.CreateMessage(message).subscribe(() => {
+
+      this.messageContent = '';
+
+      this.chat.messages.push({
+        content: message.content,
+        sentByUser: true,
+        createdAt: Date.now()
+      });
+
+    });
+  }
+
   back() {
     this.selected = false;
     this._smallMediaNav.selected.next(this.selected);
@@ -40,15 +86,21 @@ export class ChatVPComponent {
     }
   }
   select($event: any) {
-    console.log($event);
+
     this.selectedEmoji = $event.emoji.native;
     // let lastValue = document.getElementById('messagingField');
     // console.log(lastValue);
     // lastValue += this.selectedEmoji;
-    this.values += this.selectedEmoji;
+    this.messageContent += this.selectedEmoji;
   }
   onKey(event: any) {
     // without type info
-    this.values = event.target.value;
+    this.messageContent = event.target.value;
+  }
+
+  private scrollToBottom(): void {
+    try {
+      this.myScrollContainer.nativeElement.scrollTop = this.myScrollContainer.nativeElement.scrollHeight;
+    } catch(err) { }
   }
 }

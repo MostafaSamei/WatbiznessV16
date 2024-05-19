@@ -6,3 +6,9 @@
   sentByUser: boolean,
   createdAt: string
 }
+
+export interface createMessage {
+  chatId: string,
+  file: File,
+  content: string
+}

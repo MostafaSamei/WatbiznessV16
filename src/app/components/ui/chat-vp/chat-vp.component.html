@@ -1,5 +1,5 @@
 <div class=" w-100 h-100 d-flex flex-column justify-content-between ff-poppins" style="background-color: #F9FAFB;">
-  
+
   <ng-container *ngIf="chat != null">
     <div class="chat-vp-head bg-white border-start border-end border-bottom border-2  p-3">
       <div class="row  justify-content-between">
@@ -90,7 +90,7 @@
         </div>
       </div>
     </div>
-    <div class="flex-grow-1 px-4 py-3 ms-3 messagesBody">
+    <div class="flex-grow-1 px-4 py-3 ms-3 messagesBody" #scrollableDiv>
       <div class="text-center color-gray-600 text-xs font-bold">
       <span>
         ({{ chat.client.phoneNumber }})
@@ -135,8 +135,8 @@
 
     <div class="align-self-end w-100 px-3 pb-3">
       <div class="bg-white w-100 rounded-2 d-flex px-2 py-3">
-        <input class=" border-0 rounded-2 flex-grow-1 ff-inter text-sm" (keyup)="onKey($event)" [value]="values"
-               id="messagingField" type="text" placeholder="Type message here...">
+        <input class=" border-0 rounded-2 flex-grow-1 ff-inter text-sm" (keyup)="onKey($event)" [value]="messageContent"
+               id="messagingField" type="text" placeholder="Type message here..." (keydown.enter)="sendMessage()">
         <div class="border-start d-flex">
           <div class="ms-2 fs-5 d-flex justify-content-center align-items-center color-gray-600">
             <div class="me-2 ">
@@ -146,7 +146,7 @@
               <input class="d-none" id="file-input" type="file" />
             </div>
             <div class="dropdown me-2">
-              <button class=" p-0 bg-transparent border-0  color-gray-600" type="button" data-bs-toggle="dropdown"
+              <button class="p-0 bg-transparent border-0 color-gray-600" type="button" data-bs-toggle="dropdown"
                       data-bs-auto-close="outside" aria-expanded="false">
                 <i class="fa-regular fa-face-smile"></i>
               </button>
@@ -186,7 +186,7 @@
             </div>
           </div>
           <div class="btn-group dropup-center ">
-            <button type="button" class="btn btn-primary d-none d-md-inline-block text-sm">
+            <button type="button" class="btn btn-primary d-none d-md-inline-block text-sm" (click)="sendMessage()">
             <span class="">
               Send
             </span>
