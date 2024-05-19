@@ -27,6 +27,7 @@ export class ChatVPComponent implements OnInit, AfterViewChecked {
 
   selectedFile: File | null = null;
   fileContent: string | ArrayBuffer | null = '';
+  disableMessaging: boolean = false;
 
   selectedEmoji: any;
   selected = false;
@@ -68,6 +69,8 @@ export class ChatVPComponent implements OnInit, AfterViewChecked {
     this.messageService.CreateMessage(message).subscribe(() => {
 
       this.messageContent = '';
+      this.selectedFile = null;
+      this.disableMessaging = false;
 
       this.chat.messages.push({
         content: message.content,
@@ -106,6 +109,9 @@ export class ChatVPComponent implements OnInit, AfterViewChecked {
     const input = event.target as HTMLInputElement;
     if (input.files && input.files.length > 0) {
       this.selectedFile = input.files[0];
+
+      this.messageContent = input.files[0].name;
+      this.disableMessaging = true;
     }
   }
 
