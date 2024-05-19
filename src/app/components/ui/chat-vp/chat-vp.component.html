@@ -1,235 +1,413 @@
-<div class=" w-100 h-100 d-flex flex-column justify-content-between ff-poppins" style="background-color: #F9FAFB;"
-     *ngIf="chat != null">
-  <div class="chat-vp-head bg-white border-start border-end border-bottom border-2  p-3">
-    <div class="row  justify-content-between">
-      <div class="col-8 col-lg-6">
-        <div>
-          <div class="d-flex align-items-center">
-            <i class="fa-solid fa-arrow-left fs-4 color-gray-600 p-2 ps-0 cursor-pointer d-lg-none"
-              (click)="back()"></i>
-            <div
-              class="rounded-circle bg-blue-50 text-primary d-flex justify-content-center align-items-center font-bold fs-5"
-              style="width: 55px; height: 55px;">
-              <span>
-                {{ chat.client.name[0] }}
-              </span>
-            </div>
-            <div class="ms-3">
-              <h6 class="mb-1 font-bold">
-                {{ chat.client.name }}
-              </h6>
-              <div class="">
+<div class=" w-100 h-100 d-flex flex-column justify-content-between ff-poppins" style="background-color: #F9FAFB;">
+
+  <ng-container *ngIf="chat != null">
+    <div class="chat-vp-head bg-white border-start border-end border-bottom border-2  p-3">
+      <div class="row  justify-content-between">
+        <div class="col-8 col-lg-6">
+          <div>
+            <div class="d-flex align-items-center">
+              <i class="fa-solid fa-arrow-left fs-4 color-gray-600 p-2 ps-0 cursor-pointer d-lg-none"
+                (click)="back()"></i>
+              <div
+                class="rounded-circle bg-blue-50 text-primary d-flex justify-content-center align-items-center font-bold fs-5"
+                style="width: 55px; height: 55px;">
                 <span>
-                  {{ chat.client.phoneNumber }}
+                  {{ chat.client.name[0] }}
                 </span>
               </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="col-4 col-lg-6 d-flex align-items-center justify-content-end">
-        <button
-          class="btn color-gray-600 border-secondary rounded-5  p-lg-2 px-lg-3 font-bold me-lg-3 d-none d-lg-block text-sm"
-          style="background-color: #F3F4F6;">
-          {{ chat.createdAt | date: 'shortTime' }}
-        </button>
-        <div class="dropdown">
-          <button class="navbar-toggler d-block d-lg-none" type="button" data-bs-toggle="collapse"
-            data-bs-target="#chatSettings" aria-controls="chatSettings" aria-expanded="false"
-            aria-label="Toggle navigation">
-            <i class="fa-solid fa-chevron-down btn bg-blue-50 text-primary border-1 d-flex justify-content-center align-items-center border-primary rounded-circle"
-              style="width: 35px; height: 35px;"></i>
-          </button>
-          <button
-            class="btn bg-blue-50 text-primary border-primary rounded-5 font-bold p-2 px-3 d-none d-lg-block ff-inter text-xs"
-            type="button" data-bs-toggle="dropdown" aria-expanded="false">
-            Submit As
-            <i class="fa-solid fa-chevron-down"></i>
-          </button>
-
-          <div class="collapse navbar-collapse text-lg-center text-xl-start dropdown-menu" id="chatSettings">
-            <ul class="">
-              <li>
-                <a class="dropdown-item d-flex align-items-center justify-content-start border-bottom">
-                  <span class="fs-3 text-primary font-bold me-2">&bull;</span>
-                  <span>Open</span>
-                </a>
-              </li>
-              <li>
-                <a class="dropdown-item d-flex align-items-center justify-content-start border-bottom">
-                  <span class="fs-3 text-warning font-bold me-2">&bull;</span>
-                  <span>Pending</span>
-                </a>
-              </li>
-              <li>
-                <a class="dropdown-item d-flex align-items-center justify-content-start">
-                  <span class="fs-3 text-success font-bold me-2">&bull;</span>
-                  <span>Solved</span>
-                </a>
-              </li>
-            </ul>
-          </div>
-        </div>
-
-        <button
-          class="btn btn-outline-secondary rounded-circle fs-4 d-flex align-items-center justify-content-center ms-2"
-          style="width: 35px; height: 35px;" type="button" data-bs-toggle="offcanvas"
-          data-bs-target="#offcanvasScrolling" aria-controls="offcanvasScrolling">
-          <i class="fa-solid fa-ellipsis-vertical "></i>
-        </button>
-        <div class="offcanvas offcanvas-end overflow-hidden" style="top: 70px !important;" data-bs-scroll="true"
-          data-bs-backdrop="false" tabindex="-1" id="offcanvasScrolling" aria-labelledby="offcanvasScrollingLabel">
-          <button type="button" style="top: 0; right: 0;"
-            class="position-absolute btn fs-4 d-block ms-auto font-bold color-gray-600" data-bs-dismiss="offcanvas"
-            aria-label="Close">
-            <i class="fa-solid fa-xmark"></i>
-          </button>
-          <app-chat-settings></app-chat-settings>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="flex-grow-1 px-4 py-3 ms-3 messagesBody">
-    <div class="text-center color-gray-600 text-xs font-bold">
-      <span>
-        ({{ chat.client.phoneNumber }})
-      </span>
-    </div>
-
-    <ng-container *ngFor="let message of chat.messages">
-
-      <ng-container *ngIf="message.sentByUser == true">
-        <div class="d-flex align-items-end justify-content-end flex-wrap flex-column-reverse mb-3 me-3">
-          <div class="mt-2">
-        <span class="  color-gray-600 me-2 text-10">
-          {{ message.createdAt | date:'medium' }}
-        </span>
-            <span class="d-inline-block me-2 text-info">
-          <i class="fa-solid fa-check-double"></i>
-        </span>
-          </div>
-          <div class="rounded-4 bg-blue-50 d-inline-block position-relative cursor-pointer p-3 col-12 col-md-6"
-               (click)="showMsgSettings($event)" style="border-top-right-radius:0 !important ;">
-            {{ message.content }}
-          </div>
-
-        </div>
-      </ng-container>
-
-      <ng-container *ngIf="message.sentByUser == false">
-        <div class="d-flex align-items-end mb-3">
-          <div class="rounded-4 bg-white d-inline-block p-3 position-relative cursor-pointer"
-               style="border-top-left-radius:0 !important ;" (click)="showMsgSettings($event)">
-            {{ message.content }}
-          </div>
-          <span class=" color-gray-600 ms-2 text-10">
-        {{ message.createdAt | date:'medium' }}
-      </span>
-        </div>
-      </ng-container>
-
-    </ng-container>
-
-  </div>
-
-  <div class="align-self-end w-100 px-3 pb-3">
-    <div class="bg-white w-100 rounded-2 d-flex px-2 py-3">
-      <input class=" border-0 rounded-2 flex-grow-1 ff-inter text-sm" (keyup)="onKey($event)" [value]="values"
-        id="messagingField" type="text" placeholder="Type message here...">
-      <div class="border-start d-flex">
-        <div class="ms-2 fs-5 d-flex justify-content-center align-items-center color-gray-600">
-          <div class="me-2 ">
-            <label for="file-input" class="cursor-pointer">
-              <i class="fa-solid fa-paperclip"></i>
-            </label>
-            <input class="d-none" id="file-input" type="file" />
-          </div>
-          <div class="dropdown me-2">
-            <button class=" p-0 bg-transparent border-0  color-gray-600" type="button" data-bs-toggle="dropdown"
-              data-bs-auto-close="outside" aria-expanded="false">
-              <i class="fa-regular fa-face-smile"></i>
-            </button>
-            <ul class="dropdown-menu p-0">
-              <li>
-                <emoji-mart title="Pick your emoji…" emoji="point_up" (emojiSelect)="select($event)"></emoji-mart>
-              </li>
-            </ul>
-          </div>
-          <div class="me-2">
-            <!-- Button trigger modal -->
-            <button type="button" class="p-0 bg-transparent border-0 color-gray-600" data-bs-toggle="modal"
-              data-bs-target="#exampleModal">
-              <i class="fa-solid fa-bolt"></i>
-            </button>
-
-            <!-- Modal -->
-            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
-              aria-hidden="true">
-              <div class="modal-dialog">
-                <div class="modal-content">
-                  <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                  </div>
-                  <div class="modal-body">
-                    ...
-                  </div>
-                  <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Save changes</button>
-                  </div>
+              <div class="ms-3">
+                <h6 class="mb-1 font-bold">
+                  {{ chat.client.name }}
+                </h6>
+                <div class="">
+                  <span>
+                    {{ chat.client.phoneNumber }}
+                  </span>
                 </div>
               </div>
             </div>
+          </div>
+          <div class="col-4 col-lg-6 d-flex align-items-center justify-content-end">
+            <button
+              class="btn color-gray-600 border-secondary rounded-5  p-lg-2 px-lg-3 font-bold me-lg-3 d-none d-lg-block text-sm"
+              style="background-color: #F3F4F6;">
+              {{ chat.createdAt | date: 'shortTime' }}
+            </button>
+            <div class="dropdown">
+              <button class="navbar-toggler d-block d-lg-none" type="button" data-bs-toggle="collapse"
+                data-bs-target="#chatSettings" aria-controls="chatSettings" aria-expanded="false"
+                aria-label="Toggle navigation">
+                <i class="fa-solid fa-chevron-down btn bg-blue-50 text-primary border-1 d-flex justify-content-center align-items-center border-primary rounded-circle"
+                  style="width: 35px; height: 35px;"></i>
+              </button>
+              <button
+                class="btn bg-blue-50 text-primary border-primary rounded-5 font-bold p-2 px-3 d-none d-lg-block ff-inter text-xs"
+                type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                Submit As
+                <i class="fa-solid fa-chevron-down"></i>
+              </button>
 
+              <div class="collapse navbar-collapse text-lg-center text-xl-start dropdown-menu" id="chatSettings">
+                <ul class="">
+                  <li>
+                    <a class="dropdown-item d-flex align-items-center justify-content-start border-bottom">
+                      <span class="fs-3 text-primary font-bold me-2">&bull;</span>
+                      <span>Open</span>
+                    </a>
+                  </li>
+                  <li>
+                    <a class="dropdown-item d-flex align-items-center justify-content-start border-bottom">
+                      <span class="fs-3 text-warning font-bold me-2">&bull;</span>
+                      <span>Pending</span>
+                    </a>
+                  </li>
+                  <li>
+                    <a class="dropdown-item d-flex align-items-center justify-content-start">
+                      <span class="fs-3 text-success font-bold me-2">&bull;</span>
+                      <span>Solved</span>
+                    </a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+
+            <button
+              class="btn btn-outline-secondary rounded-circle fs-4 d-flex align-items-center justify-content-center ms-2"
+              style="width: 35px; height: 35px;" type="button" data-bs-toggle="offcanvas"
+              data-bs-target="#offcanvasScrolling" aria-controls="offcanvasScrolling">
+              <i class="fa-solid fa-ellipsis-vertical "></i>
+            </button>
+            <div class="offcanvas offcanvas-end overflow-hidden" style="top: 70px !important;" data-bs-scroll="true"
+              data-bs-backdrop="false" tabindex="-1" id="offcanvasScrolling" aria-labelledby="offcanvasScrollingLabel">
+              <button type="button" style="top: 0; right: 0;"
+                class="position-absolute btn fs-4 d-block ms-auto font-bold color-gray-600" data-bs-dismiss="offcanvas"
+                aria-label="Close">
+                <i class="fa-solid fa-xmark"></i>
+              </button>
+              <app-chat-settings></app-chat-settings>
+            </div>
           </div>
         </div>
-        <div class="btn-group dropup-center ">
-          <button type="button" class="btn btn-primary d-none d-md-inline-block text-sm">
-            <span class="">
-              Send
+      </div>
+      <div class="flex-grow-1 px-4 py-3 ms-3 messagesBody" #scrollableDiv>
+        <div class="text-center color-gray-600 text-xs font-bold">
+          <span>
+            ({{ chat.client.phoneNumber }})
+          </span>
+        </div>
+        <div class="col-4 col-lg-6 d-flex align-items-center justify-content-end">
+          <button
+            class="btn color-gray-600 border-secondary rounded-5  p-lg-2 px-lg-3 font-bold me-lg-3 d-none d-lg-block text-sm"
+            style="background-color: #F3F4F6;">
+            {{ chat.createdAt | date: 'shortTime' }}
+          </button>
+          <div class="dropdown">
+            <button class="navbar-toggler d-block d-lg-none" type="button" data-bs-toggle="collapse"
+              data-bs-target="#chatSettings" aria-controls="chatSettings" aria-expanded="false"
+              aria-label="Toggle navigation">
+              <i class="fa-solid fa-chevron-down btn bg-blue-50 text-primary border-1 d-flex justify-content-center align-items-center border-primary rounded-circle"
+                style="width: 35px; height: 35px;"></i>
+            </button>
+            <button
+              class="btn bg-blue-50 text-primary border-primary rounded-5 font-bold p-2 px-3 d-none d-lg-block ff-inter text-xs"
+              type="button" data-bs-toggle="dropdown" aria-expanded="false">
+              Submit As
+              <i class="fa-solid fa-chevron-down"></i>
+            </button>
+
+            <ng-container *ngFor="let message of chat.messages">
+
+              <ng-container *ngIf="message.sentByUser == true">
+                <div class="d-flex align-items-end justify-content-end flex-wrap flex-column-reverse mb-3 me-3">
+                  <div class="mt-2">
+                    <span class="  color-gray-600 me-2 text-10">
+                      {{ message.createdAt | date:'medium' }}
+                    </span>
+                    <span class="d-inline-block me-2 text-info">
+                      <i class="fa-solid fa-check-double"></i>
+                    </span>
+                  </div>
+                  <div class="rounded-4 bg-blue-50 d-inline-block position-relative cursor-pointer p-3 col-12 col-md-6"
+                    (click)="showMsgSettings($event)" style="border-top-right-radius:0 !important ;">
+                    {{ message.content }}
+                  </div>
+
+                </div>
+              </ng-container>
+
+              <ng-container *ngIf="message.sentByUser == false">
+                <div class="d-flex align-items-end mb-3">
+                  <div class="rounded-4 bg-white d-inline-block p-3 position-relative cursor-pointer"
+                    style="border-top-left-radius:0 !important ;" (click)="showMsgSettings($event)">
+                    {{ message.content }}
+                  </div>
+                  <span class=" color-gray-600 ms-2 text-10">
+                    {{ message.createdAt | date:'medium' }}
+                  </span>
+                </div>
+              </ng-container>
+
+            </ng-container>
+
+          </div>
+
+          <div class="align-self-end w-100 px-3 pb-3">
+            <div class="bg-white w-100 rounded-2 d-flex px-2 py-3">
+              <input class=" border-0 rounded-2 flex-grow-1 ff-inter text-sm" (keyup)="onKey($event)"
+                [value]="messageContent" id="messagingField" type="text" placeholder="Type message here..."
+                (keydown.enter)="sendMessage()">
+              <div class="border-start d-flex">
+                <div class="ms-2 fs-5 d-flex justify-content-center align-items-center color-gray-600">
+                  <div class="me-2 ">
+                    <label for="file-input" class="cursor-pointer">
+                      <i class="fa-solid fa-paperclip"></i>
+                    </label>
+                    <input class="d-none" id="file-input" type="file" (change)="onFileSelected($event)" />
+                  </div>
+                  <div class="dropdown me-2">
+                    <button class="p-0 bg-transparent border-0 color-gray-600" type="button" data-bs-toggle="dropdown"
+                      data-bs-auto-close="outside" aria-expanded="false">
+                      <i class="fa-regular fa-face-smile"></i>
+                    </button>
+                    <ul class="dropdown-menu p-0">
+                      <li>
+                        <emoji-mart title="Pick your emoji…" emoji="point_up"
+                          (emojiSelect)="select($event)"></emoji-mart>
+                      </li>
+                    </ul>
+                  </div>
+                  <div class="me-2">
+                    <!-- Button trigger modal -->
+                    <button type="button" class="p-0 bg-transparent border-0 color-gray-600" data-bs-toggle="modal"
+                      data-bs-target="#exampleModal">
+                      <i class="fa-solid fa-bolt"></i>
+                    </button>
+
+                    <!-- Modal -->
+                    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                      aria-hidden="true">
+                      <div class="modal-dialog">
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                          </div>
+                          <div class="modal-body">
+                            ...
+                          </div>
+                          <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-primary">Save changes</button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                  </div>
+                </div>
+                <div class="btn-group dropup-center ">
+                  <button type="button" class="btn btn-primary d-none d-md-inline-block text-sm"
+                    (click)="sendMessage()">
+                    <span class="">
+                      Send
+                    </span>
+                  </button>
+                  <button type="button"
+                    class="btn btn-primary rounded-end-2  dropdown-toggle-split ps-0 d-none d-md-inline-block"
+                    data-bs-toggle="dropdown" aria-expanded="false">
+                    <span class="border-start d-none d-md-inline"></span>
+                    <i class="fa-solid fa-chevron-up ps-md-2 "></i>
+                  </button>
+                  <button type="button" class="btn btn-primary rounded-2  dropdown-toggle-split d-md-none"
+                    data-bs-toggle="dropdown" aria-expanded="false">
+                    <span class="border-start d-none d-md-inline"></span>
+                    <i class="fa-solid fa-chevron-up ps-md-2 "></i>
+                  </button>
+                  <ul class="dropdown-menu">
+                    <li>
+                      <a class="dropdown-item d-flex align-items-center justify-content-start border-bottom">
+                        <span class="fs-3 text-primary font-bold me-2">&bull;</span>
+                        <span>Open</span>
+                      </a>
+                    </li>
+                    <li>
+                      <a class="dropdown-item d-flex align-items-center justify-content-start border-bottom">
+                        <span class="fs-3 text-warning font-bold me-2">&bull;</span>
+                        <span>Pending</span>
+                      </a>
+                    </li>
+                    <li>
+                      <a class="dropdown-item d-flex align-items-center justify-content-start">
+                        <span class="fs-3 text-success font-bold me-2">&bull;</span>
+                        <span>Solved</span>
+                      </a>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+
+              <button
+                class="btn btn-outline-secondary rounded-circle fs-4 d-flex align-items-center justify-content-center ms-2"
+                style="width: 35px; height: 35px;" type="button" data-bs-toggle="offcanvas"
+                data-bs-target="#offcanvasScrolling" aria-controls="offcanvasScrolling">
+                <i class="fa-solid fa-ellipsis-vertical "></i>
+              </button>
+              <div class="offcanvas offcanvas-end overflow-hidden" style="top: 70px !important;" data-bs-scroll="true"
+                data-bs-backdrop="false" tabindex="-1" id="offcanvasScrolling"
+                aria-labelledby="offcanvasScrollingLabel">
+                <button type="button" style="top: 0; right: 0;"
+                  class="position-absolute btn fs-4 d-block ms-auto font-bold color-gray-600"
+                  data-bs-dismiss="offcanvas" aria-label="Close">
+                  <i class="fa-solid fa-xmark"></i>
+                </button>
+                <app-chat-settings></app-chat-settings>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="flex-grow-1 px-4 py-3 ms-3 messagesBody">
+          <div class="text-center color-gray-600 text-xs font-bold">
+            <span>
+              ({{ chat.client.phoneNumber }})
             </span>
+          </div>
+
+          <ng-container *ngFor="let message of chat.messages">
+
+            <ng-container *ngIf="message.sentByUser == true">
+              <div class="d-flex align-items-end justify-content-end flex-wrap flex-column-reverse mb-3 me-3">
+                <div class="mt-2">
+                  <span class="  color-gray-600 me-2 text-10">
+                    {{ message.createdAt | date:'medium' }}
+                  </span>
+                  <span class="d-inline-block me-2 text-info">
+                    <i class="fa-solid fa-check-double"></i>
+                  </span>
+                </div>
+                <div class="rounded-4 bg-blue-50 d-inline-block position-relative cursor-pointer p-3 col-12 col-md-6"
+                  (click)="showMsgSettings($event)" style="border-top-right-radius:0 !important ;">
+                  {{ message.content }}
+                </div>
+
+              </div>
+            </ng-container>
+
+            <ng-container *ngIf="message.sentByUser == false">
+              <div class="d-flex align-items-end mb-3">
+                <div class="rounded-4 bg-white d-inline-block p-3 position-relative cursor-pointer"
+                  style="border-top-left-radius:0 !important ;" (click)="showMsgSettings($event)">
+                  {{ message.content }}
+                </div>
+                <span class=" color-gray-600 ms-2 text-10">
+                  {{ message.createdAt | date:'medium' }}
+                </span>
+              </div>
+            </ng-container>
+
+          </ng-container>
+
+        </div>
+
+        <div class="align-self-end w-100 px-3 pb-3">
+          <div class="bg-white w-100 rounded-2 d-flex px-2 py-3">
+            <input class=" border-0 rounded-2 flex-grow-1 ff-inter text-sm" (keyup)="onKey($event)"
+              [value]="messageContent" id="messagingField" type="text" placeholder="Type message here...">
+            <div class="border-start d-flex">
+              <div class="ms-2 fs-5 d-flex justify-content-center align-items-center color-gray-600">
+                <div class="me-2 ">
+                  <label for="file-input" class="cursor-pointer">
+                    <i class="fa-solid fa-paperclip"></i>
+                  </label>
+                  <input class="d-none" id="file-input" type="file" />
+                </div>
+                <div class="dropdown me-2">
+                  <button class=" p-0 bg-transparent border-0  color-gray-600" type="button" data-bs-toggle="dropdown"
+                    data-bs-auto-close="outside" aria-expanded="false">
+                    <i class="fa-regular fa-face-smile"></i>
+                  </button>
+                  <ul class="dropdown-menu p-0">
+                    <li>
+                      <emoji-mart title="Pick your emoji…" emoji="point_up" (emojiSelect)="select($event)"></emoji-mart>
+                    </li>
+                  </ul>
+                </div>
+                <div class="me-2">
+                  <!-- Button trigger modal -->
+                  <button type="button" class="p-0 bg-transparent border-0 color-gray-600" data-bs-toggle="modal"
+                    data-bs-target="#exampleModal">
+                    <i class="fa-solid fa-bolt"></i>
+                  </button>
+
+                  <!-- Modal -->
+                  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                    aria-hidden="true">
+                    <div class="modal-dialog">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+                          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                          ...
+                        </div>
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                          <button type="button" class="btn btn-primary">Save changes</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+              <div class="btn-group dropup-center ">
+                <button type="button" class="btn btn-primary d-none d-md-inline-block text-sm">
+                  <span class="">
+                    Send
+                  </span>
+                </button>
+                <button type="button"
+                  class="btn btn-primary rounded-end-2  dropdown-toggle-split ps-0 d-none d-md-inline-block"
+                  data-bs-toggle="dropdown" aria-expanded="false">
+                  <span class="border-start d-none d-md-inline"></span>
+                  <i class="fa-solid fa-chevron-up ps-md-2 "></i>
+                </button>
+                <button type="button" class="btn btn-primary rounded-2  dropdown-toggle-split d-md-none"
+                  data-bs-toggle="dropdown" aria-expanded="false">
+                  <span class="border-start d-none d-md-inline"></span>
+                  <i class="fa-solid fa-chevron-up ps-md-2 "></i>
+                </button>
+                <ul class="dropdown-menu">
+                  <li>
+                    <a
+                      class="dropdown-item d-flex align-items-center justify-content-start border-bottom p-2 color-gray-600">
+                      <i class="fa-regular fa-paper-plane me-2"></i>
+                      <span>Send Now</span>
+                    </a>
+                  </li>
+                  <li>
+                    <a class="dropdown-item d-flex align-items-center justify-content-start p-2 color-gray-600">
+                      <i class="fa-regular fa-clock me-2"></i>
+                      <span>Schedule for Later</span>
+                    </a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+      <div class="offcanvas offcanvas-end col-8" tabindex="-1" id="offcanvasExample"
+        aria-labelledby="offcanvasExampleLabel">
+        <div class="offcanvas-header d-flex justify-content-between align-items-center">
+          <h5 class="offcanvas-title font-semibold" id="offcanvasExampleLabel">Quick Replies</h5>
+          <button type="button" class="btn " data-bs-dismiss="offcanvas" aria-label="Close">
+            <i class="fa-solid fa-xmark rounded-circle border color-gray-600 border-secondary d-flex justify-content-center align-items-center p-2 border-2 font-bold"
+              style="width: 15px ; height: 15px;"></i>
           </button>
-          <button type="button"
-            class="btn btn-primary rounded-end-2  dropdown-toggle-split ps-0 d-none d-md-inline-block"
-            data-bs-toggle="dropdown" aria-expanded="false">
-            <span class="border-start d-none d-md-inline"></span>
-            <i class="fa-solid fa-chevron-up ps-md-2 "></i>
-          </button>
-          <button type="button" class="btn btn-primary rounded-2  dropdown-toggle-split d-md-none"
-            data-bs-toggle="dropdown" aria-expanded="false">
-            <span class="border-start d-none d-md-inline"></span>
-            <i class="fa-solid fa-chevron-up ps-md-2 "></i>
-          </button>
-          <ul class="dropdown-menu">
-            <li>
-              <a class="dropdown-item d-flex align-items-center justify-content-start border-bottom p-2 color-gray-600">
-                <i class="fa-regular fa-paper-plane me-2"></i>
-                <span>Send Now</span>
-              </a>
-            </li>
-            <li>
-              <a class="dropdown-item d-flex align-items-center justify-content-start p-2 color-gray-600">
-                <i class="fa-regular fa-clock me-2"></i>
-                <span>Schedule for Later</span>
-              </a>
-            </li>
-          </ul>
+        </div>
+        <div class="offcanvas-body">
+          <app-quick-replies></app-quick-replies>
         </div>
       </div>
-    </div>
-  </div>
-
-</div>
-<div class="offcanvas offcanvas-end col-8" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
-  <div class="offcanvas-header d-flex justify-content-between align-items-center">
-    <h5 class="offcanvas-title font-semibold" id="offcanvasExampleLabel">Quick Replies</h5>
-    <button type="button" class="btn " data-bs-dismiss="offcanvas" aria-label="Close">
-      <i class="fa-solid fa-xmark rounded-circle border color-gray-600 border-secondary d-flex justify-content-center align-items-center p-2 border-2 font-bold"
-        style="width: 15px ; height: 15px;"></i>
-    </button>
-  </div>
-  <div class="offcanvas-body">
-    <app-quick-replies></app-quick-replies>
-  </div>
-</div>
