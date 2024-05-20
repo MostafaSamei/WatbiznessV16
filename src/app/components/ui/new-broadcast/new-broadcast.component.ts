@@ -10,6 +10,7 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
+import { Broadcast } from 'src/app/core/models/broadcast';
 
 @Component({
   selector: 'app-new-broadcast',
@@ -19,22 +20,38 @@ import {
   styleUrls: ['./new-broadcast.component.scss'],
 })
 export class NewBroadcastComponent {
-  templates: Template[] = [];
-  clients: client[] = [];
   constructor(
     private _formBuilder: FormBuilder,
     private templatesService: TemplateService,
     private clientService: ClientsService
   ) {}
-  ngOnInit() {
-    this.getTemplates();
-    this.getClients();
-  }
+  method: string;
+  broadcase: Broadcast;
+  templates: Template[] = [];
+  clients: client[] = [];
   newTemplate!: Template;
-  NewBroadCast: FormGroup = this._formBuilder.group({
-    emailAddress: ['', [Validators.required, Validators.email]],
-    password: ['', [Validators.required]],
-  });
+  NewBroadCast: FormGroup;
+  ngOnInit() {
+    if (this.method == 'add') {
+      this.getTemplates();
+      this.getClients();
+      this.NewBroadCast = this._formBuilder.group({
+        title: ['', [Validators.required]],
+        templateId: [1, [Validators.required]],
+        clientIds: [[], [Validators.required]],
+        sendTime: ['', [Validators.required]],
+        timeSpan: ['', [Validators.required]],
+      });
+    } else if (this.method == 'edit' || this.method == 'view') {
+      this.NewBroadCast = this._formBuilder.group({
+        title: [this.broadcase.title, [Validators.required]],
+        templateId: [this.broadcase.templateId, [Validators.required]],
+        clientIds: ['', [Validators.required]],
+        sendTime: [this.broadcase.sendTime, [Validators.required]],
+        timeSpan: [this.broadcase.timeSpan, [Validators.required]],
+      });
+    }
+  }
 
   getTemplates() {
     this.templatesService.getTemplates().subscribe({
@@ -56,7 +73,9 @@ export class NewBroadcastComponent {
       },
     });
   }
-  addBroadcast() {}
+  addBroadcast() {
+    console.log(this.NewBroadCast.value);
+  }
   // addBroadcast() {
   //   if (this.NewBroadCast.invalid) {
   //     return;

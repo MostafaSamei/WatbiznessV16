@@ -23,4 +23,12 @@ export class ClientsService {
       { name: name, phoneNumber: PhoneNumber }
     );
   }
+  updateClient(Client: client, id: string): Observable<any> {
+    let name: string = Client.name;
+    let PhoneNumber: string = Client.phoneNumber;
+    return this.http.post(
+      `${environment.baseURL}/Client/v1.0/Client/CreateClient`,
+      { name: name, phoneNumber: PhoneNumber, id: id }
+    );
+  }
 }

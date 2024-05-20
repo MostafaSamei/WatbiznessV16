@@ -48,159 +48,46 @@
     <thead>
       <tr class="text-center">
         <th scope="col" class="py-3 text-start">Name</th>
-        <th scope="col" class="py-3">Successful</th>
-        <th scope="col" class="py-3">Read</th>
-        <th scope="col" class="py-3">Replied</th>
-        <th scope="col" class="py-3">Recipients</th>
-        <th scope="col" class="py-3">Failed</th>
+        <th scope="col" class="py-3">Category</th>
+        <th scope="col" class="py-3">Sub Category</th>
+        <th scope="col" class="py-3">Language</th>
         <th scope="col" class="py-3">Status</th>
         <th scope="col" class="py-3">Actions</th>
       </tr>
     </thead>
     <tbody>
-      <tr class="text-center text-nowrap">
-        <td class="text-start">
-          <h6 class="text-primary">Test - 01</h6>
-          <span>2023-12-09 05:51 PM</span>
-        </td>
-        <td>0%</td>
-        <td>0%</td>
-        <td>0%</td>
-        <td> 1 Contacts</td>
-        <td> 0 Contacts</td>
-        <td> completed</td>
-        <td>
-          <button class="btn btn-outline-secondary me-2">
-            <i class="fa-regular fa-pen-to-square"></i>
-          </button>
-          <button class="btn btn-outline-secondary">
-            <i class="fa-regular fa-eye"></i>
-          </button>
-        </td>
-      </tr>
-      <tr class="text-center">
-        <td class="text-start">
-          <h6 class="text-primary">Test - 02</h6>
-          <span>2023-12-09 05:51 PM</span>
-        </td>
-        <td>0%</td>
-        <td>0%</td>
-        <td>0%</td>
-        <td> 1 Contacts</td>
-        <td> 0 Contacts</td>
-        <td> completed</td>
-        <td>
-          <button class="btn btn-outline-secondary me-2">
-            <i class="fa-regular fa-pen-to-square"></i>
-          </button>
-          <button class="btn btn-outline-secondary">
-            <i class="fa-regular fa-eye"></i>
-          </button>
-        </td>
-      </tr>
-      <tr class="text-center">
-        <td class="text-start">
-          <h6 class="text-primary">Test - 03</h6>
-          <span>2023-12-09 05:51 PM</span>
-        </td>
-        <td>0%</td>
-        <td>0%</td>
-        <td>0%</td>
-        <td> 1 Contacts</td>
-        <td> 0 Contacts</td>
-        <td> completed</td>
-        <td>
-          <button class="btn btn-outline-secondary me-2">
-            <i class="fa-regular fa-pen-to-square"></i>
-          </button>
-          <button class="btn btn-outline-secondary">
-            <i class="fa-regular fa-eye"></i>
-          </button>
-        </td>
-      </tr>
-      <tr class="text-center">
-        <td class="text-start">
-          <h6 class="text-primary">Test - 04</h6>
-          <span>2023-12-09 05:51 PM</span>
-        </td>
-        <td>0%</td>
-        <td>0%</td>
-        <td>0%</td>
-        <td> 1 Contacts</td>
-        <td> 0 Contacts</td>
-        <td> completed</td>
-        <td>
-          <button class="btn btn-outline-secondary me-2">
-            <i class="fa-regular fa-pen-to-square"></i>
-          </button>
-          <button class="btn btn-outline-secondary">
-            <i class="fa-regular fa-eye"></i>
-          </button>
-        </td>
-      </tr>
-      <tr class="text-center">
-        <td class="text-start">
-          <h6 class="text-primary">Test - 06</h6>
-          <span>2023-12-09 05:51 PM</span>
-        </td>
-        <td>0%</td>
-        <td>0%</td>
-        <td>0%</td>
-        <td> 1 Contacts</td>
-        <td> 0 Contacts</td>
-        <td> completed</td>
-        <td>
-          <button class="btn btn-outline-secondary me-2">
-            <i class="fa-regular fa-pen-to-square"></i>
-          </button>
-          <button class="btn btn-outline-secondary">
-            <i class="fa-regular fa-eye"></i>
-          </button>
-        </td>
-      </tr>
-      <tr class="text-center">
-        <td class="text-start">
-          <h6 class="text-primary">Test - 07</h6>
-          <span>2023-12-09 05:51 PM</span>
-        </td>
-        <td>0%</td>
-        <td>0%</td>
-        <td>0%</td>
-        <td> 1 Contacts</td>
-        <td> 0 Contacts</td>
-        <td> completed</td>
-        <td>
-          <button class="btn btn-outline-secondary me-2">
-            <i class="fa-regular fa-pen-to-square"></i>
-          </button>
-          <button class="btn btn-outline-secondary">
-            <i class="fa-regular fa-eye"></i>
-          </button>
-        </td>
-      </tr>
-      <tr class="text-center">
-        <td class="text-start">
-          <h6 class="text-primary">Test - 08</h6>
-          <span>2023-12-09 05:51 PM</span>
-        </td>
-        <td>0%</td>
-        <td>0%</td>
-        <td>0%</td>
-        <td> 1 Contacts</td>
-        <td> 0 Contacts</td>
-        <td> completed</td>
-        <td>
-          <button class="btn btn-outline-secondary me-2">
-            <i class="fa-regular fa-pen-to-square"></i>
-          </button>
-          <button class="btn btn-outline-secondary">
-            <i class="fa-regular fa-eye"></i>
-          </button>
-        </td>
-      </tr>
+      <ng-container *ngFor="let template of templates">
+        <tr class="text-center text-nowrap">
+          <td class="text-start">
+            <h6 class="text-primary">{{template.name}}</h6>
+            <span>{{template.createdAt | date :"yyyy-MM-dd hh:mm a"}}</span>
+          </td>
+          <td>{{TemplateCategoryEnum[template.templateCategory]}}</td>
+          <td>{{ template.templateSubCategory != null ? TemplateSubCategoryEnum[template.templateSubCategory]
+            : "NotFound" }}</td>
+          <td>
+            <span
+              class="state text-white p-1 rounded-1 text-11 font-bold bg-{{ template.language == 1 ? 'warning' : 'info' }}">
+              {{ LanguageEnum[template.language] }}
+            </span>
+          </td>
+          <td>
+            <span
+              class="state text-white p-1 rounded-1 text-11 font-bold bg-{{ template.templateStatus == 4 ? 'danger' : 'success' }}">
+              {{TemplateStatusEnum[template.templateStatus]}}
+            </span>
+          </td>
+          <td>
+            <button class="btn btn-outline-secondary me-2">
+              <i class="fa-regular fa-pen-to-square"></i>
+            </button>
+            <button class="btn btn-outline-secondary">
+              <i class="fa-regular fa-eye"></i>
+            </button>
+          </td>
+        </tr>
 
-
-
+      </ng-container>
     </tbody>
   </table>
 

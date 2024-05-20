@@ -1,4 +1,4 @@
-<form (ngSubmit)="addBroadcast()">
+<form [formGroup]="NewBroadCast" (ngSubmit)="addBroadcast()">
   <div class="row align-items-center justify-content-center g-0 g-md-2 g-lg-3">
     <div class="col-12">
       <div>
@@ -11,7 +11,7 @@
         </div>
         <div class="body border border-primary-subtle border-top-0 p-2 rounded-bottom-3 ">
           <p class="simi-small fw-semibold">Broadcast Name</p>
-          <input type="text" class="form-control px-3 py-2" value="Untitled_131220231619">
+          <input formControlName="title" type="text" class="form-control px-3 py-2" value="Untitled_131220231619">
           <div>
             <div class="d-flex justify-content-between">
               <p class="simi-small fw-semibold mt-3">Message Template</p>
@@ -22,8 +22,8 @@
                 </span>
               </button>
             </div>
-            <select class="form-select" aria-label="Default select example">
-              <option selected>Select Message</option>
+            <select class="form-select" aria-label="Default select example" formControlName="templateId">
+              <option>Select Message</option>
               <ng-container *ngFor="let template of templates">
                 <option [value]="template.id">{{template.name}}</option>
               </ng-container>
@@ -42,7 +42,8 @@
             </h6>
           </div>
         </div>
-        <div class="body border border-primary-subtle border-top-0 p-2 rounded-bottom-3 text-nowrap ">
+        <div class="body border border-primary-subtle border-top-0 p-2 rounded-bottom-3 text-nowrap overflow-y-scroll"
+          style="height:240px;">
           <table class="table">
             <thead>
               <tr>
@@ -57,45 +58,15 @@
               <ng-container>
                 <tr *ngFor="let client of clients">
                   <td>
-                    <input class="form-check-input" type="checkbox" [value]="client.id">
+                    <input class="form-check-input" formControlName="clientIds" name="clients" type="checkbox"
+                      [value]="client.id">
                   </td>
                   <td>{{client.name}}</td>
-                  <td>** **** ***{{client.phoneNumber.slice(-2)}}</td>
+                  <td>{{client.phoneNumber}}</td>
                 </tr>
               </ng-container>
             </tbody>
           </table>
-          <div class="row justify-content-between ">
-            <div class="row-control col-8 col-md-5">
-              <div class="d-flex text-nowrap">
-                <span class="ms-3">Rows per page:</span>
-                <select name="" id="" class="border-0 ms-3">
-                  <option selected value="5">5</option>
-                  <option value="10">10</option>
-                  <option value="20">20</option>
-                  <option value="35">35</option>
-                  <option value="50">50</option>
-                </select>
-              </div>
-            </div>
-            <div class="pages col-4 col-md-2">
-              <div>
-                1-1 of 1
-              </div>
-            </div>
-            <div class="pages-control text-secondary text-center col-12 col-md-5 ">
-              <div class="mx-auto mt-3 mt-md-0">
-                <a class="prev text-secondary me-3">
-                  <i class="fa-solid fa-arrow-left-long me-2"></i>
-                  Previous
-                </a>
-                <a class="next text-secondary">
-                  Next
-                  <i class="fa-solid fa-arrow-right-long ms-2"></i>
-                </a>
-              </div>
-            </div>
-          </div>
         </div>
       </div>
     </div>
@@ -135,5 +106,4 @@
       </div>
     </div>
   </div>
-
 </form>

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild, ViewContainerRef } from '@angular/core';
 import { NewBroadcastComponent } from '../new-broadcast/new-broadcast.component';
 import { Broadcast } from 'src/app/core/models/broadcast';
 import { DatePipe, NgFor } from '@angular/common';
@@ -14,6 +14,9 @@ import { BroadCastStatistics } from 'src/app/core/models/broad-cast-statistics';
   styleUrls: ['./broadcast-history.component.scss'],
 })
 export class BroadcastHistoryComponent {
+  @ViewChild('container', { read: ViewContainerRef })
+  container!: ViewContainerRef;
+  offCanvusLable: string;
   ///pagination vars
   pageSize: number = 5;
   p: number = 1;
@@ -53,5 +56,31 @@ export class BroadcastHistoryComponent {
         console.log(err);
       },
     });
+  }
+  setLable(method: string) {
+    if (method == 'add') {
+      this.offCanvusLable = 'Add New';
+    } else if (method == 'edit') {
+      this.offCanvusLable = 'Edit';
+    } else if (method == 'view') {
+      this.offCanvusLable = 'View';
+    }
+  }
+
+  dynamicCompGeneration(method: string, broadcase: Broadcast | null) {
+    this.setLable(method);
+    this.loadComponent(method, broadcase);
+  }
+
+  loadComponent(method, broadcase) {
+    this.container.clear();
+    const compRef = this.container.createComponent(NewBroadcastComponent);
+    compRef.instance.method = method;
+    if (broadcase != null) {
+      compRef.instance.broadcase = broadcase;
+    }
+  }
+  clearContainer() {
+    this.container.clear();
   }
 }

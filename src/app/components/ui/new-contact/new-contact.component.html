@@ -9,8 +9,9 @@
             </h6>
           </div>
         </div>
-        <div class="body border border-primary-subtle border-top-0 p-2 rounded-bottom-3 ">
-          <form [formGroup]="addClientForm" (ngSubmit)="addClient()">
+        <form [formGroup]="addClientForm" (ngSubmit)="addClient()">
+          <div class="body border border-primary-subtle border-top-0 p-2 rounded-bottom-3 ">
+
             <div class="mb-2">
               <p class="simi-small fw-semibold">Contact Name</p>
               <input formControlName="name" type="text" class="form-control px-3 py-2" placeholder="Contact Name">
@@ -18,18 +19,16 @@
             <div class="mb-2">
               <div class="d-flex justify-content-between">
                 <p class="simi-small fw-semibold">Phone Number</p>
-                <button class="btn p-0 text-primary simi-small fw-semibold" type="submit">
-                  <i class="fa-solid fa-plus"></i>
-                  <span>
-                    Add Contact
-                  </span>
-                </button>
               </div>
               <input formControlName="phoneNumber" type="text" class="form-control px-3 py-2"
                 placeholder="Contact Number">
             </div>
-          </form>
-        </div>
+
+          </div>
+          <button class="btn btn-primary mt-2 w-100 simi-small fw-semibold" type="submit" *ngIf="method !='view'">
+            {{method.slice(0,1).toLocaleUpperCase()+method.slice(1)}} Contact
+          </button>
+        </form>
       </div>
     </div>
 
