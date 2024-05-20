@@ -27,6 +27,7 @@ export class ChatVPComponent implements OnInit, AfterViewChecked {
 
   selectedFile: File | null = null;
   fileContent: string | ArrayBuffer | null = '';
+  disableMessaging: boolean = false;
 
   selectedEmoji: any;
   selected = false;
@@ -65,15 +66,17 @@ export class ChatVPComponent implements OnInit, AfterViewChecked {
 
     if (this.messageContent == '') return;
 
-    this.messageService.CreateMessage(message).subscribe(() => {
-
-      this.messageContent = '';
+    this.messageService.CreateMessage(message).subscribe(messageResult => {
 
       this.chat.messages.push({
-        content: message.content,
-        sentByUser: true,
-        createdAt: Date.now()
+        content: messageResult.content,
+        sentByUser: messageResult.sentByUser,
+        createdAt: messageResult.createdAt,
+        fileType: messageResult.fileType,
+        fileUrl: messageResult.fileUrl,
       });
+
+      this.resetMessageInput();
 
     });
   }
@@ -106,7 +109,16 @@ export class ChatVPComponent implements OnInit, AfterViewChecked {
     const input = event.target as HTMLInputElement;
     if (input.files && input.files.length > 0) {
       this.selectedFile = input.files[0];
+
+      this.messageContent = input.files[0].name;
+      this.disableMessaging = true;
     }
+  }
+
+  private resetMessageInput() {
+    this.messageContent = '';
+    this.selectedFile = null;
+    this.disableMessaging = false;
   }
 
   private scrollToBottom(): void {

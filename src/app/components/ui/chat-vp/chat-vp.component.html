@@ -111,7 +111,17 @@
             </div>
             <div class="rounded-4 bg-blue-50 d-inline-block position-relative cursor-pointer p-3 col-12 col-md-6"
                  (click)="showMsgSettings($event)" style="border-top-right-radius:0 !important ;">
-              {{ message.content }}
+              <ng-container *ngIf="message.fileType == 'text'">
+                {{ message.content }}
+              </ng-container>
+
+              <ng-container *ngIf="message.fileType != 'text'">
+                <img [src]="message.fileUrl" class="chat-image" *ngIf="message.fileType == 'image'"/>
+                <img src="/assets/images/document.png" class="chat-image" *ngIf="message.fileType == 'document'"/>
+                <video [src]="message.fileUrl" class="chat-image" *ngIf="message.fileType == 'video'">
+                </video>
+                <audio [src]="message.fileUrl" *ngIf="message.fileType == 'audio'"></audio>
+              </ng-container>
             </div>
 
           </div>
@@ -136,7 +146,7 @@
     <div class="align-self-end w-100 px-3 pb-3">
       <div class="bg-white w-100 rounded-2 d-flex px-2 py-3">
         <input class=" border-0 rounded-2 flex-grow-1 ff-inter text-sm" (keyup)="onKey($event)" [value]="messageContent"
-               id="messagingField" type="text" placeholder="Type message here..." (keydown.enter)="sendMessage()">
+               id="messagingField" type="text" placeholder="Type message here..." [disabled]="disableMessaging" (keydown.enter)="sendMessage()">
         <div class="border-start d-flex">
           <div class="ms-2 fs-5 d-flex justify-content-center align-items-center color-gray-600">
             <div class="me-2 ">

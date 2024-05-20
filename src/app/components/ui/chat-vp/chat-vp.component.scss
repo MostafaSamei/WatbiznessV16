@@ -3,6 +3,10 @@
   overflow: auto;
 }
 
+.chat-image {
+  width: -webkit-fill-available
+}
+
 .breaker{
   position: relative;
 }
@@ -39,5 +43,4 @@
   .breaker::before, .breaker::after {
     width: 0;
   }
-
 }
