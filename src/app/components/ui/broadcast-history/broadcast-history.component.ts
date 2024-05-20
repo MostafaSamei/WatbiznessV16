@@ -48,7 +48,6 @@ export class BroadcastHistoryComponent {
         // this.statistics = resp;
         this.pageSize = this.broadcasts.length;
         this.total = this.broadcasts.length;
-        console.log(this.broadcasts);
       },
       error: (err) => {
         console.log(err);

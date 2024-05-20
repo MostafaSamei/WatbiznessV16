@@ -1,3 +1,5 @@
+import { Template } from './template';
+
 export interface Broadcast {
   sendTime: string;
   timeSpan: string;
@@ -15,22 +17,6 @@ export interface Broadcast {
   createdBy: any;
   lastUpdatedBy: any;
   id: string;
-  createdAt: string;
-  lastUpdatedAt: string;
-  timeZoneOffset: number;
-}
-
-export interface Template {
-  userId: any;
-  user: any;
-  name: string;
-  message: any;
-  whatsappTemplateId: any;
-  language: number;
-  templateCategory: number;
-  templateSubCategory: any;
-  templateStatus: number;
-  id: any;
   createdAt: string;
   lastUpdatedAt: string;
   timeZoneOffset: number;

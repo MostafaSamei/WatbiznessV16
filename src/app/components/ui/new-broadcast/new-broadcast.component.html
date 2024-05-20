@@ -1,4 +1,4 @@
-<div class="container-fluid">
+<form (ngSubmit)="addBroadcast()">
   <div class="row align-items-center justify-content-center g-0 g-md-2 g-lg-3">
     <div class="col-12">
       <div>
@@ -24,9 +24,9 @@
             </div>
             <select class="form-select" aria-label="Default select example">
               <option selected>Select Message</option>
-              <option value="1">One</option>
-              <option value="2">Two</option>
-              <option value="3">Three</option>
+              <ng-container *ngFor="let template of templates">
+                <option [value]="template.id">{{template.name}}</option>
+              </ng-container>
             </select>
           </div>
         </div>
@@ -54,42 +54,15 @@
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <td>
-                  <input class="form-check-input" type="checkbox" value="">
-                </td>
-                <td>Gouda Mandor</td>
-                <td>** **** ***06</td>
-              </tr>
-              <tr>
-                <td>
-                  <input class="form-check-input" type="checkbox" value="">
-                </td>
-                <td>Ysn Maher</td>
-                <td>** **** ***07</td>
-              </tr>
-              <tr>
-                <td>
-                  <input class="form-check-input" type="checkbox" value="">
-                </td>
-                <td>Ahmed Magdy</td>
-                <td>** **** ***08</td>
-              </tr>
-              <tr>
-                <td>
-                  <input class="form-check-input" type="checkbox" value="">
-                </td>
-                <td>Jonas Okmark</td>
-                <td>** **** ***22</td>
-              </tr>
-              <tr>
-                <td>
-                  <input class="form-check-input" type="checkbox" value="">
-                </td>
-                <td>Stefan Ohls </td>
-                <td>** **** ***08</td>
-              </tr>
-
+              <ng-container>
+                <tr *ngFor="let client of clients">
+                  <td>
+                    <input class="form-check-input" type="checkbox" [value]="client.id">
+                  </td>
+                  <td>{{client.name}}</td>
+                  <td>** **** ***{{client.phoneNumber.slice(-2)}}</td>
+                </tr>
+              </ng-container>
             </tbody>
           </table>
           <div class="row justify-content-between ">
@@ -122,10 +95,8 @@
                 </a>
               </div>
             </div>
-
           </div>
         </div>
-
       </div>
     </div>
     <div class="col-12">
@@ -149,4 +120,20 @@
         </div>
       </div>
     </div>
+    <div class="col-12">
+      <div class="row g-3">
+        <div class="col-6">
+          <div>
+            <button class="btn py-2 btn-primary w-100" type="submit">Save</button>
+          </div>
+        </div>
+        <div class="col-6">
+          <div>
+            <button class="btn py-2 btn-outline-primary w-100">Cancel</button>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
+
+</form>
