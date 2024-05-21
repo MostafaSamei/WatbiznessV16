@@ -23,7 +23,8 @@
               </button>
             </div>
             <select class="form-select" aria-label="Default select example" formControlName="templateId">
-              <option>Select Message</option>
+              <option [value]="1">Select Message</option>
+
               <ng-container *ngFor="let template of templates">
                 <option [value]="template.id">{{template.name}}</option>
               </ng-container>
@@ -54,12 +55,11 @@
                 <th scope="col">Phone Number</th>
               </tr>
             </thead>
-            <tbody>
+            <tbody formArrayName="clientIds">
               <ng-container>
-                <tr *ngFor="let client of clients">
+                <tr *ngFor="let client of clients; let i=index">
                   <td>
-                    <input class="form-check-input" formControlName="clientIds" name="clients" type="checkbox"
-                      [value]="client.id">
+                    <input class="form-check-input" [formControlName]="i" type="checkbox" [value]="client.id">
                   </td>
                   <td>{{client.name}}</td>
                   <td>{{client.phoneNumber}}</td>
@@ -81,13 +81,26 @@
         </div>
         <div class="body border border-primary-subtle border-top-0 p-2 rounded-bottom-3 ">
           <div>
-            <input type="radio" name="clientToSendTo" id="sendNow" class="form-check-input me-2" checked>
+            <input type="radio" name="timeOption" formControlName="timeOption" id="sendNow"
+              class="form-check-input me-2" value="now">
             <label for="sendNow">Send Now</label>
           </div>
           <div>
-            <input type="radio" name="clientToSendTo" id="scheduleLater" class="form-check-input me-2">
+            <input type="radio" name="timeOption" formControlName="timeOption" id="scheduleLater"
+              class="form-check-input me-2" value="schedule">
             <label for="scheduleLater">Schedule Later</label>
           </div>
+          <ng-container *ngIf="NewBroadCast.get('timeOption').value == 'schedule'">
+            <div class="">
+              <label for="broadcast-sendtime" class="col-form-label">{{ "Send Date" }}:</label>
+              <input type="date" class="form-control" id="broadcast-sendtime" formControlName="sendTime">
+            </div>
+            <div class="">
+              <label for="broadcast-timespan" class="col-form-label">{{ "Send Hour" }}:</label>
+              <input type="time" class="form-control" id="broadcast-timespan" formControlName="timeSpan">
+            </div>
+          </ng-container>
+
         </div>
       </div>
     </div>

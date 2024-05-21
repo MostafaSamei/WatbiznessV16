@@ -1,11 +1,13 @@
-import { ClientsService } from 'src/app/core/services/clients.service';
-import { Component } from '@angular/core';
+import { BroadcastService } from 'src/app/core/services/broadcast.service';
+import { Component, Input } from '@angular/core';
 import { TemplateService } from 'src/app/core/services/template.service';
 import { Template } from 'src/app/core/models/template';
 import { client } from 'src/app/core/models/client';
-import { NgFor } from '@angular/common';
+import { NgFor, NgIf } from '@angular/common';
 import {
+  FormArray,
   FormBuilder,
+  FormControl,
   FormGroup,
   ReactiveFormsModule,
   Validators,
@@ -15,7 +17,7 @@ import { Broadcast } from 'src/app/core/models/broadcast';
 @Component({
   selector: 'app-new-broadcast',
   standalone: true,
-  imports: [NgFor, ReactiveFormsModule],
+  imports: [NgFor, ReactiveFormsModule, NgIf],
   templateUrl: './new-broadcast.component.html',
   styleUrls: ['./new-broadcast.component.scss'],
 })
@@ -23,34 +25,27 @@ export class NewBroadcastComponent {
   constructor(
     private _formBuilder: FormBuilder,
     private templatesService: TemplateService,
-    private clientService: ClientsService
+    private BroadcastService: BroadcastService
   ) {}
-  method: string;
+
   broadcase: Broadcast;
   templates: Template[] = [];
-  clients: client[] = [];
+  @Input() clients: client[] = [];
   newTemplate!: Template;
   NewBroadCast: FormGroup;
   ngOnInit() {
-    if (this.method == 'add') {
-      this.getTemplates();
-      this.getClients();
-      this.NewBroadCast = this._formBuilder.group({
-        title: ['', [Validators.required]],
-        templateId: [1, [Validators.required]],
-        clientIds: [[], [Validators.required]],
-        sendTime: ['', [Validators.required]],
-        timeSpan: ['', [Validators.required]],
-      });
-    } else if (this.method == 'edit' || this.method == 'view') {
-      this.NewBroadCast = this._formBuilder.group({
-        title: [this.broadcase.title, [Validators.required]],
-        templateId: [this.broadcase.templateId, [Validators.required]],
-        clientIds: ['', [Validators.required]],
-        sendTime: [this.broadcase.sendTime, [Validators.required]],
-        timeSpan: [this.broadcase.timeSpan, [Validators.required]],
-      });
-    }
+    console.log('hello from new');
+    this.getTemplates();
+    this.NewBroadCast = this._formBuilder.group({
+      title: ['', [Validators.required]],
+      templateId: [1, [Validators.required]],
+      clientIds: new FormArray(
+        this.clients.map((client) => new FormControl(false))
+      ),
+      sendTime: [null],
+      timeSpan: [null],
+      timeOption: ['now', [Validators.required]],
+    });
   }
 
   getTemplates() {
@@ -63,43 +58,45 @@ export class NewBroadcastComponent {
       },
     });
   }
-  getClients() {
-    this.clientService.getClients().subscribe({
-      next: (resp) => {
-        this.clients = resp;
-      },
-      error: (err) => {
-        console.log(err);
-      },
+
+  getClientsIds() {
+    let allresultArr = this.NewBroadCast.get('clientIds')['controls'].map(
+      (item) => {
+        return item.value;
+      }
+    );
+    let indexs = [];
+    for (let i = 0; i < allresultArr.length; i++) {
+      if (allresultArr[i] == true) {
+        indexs.push(i);
+      }
+    }
+    let formSelectedClientsIds = indexs.map((index) => {
+      return this.clients[index].id;
     });
+    return formSelectedClientsIds;
   }
   addBroadcast() {
     console.log(this.NewBroadCast.value);
+    // console.log(this.getClientsIds());
+
+    if (this.NewBroadCast.invalid) {
+      return;
+    } else if (this.NewBroadCast.valid) {
+      this.BroadcastService.addNewBroadCast(
+        this.NewBroadCast.get('title').value,
+        this.NewBroadCast.get('templateId').value,
+        this.getClientsIds(),
+        this.NewBroadCast.get('sendTime').value,
+        this.NewBroadCast.get('timeSpan').value
+      ).subscribe({
+        next: (resp) => {
+          console.log(resp);
+        },
+        error: (err) => {
+          console.log(err);
+        },
+      });
+    }
   }
-  // addBroadcast() {
-  //   if (this.NewBroadCast.invalid) {
-  //     return;
-  //   } else if (this.NewBroadCast.valid) {
-  //     this.newTemplate = this.NewBroadCast.value;
-  //     this.loginservice.login(this.newTemplate).subscribe({
-  //       next: (response: LoginResponse) => {
-  //         sessionStorage.setItem('currentUser', JSON.stringify(response));
-  //         // sessionStorage.setItem('toast', 'true');
-  //         // this.authService.setCurrentUser(user);
-  //         // this.spinner.hide('loading');
-  //         this.router.navigate(['/']);
-  //       },
-  //       error: (err) => {
-  //         console.log(err);
-  //         // this.toastService.show(data.data, { classname: 'bg-danger text-white', delay: 15000 });
-  //         // this.error = err;
-  //       },
-  //       complete: () => {
-  //         this.spinner.show('login');
-  //         setTimeout(() => {
-  //           this.spinner.hide('login');
-  //         }, 500);
-  //       },
-  //     });
-  // }
 }

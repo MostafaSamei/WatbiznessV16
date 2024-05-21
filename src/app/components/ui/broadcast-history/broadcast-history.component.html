@@ -125,10 +125,7 @@
       </tr>
     </thead>
     <tbody>
-      <ng-container *ngFor="let broadcast of broadcasts | paginate: { id: 'broadcasts',
-      itemsPerPage: pageSize,
-      currentPage: p,
-      totalItems: total }">
+      <ng-container *ngFor="let broadcast of broadcasts">
         <tr class="text-center text-nowrap" [id]="broadcast.id">
           <td class="text-start">
             <h6 class="text-primary">{{broadcast.title}}</h6>
@@ -144,7 +141,9 @@
             <button class="btn btn-outline-secondary me-2">
               <i class="fa-regular fa-pen-to-square"></i>
             </button>
-            <button class="btn btn-outline-secondary">
+            <button class="btn btn-outline-secondary" type="button" data-bs-toggle="offcanvas"
+              data-bs-target="#addNewBroadCast" aria-controls="addNewBroadCast"
+              (click)="dynamicCompGeneration('view',broadcast)">
               <i class="fa-regular fa-eye"></i>
             </button>
           </td>
@@ -193,7 +192,7 @@
 
 <div class="offcanvas offcanvas-end" tabindex="-1" id="addNewBroadCast" aria-labelledby="offcanvasExampleLabel">
   <div class="offcanvas-header d-flex justify-content-between">
-    <h5 class="offcanvas-title" id="offcanvasExampleLabel">Add New BroadCast</h5>
+    <h5 class="offcanvas-title" id="offcanvasExampleLabel">{{offCanvusLable}} BroadCast</h5>
     <button type="button" class="btn p-0" data-bs-dismiss="offcanvas" aria-label="Close">
       <i class="fa-regular fa-circle-xmark"></i>
     </button>
