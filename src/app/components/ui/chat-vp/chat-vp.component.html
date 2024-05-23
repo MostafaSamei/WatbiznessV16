@@ -150,18 +150,22 @@
 
     <div class="align-self-end w-100 px-3 pb-3">
       <div class="bg-white w-100 rounded-2 d-flex px-2 py-3">
-        <input class=" border-0 rounded-2 flex-grow-1 ff-inter text-sm" (keyup)="onKey($event)" [value]="messageContent"
-               id="messagingField" type="text" placeholder="Type message here..." [disabled]="disableMessaging" (keydown.enter)="sendMessage()">
+        <input class=" border-0 rounded-2 flex-grow-1 ff-inter text-sm"
+               id="messagingField" type="text" placeholder="Type message here..."
+               (keyup)="onKey($event)" [value]="messageContent"
+                [disabled]="disableMessaging"
+                [disabled]="chat.opened == false"
+               (keydown.enter)="sendMessage()">
         <div class="border-start d-flex">
           <div class="ms-2 fs-5 d-flex justify-content-center align-items-center color-gray-600">
             <div class="me-2 ">
               <label for="file-input" class="cursor-pointer">
                 <i class="fa-solid fa-paperclip"></i>
               </label>
-              <input class="d-none" id="file-input" type="file" (change)="onFileSelected($event)"/>
+              <input class="d-none" id="file-input" type="file" (change)="onFileSelected($event)" [disabled]="chat.opened == false"/>
             </div>
             <div class="dropdown me-2">
-              <button class="p-0 bg-transparent border-0 color-gray-600" type="button" data-bs-toggle="dropdown"
+              <button class="p-0 bg-transparent border-0 color-gray-600" type="button" data-bs-toggle="dropdown" [disabled]="chat.opened == false"
                       data-bs-auto-close="outside" aria-expanded="false">
                 <i class="fa-regular fa-face-smile"></i>
               </button>
@@ -212,12 +216,12 @@
             </div>
           </div>
           <div class="btn-group dropup-center ">
-            <button type="button" class="btn btn-primary d-none d-md-inline-block text-sm" (click)="sendMessage()">
+            <button type="button" class="btn btn-primary d-none d-md-inline-block text-sm" [disabled]="chat.opened == false" (click)="sendMessage()">
             <span class="">
               Send
             </span>
             </button>
-            <button type="button"
+            <button type="button" [disabled]="chat.opened == false"
                     class="btn btn-primary rounded-end-2  dropdown-toggle-split ps-0 d-none d-md-inline-block"
                     data-bs-toggle="dropdown" aria-expanded="false">
               <span class="border-start d-none d-md-inline"></span>

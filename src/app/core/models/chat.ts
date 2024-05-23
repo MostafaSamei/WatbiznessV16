@@ -24,6 +24,7 @@ export interface chat
   client: client;
   lastMessage: message;
   status: chatStatusEnum;
+  opened: boolean;
   messages: message[];
 }
 
