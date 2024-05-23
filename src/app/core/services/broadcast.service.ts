@@ -16,7 +16,8 @@ export class BroadcastService {
   }
   getBroadCasts(): Observable<any> {
     return this.http.get(
-      `${environment.baseURL}/Broadcast/v1.0/Broadcast/GetBroadcasts`
+      `${environment.baseURL}/Broadcast/v1.0/Broadcast/GetBroadcasts`,
+      { observe: 'response' }
     );
   }
   getBroadCast(BroadcastId: string): Observable<any> {

@@ -9,4 +9,9 @@ import { RouterLink, RouterLinkActive } from '@angular/router';
   templateUrl: './navbar.component.html',
   styleUrls: ['./navbar.component.scss'],
 })
-export class NavbarComponent {}
+export class NavbarComponent {
+  logout() {
+    sessionStorage.removeItem('currentUser');
+    window.location.reload();
+  }
+}

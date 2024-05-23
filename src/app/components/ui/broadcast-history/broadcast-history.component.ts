@@ -55,7 +55,8 @@ export class BroadcastHistoryComponent {
   getBroadCasts() {
     this.BroadcastService.getBroadCasts().subscribe({
       next: (resp) => {
-        this.broadcasts = resp;
+        // console.log(resp);
+        this.broadcasts = resp.body;
         // this.statistics = resp;
         this.pageSize = this.broadcasts.length;
         this.total = this.broadcasts.length;

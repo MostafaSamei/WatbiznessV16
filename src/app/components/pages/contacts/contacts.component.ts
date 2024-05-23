@@ -18,6 +18,9 @@ export class ContactsComponent {
   offCanvasLabel: string;
   constructor(private clientsService: ClientsService) {}
   ngOnInit() {
+    this.gettingClients();
+  }
+  gettingClients() {
     this.clientsService.getClients().subscribe({
       next: (resp) => {
 

@@ -1,3 +1,4 @@
+import { client } from './client';
 import { Template } from './template';
 
 export interface Broadcast {
@@ -20,4 +21,5 @@ export interface Broadcast {
   createdAt: string;
   lastUpdatedAt: string;
   timeZoneOffset: number;
+  clients: client[];
 }

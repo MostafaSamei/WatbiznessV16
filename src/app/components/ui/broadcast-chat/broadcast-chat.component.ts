@@ -33,7 +33,16 @@ export class BroadcastChatComponent {
       },
     });
   }
-
+  syncTemplates() {
+    this.templatesService.syncTemplates().subscribe({
+      next: (resp) => {
+        console.log('success');
+      },
+      error: (err) => {
+        console.log(err);
+      },
+    });
+  }
   protected readonly TemplateCategoryEnum = TemplateCategoryEnum;
   protected readonly TemplateSubCategoryEnum = TemplateSubCategoryEnum;
   protected readonly TemplateStatusEnum = TemplateStatusEnum;

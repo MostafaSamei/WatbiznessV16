@@ -30,8 +30,14 @@ export class NewContactComponent {
   ngOnInit() {
     if (this.client != null) {
       this.addClientForm = this._formBuilder.group({
-        name: [this.client.name, [Validators.required]],
-        phoneNumber: [this.client.phoneNumber, [Validators.required]],
+        name: [
+          { value: this.client.name, disabled: true },
+          [Validators.required],
+        ],
+        phoneNumber: [
+          { value: this.client.phoneNumber, disabled: true },
+          [Validators.required],
+        ],
       });
     } else {
       this.addClientForm = this._formBuilder.group({
@@ -53,6 +59,7 @@ export class NewContactComponent {
       this.ClientsService.addClient(this.addClientForm.value).subscribe({
         next: (respone) => {
           console.log(respone);
+          window.location.reload();
         },
         error: (err) => {
           console.log(err);
