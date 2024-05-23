@@ -6,11 +6,14 @@ import { PickerComponent } from '@ctrl/ngx-emoji-mart';
 import {DatePipe, NgForOf, NgIf} from "@angular/common";
 import {MessageService} from "../../../core/services/message.service";
 import {SignalRService} from "../../../core/services/signalr.service";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
+import {Template} from "../../../core/models/template";
+import {TemplateService} from "../../../core/services/template.service";
 
 @Component({
   selector: 'app-chat-vp',
   standalone: true,
-  imports: [ChatSettingsComponent, QuickRepliesComponent, PickerComponent, NgForOf, NgIf, DatePipe],
+  imports: [ChatSettingsComponent, QuickRepliesComponent, PickerComponent, NgForOf, NgIf, DatePipe, ReactiveFormsModule, FormsModule],
   templateUrl: './chat-vp.component.html',
   styleUrls: ['./chat-vp.component.scss'],
 })
@@ -31,9 +34,13 @@ export class ChatVPComponent implements OnInit, AfterViewChecked {
 
   selectedEmoji: any;
   selected = false;
+
+  messageTemplates: Template[];
+  selectedMessageTemplateId: string;
   constructor(private _smallMediaNav: SmallMediaNavigationService,
               private messageService: MessageService,
-              private signalRService: SignalRService) {
+              private signalRService: SignalRService,
+              private templateService: TemplateService) {
 
     signalRService.messageReceived$.subscribe(msg => {
       // Handle incoming messages
@@ -49,6 +56,7 @@ export class ChatVPComponent implements OnInit, AfterViewChecked {
   ngOnInit() {
     this.selectionListener();
     this.scrollToBottom();
+    this.loadTemplateMessages();
   }
 
   selectionListener() {
@@ -96,6 +104,27 @@ export class ChatVPComponent implements OnInit, AfterViewChecked {
       ele.target.firstElementChild.classList.add('d-none');
     }
   }
+
+  sendMessageTemplate() {
+    this.messageService.CreateMessageWithTemplate({
+      chatId: this.chat.id,
+      templateId: this.selectedMessageTemplateId
+    }).subscribe(a => {
+
+      this.chat.messages.push({
+        content: a.content,
+        sentByUser: a.sentByUser,
+        createdAt: a.createdAt,
+        fileType: a.fileType,
+        fileUrl: a.fileUrl,
+      });
+
+      // hide the modal
+
+      this.resetMessageInput();
+    });
+  }
+
   select($event: any) {
 
     this.selectedEmoji = $event.emoji.native;
@@ -117,6 +146,14 @@ export class ChatVPComponent implements OnInit, AfterViewChecked {
       this.messageContent = input.files[0].name;
       this.disableMessaging = true;
     }
+  }
+
+  loadTemplateMessages() {
+    this.templateService.getTemplates().subscribe(templates => this.messageTemplates = templates);
+  }
+
+  changeSelectedTemplate(event: any) {
+    this.selectedMessageTemplateId = event.target.value;
   }
 
   private resetMessageInput() {

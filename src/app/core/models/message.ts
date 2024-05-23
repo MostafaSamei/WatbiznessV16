@@ -12,3 +12,8 @@ export interface createMessage {
   file: File,
   content: string
 }
+
+export interface createMessageWithTemplate {
+  chatId: string,
+  templateId: string
+}

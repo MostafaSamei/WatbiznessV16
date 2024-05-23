@@ -66,7 +66,7 @@
           </span>
           </div>
           <p class="ch-body m-0 text-xs">
-            {{ chat.lastMessage.fileType != "text" ? "File Uploaded" : chat.lastMessage.content }}
+            {{ chat.lastMessage.fileType != "text" ? "File Uploaded" : chat.lastMessage.content.substring(0, 50) }}
           </p>
         </div>
       </ng-container>
