@@ -20,6 +20,9 @@ export class ContactsComponent {
   ngOnInit() {
     this.clientsService.getClients().subscribe({
       next: (resp) => {
+
+        let pagination = JSON.parse(resp.headers.get('Pagination'));
+        
         this.clients = resp.body;
       },
       error: (err) => {
