@@ -1,4 +1,4 @@
-import {HttpClient, HttpResponse} from '@angular/common/http';
+import { HttpClient, HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from '../../../environments/environment';
@@ -10,9 +10,13 @@ import { client } from '../models/client';
 export class ClientsService {
   constructor(private http: HttpClient) {}
 
-  getClients(): Observable<HttpResponse<any>> {
+  getClients(
+    pageSize: number,
+    pageNumber: number
+  ): Observable<HttpResponse<any>> {
     return this.http.get(
-      `${environment.baseURL}/Client/v1.0/Client/GetClients`,{observe: 'response'}
+      `${environment.baseURL}/Client/v1.0/Client/GetClients?PageSize=${pageSize}&PageNumber=${pageNumber}`,
+      { observe: 'response' }
     );
   }
   addClient(Client: client): Observable<any> {

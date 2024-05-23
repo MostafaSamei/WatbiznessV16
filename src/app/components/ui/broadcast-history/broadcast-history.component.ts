@@ -76,7 +76,7 @@ export class BroadcastHistoryComponent {
     }
   }
   getClients() {
-    this.clientService.getClients().subscribe({
+    this.clientService.getClients(5, 5).subscribe({
       next: (resp) => {
         this.clients = resp.body;
       },
