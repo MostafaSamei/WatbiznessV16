@@ -117,9 +117,14 @@
 
               <ng-container *ngIf="message.fileType != 'text'">
                 <img [src]="message.fileUrl" class="chat-image" *ngIf="message.fileType == 'image'"/>
-                <img src="/assets/images/document.png" class="chat-image" *ngIf="message.fileType == 'document'"/>
-                <video [src]="message.fileUrl" class="chat-image" *ngIf="message.fileType == 'video'">
+
+                <a class="text-center" (click)="goToLink(message.fileUrl)" target="_blank">
+                  <img src="/assets/images/document.png" class="chat-doc" *ngIf="message.fileType == 'document'"/>
+                </a>
+
+                <video [src]="message.fileUrl" class="chat-doc" *ngIf="message.fileType == 'video'">
                 </video>
+
                 <audio [src]="message.fileUrl" *ngIf="message.fileType == 'audio'"></audio>
               </ng-container>
             </div>

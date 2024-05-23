@@ -57,6 +57,10 @@ export class ChatVPComponent implements OnInit, AfterViewChecked {
     });
   }
 
+  goToLink(fileUrl: string) {
+    window.open(fileUrl, '_blank');
+  }
+
   sendMessage() {
     let message = {
       file: this.selectedFile,
