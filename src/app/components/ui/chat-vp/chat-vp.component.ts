@@ -1,16 +1,31 @@
-import {AfterViewChecked, Component, ElementRef, Input, OnInit, ViewChild} from '@angular/core';
+import { OpeningChatSettingsService } from './../../pages/main-page/opening-chat-settings.service';
+import {
+  AfterViewChecked,
+  Component,
+  ElementRef,
+  Input,
+  OnInit,
+  ViewChild,
+} from '@angular/core';
 import { SmallMediaNavigationService } from '../../pages/main-page/small-media-navigation.service';
 import { ChatSettingsComponent } from '../chat-settings/chat-settings.component';
 import { QuickRepliesComponent } from '../quick-replies/quick-replies.component';
 import { PickerComponent } from '@ctrl/ngx-emoji-mart';
-import {DatePipe, NgForOf, NgIf} from "@angular/common";
-import {MessageService} from "../../../core/services/message.service";
-import {SignalRService} from "../../../core/services/signalr.service";
+import { DatePipe, NgForOf, NgIf } from '@angular/common';
+import { MessageService } from '../../../core/services/message.service';
+import { SignalRService } from '../../../core/services/signalr.service';
 
 @Component({
   selector: 'app-chat-vp',
   standalone: true,
-  imports: [ChatSettingsComponent, QuickRepliesComponent, PickerComponent, NgForOf, NgIf, DatePipe],
+  imports: [
+    ChatSettingsComponent,
+    QuickRepliesComponent,
+    PickerComponent,
+    NgForOf,
+    NgIf,
+    DatePipe,
+  ],
   templateUrl: './chat-vp.component.html',
   styleUrls: ['./chat-vp.component.scss'],
 })
@@ -22,7 +37,7 @@ export class ChatVPComponent implements OnInit, AfterViewChecked {
   ngAfterViewChecked() {
     this.scrollToBottom();
   }
-
+  showSettings: boolean;
   messageContent: string = '';
 
   selectedFile: File | null = null;
@@ -31,22 +46,30 @@ export class ChatVPComponent implements OnInit, AfterViewChecked {
 
   selectedEmoji: any;
   selected = false;
-  constructor(private _smallMediaNav: SmallMediaNavigationService,
-              private messageService: MessageService,
-              private signalRService: SignalRService) {
-
-    signalRService.messageReceived$.subscribe(msg => {
+  constructor(
+    private _smallMediaNav: SmallMediaNavigationService,
+    private messageService: MessageService,
+    private signalRService: SignalRService,
+    private OpeningChatSettingsService: OpeningChatSettingsService
+  ) {
+    signalRService.messageReceived$.subscribe((msg) => {
       // Handle incoming messages
       this.chat.messages.push({
         content: msg.message,
         sentByUser: false,
-        createdAt: Date.now()
+        createdAt: Date.now(),
       });
 
       this.scrollToBottom();
     });
   }
+  changeChatSettingsState() {
+    this.OpeningChatSettingsService.showSettings.next(true);
+  }
   ngOnInit() {
+    this.OpeningChatSettingsService.showSettings.subscribe((value) => {
+      this.showSettings = value;
+    });
     this.selectionListener();
     this.scrollToBottom();
   }
@@ -61,13 +84,12 @@ export class ChatVPComponent implements OnInit, AfterViewChecked {
     let message = {
       file: this.selectedFile,
       content: this.messageContent,
-      chatId: this.chat.id
-    }
+      chatId: this.chat.id,
+    };
 
     if (this.messageContent == '') return;
 
-    this.messageService.CreateMessage(message).subscribe(messageResult => {
-
+    this.messageService.CreateMessage(message).subscribe((messageResult) => {
       this.chat.messages.push({
         content: messageResult.content,
         sentByUser: messageResult.sentByUser,
@@ -77,7 +99,6 @@ export class ChatVPComponent implements OnInit, AfterViewChecked {
       });
 
       this.resetMessageInput();
-
     });
   }
 
@@ -93,7 +114,6 @@ export class ChatVPComponent implements OnInit, AfterViewChecked {
     }
   }
   select($event: any) {
-
     this.selectedEmoji = $event.emoji.native;
     // let lastValue = document.getElementById('messagingField');
     // console.log(lastValue);
@@ -123,7 +143,8 @@ export class ChatVPComponent implements OnInit, AfterViewChecked {
 
   private scrollToBottom(): void {
     try {
-      this.myScrollContainer.nativeElement.scrollTop = this.myScrollContainer.nativeElement.scrollHeight;
-    } catch(err) { }
+      this.myScrollContainer.nativeElement.scrollTop =
+        this.myScrollContainer.nativeElement.scrollHeight;
+    } catch (err) {}
   }
 }

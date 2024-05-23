@@ -12,7 +12,8 @@ export class ClientsService {
 
   getClients(): Observable<any> {
     return this.http.get(
-      `${environment.baseURL}/Client/v1.0/Client/GetClients`
+      `${environment.baseURL}/Client/v1.0/Client/GetClients`,
+      { observe: 'response' }
     );
   }
   addClient(Client: client): Observable<any> {

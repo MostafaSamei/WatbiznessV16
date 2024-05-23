@@ -15,4 +15,9 @@ export class TemplateService {
       `${environment.baseURL}/Chat/v1.0/Template/GetTemplates`
     );
   }
+  syncTemplates(): Observable<any> {
+    return this.http.get<any>(
+      `${environment.baseURL}/Chat/v1.0/Template/SyncTemplates`
+    );
+  }
 }

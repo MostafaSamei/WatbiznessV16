@@ -18,9 +18,14 @@ export class ContactsComponent {
   offCanvusLable: string;
   constructor(private clientsService: ClientsService) {}
   ngOnInit() {
+    this.gettingClients();
+  }
+  gettingClients() {
     this.clientsService.getClients().subscribe({
       next: (resp) => {
-        this.clients = resp;
+        const headers = resp.headers;
+
+        this.clients = resp.body;
       },
       error: (err) => {
         console.log(err);
