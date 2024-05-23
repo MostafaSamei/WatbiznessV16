@@ -15,30 +15,30 @@ export class ContactsComponent {
   @ViewChild('container', { read: ViewContainerRef })
   container!: ViewContainerRef;
   clients: client[];
-  offCanvusLable: string;
+  offCanvasLabel: string;
   constructor(private clientsService: ClientsService) {}
   ngOnInit() {
     this.clientsService.getClients().subscribe({
       next: (resp) => {
-        this.clients = resp;
+        this.clients = resp.body;
       },
       error: (err) => {
         console.log(err);
       },
     });
   }
-  setLable(method: string) {
+  setLabel(method: string) {
     if (method == 'add') {
-      this.offCanvusLable = 'Add New';
+      this.offCanvasLabel = 'Add New';
     } else if (method == 'edit') {
-      this.offCanvusLable = 'Edit';
+      this.offCanvasLabel = 'Edit';
     } else if (method == 'view') {
-      this.offCanvusLable = 'View';
+      this.offCanvasLabel = 'View';
     }
   }
 
   dynamicCompGeneration(method: string, client: client | null) {
-    this.setLable(method);
+    this.setLabel(method);
     this.loadComponent(method, client);
   }
 
