@@ -11,7 +11,7 @@ import {groupchat} from "../models/groupchat";
 export class ChatService {
   constructor(private http: HttpClient) {}
 
-  public GetGroupChats(nameOrPhone: string): Observable<groupchat[]> {
+  public GetGroupChats(nameOrPhone: string = ''): Observable<groupchat[]> {
     return this.http.get<groupchat[]>(environment.baseURL + `/Chat/v1.0/Chat/GetGroupChats?SearchTerm=${nameOrPhone}`);
   }
 

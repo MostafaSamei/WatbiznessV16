@@ -3,7 +3,7 @@
     <div class="search">
       <div class="input-group mb-3 border rounded-3 bg-light">
         <input type="text" class="form-control border-0 bg-light text-sm font-medium" placeholder="Search"
-          style="font-family: arial , fontawesome;" (change)="filterChats($event)">
+          style="font-family: arial , fontawesome;" [(ngModel)]="inputValue" (keyup)="filterChats()">
         <button class="btn color-gray-600 border-0 text-sm font-medium" type="button">
           <span class="border-start ps-2">Name or Phone</span>
         </button>
