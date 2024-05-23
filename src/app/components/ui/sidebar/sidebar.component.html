@@ -2,16 +2,11 @@
   <div class="header border-bottom p-3 ">
     <div class="search">
       <div class="input-group mb-3 border rounded-3 bg-light">
-        <input type="text" class="form-control border-0 bg-light text-sm font-medium" placeholder="&#xF002; Search"
-          style="font-family: arial , fontawesome;" aria-label="Text input with dropdown button">
-        <button class="btn color-gray-600 dropdown-toggle border-0 text-sm font-medium" type="button"
-          data-bs-toggle="dropdown" aria-expanded="false">
+        <input type="text" class="form-control border-0 bg-light text-sm font-medium" placeholder="Search"
+          style="font-family: arial , fontawesome;" (change)="filterChats($event)">
+        <button class="btn color-gray-600 border-0 text-sm font-medium" type="button">
           <span class="border-start ps-2">Name or Phone</span>
         </button>
-        <ul class="dropdown-menu dropdown-menu-end">
-          <li><a class="dropdown-item" href="#">Name</a></li>
-          <li><a class="dropdown-item" href="#">Phone</a></li>
-        </ul>
       </div>
     </div>
     <div class="active-chat d-flex justify-content-between color-gray-600">

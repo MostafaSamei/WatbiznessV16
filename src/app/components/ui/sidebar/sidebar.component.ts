@@ -39,8 +39,13 @@ export class SidebarComponent implements OnInit {
     this.openChat.emit(clientId);
   }
 
-  private loadGroupChats() {
-    this.chatService.GetGroupChats().subscribe(groupChats => this.groupChats = groupChats);
+  filterChats(eventVal: Event) {
+    // console.log(eventVal.target);
+    // this.loadGroupChats(nameOrPhone);
+  }
+
+  private loadGroupChats(nameOrPhone: string = '') {
+    this.chatService.GetGroupChats(nameOrPhone).subscribe(groupChats => this.groupChats = groupChats);
   }
 
   protected readonly chatStatusEnum = chatStatusEnum;
