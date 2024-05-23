@@ -2,7 +2,7 @@ import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import { SmallMediaNavigationService } from '../../pages/main-page/small-media-navigation.service';
 import {ChatService} from "../../../core/services/chat.service";
 import {groupchat} from "../../../core/models/groupchat";
-import {DatePipe, NgForOf} from "@angular/common";
+import {DatePipe, NgForOf, NgIf} from "@angular/common";
 import {chatStatusEnum} from "../../../core/models/chat";
 import {FormsModule} from "@angular/forms";
 
@@ -12,7 +12,8 @@ import {FormsModule} from "@angular/forms";
   imports: [
     NgForOf,
     DatePipe,
-    FormsModule
+    FormsModule,
+    NgIf
   ],
   templateUrl: './sidebar.component.html',
   styleUrls: ['./sidebar.component.scss'],

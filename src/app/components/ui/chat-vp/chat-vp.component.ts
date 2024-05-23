@@ -50,6 +50,8 @@ export class ChatVPComponent implements OnInit, AfterViewChecked {
         createdAt: Date.now()
       });
 
+      this.chat.opened = true;
+
       this.scrollToBottom();
     });
   }

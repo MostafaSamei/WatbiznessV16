@@ -57,8 +57,11 @@
               <div class="text-sm font-semibold me-2">
                 {{ chat.client.name }}
               </div>
-              <span class="state bg-yellow-50 color-yellow-500  p-1 rounded-1 text-11 font-bold">
-                {{ chatStatusEnum[chat.status] }}
+              <span class="state bg-blue-50 color-blue-500  p-1 rounded-1 text-11 font-bold" *ngIf="chat.opened">
+                Active
+              </span>
+              <span class="state bg-yellow-50 color-yellow-500  p-1 rounded-1 text-11 font-bold" *ngIf="!chat.opened">
+                Pending
               </span>
             </div>
             <span class=" color-gray-600 time text-xs font-semibold">
