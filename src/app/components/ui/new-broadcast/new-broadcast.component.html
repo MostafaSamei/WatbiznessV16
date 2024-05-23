@@ -1,4 +1,4 @@
-<div class="container-fluid">
+<form [formGroup]="NewBroadCast" (ngSubmit)="addBroadcast()">
   <div class="row align-items-center justify-content-center g-0 g-md-2 g-lg-3">
     <div class="col-12">
       <div>
@@ -11,7 +11,7 @@
         </div>
         <div class="body border border-primary-subtle border-top-0 p-2 rounded-bottom-3 ">
           <p class="simi-small fw-semibold">Broadcast Name</p>
-          <input type="text" class="form-control px-3 py-2" value="Untitled_131220231619">
+          <input formControlName="title" type="text" class="form-control px-3 py-2" value="Untitled_131220231619">
           <div>
             <div class="d-flex justify-content-between">
               <p class="simi-small fw-semibold mt-3">Message Template</p>
@@ -22,11 +22,12 @@
                 </span>
               </button>
             </div>
-            <select class="form-select" aria-label="Default select example">
-              <option selected>Select Message</option>
-              <option value="1">One</option>
-              <option value="2">Two</option>
-              <option value="3">Three</option>
+            <select class="form-select" aria-label="Default select example" formControlName="templateId">
+              <option [value]="1">Select Message</option>
+
+              <ng-container *ngFor="let template of templates">
+                <option [value]="template.id">{{template.name}}</option>
+              </ng-container>
             </select>
           </div>
         </div>
@@ -42,7 +43,8 @@
             </h6>
           </div>
         </div>
-        <div class="body border border-primary-subtle border-top-0 p-2 rounded-bottom-3 text-nowrap ">
+        <div class="body border border-primary-subtle border-top-0 p-2 rounded-bottom-3 text-nowrap overflow-y-scroll"
+          style="height:240px;">
           <table class="table">
             <thead>
               <tr>
@@ -53,79 +55,19 @@
                 <th scope="col">Phone Number</th>
               </tr>
             </thead>
-            <tbody>
-              <tr>
-                <td>
-                  <input class="form-check-input" type="checkbox" value="">
-                </td>
-                <td>Gouda Mandor</td>
-                <td>** **** ***06</td>
-              </tr>
-              <tr>
-                <td>
-                  <input class="form-check-input" type="checkbox" value="">
-                </td>
-                <td>Ysn Maher</td>
-                <td>** **** ***07</td>
-              </tr>
-              <tr>
-                <td>
-                  <input class="form-check-input" type="checkbox" value="">
-                </td>
-                <td>Ahmed Magdy</td>
-                <td>** **** ***08</td>
-              </tr>
-              <tr>
-                <td>
-                  <input class="form-check-input" type="checkbox" value="">
-                </td>
-                <td>Jonas Okmark</td>
-                <td>** **** ***22</td>
-              </tr>
-              <tr>
-                <td>
-                  <input class="form-check-input" type="checkbox" value="">
-                </td>
-                <td>Stefan Ohls </td>
-                <td>** **** ***08</td>
-              </tr>
-
+            <tbody formArrayName="clientIds">
+              <ng-container>
+                <tr *ngFor="let client of clients; let i=index">
+                  <td>
+                    <input class="form-check-input" [formControlName]="i" type="checkbox" [value]="client.id">
+                  </td>
+                  <td>{{client.name}}</td>
+                  <td>{{client.phoneNumber}}</td>
+                </tr>
+              </ng-container>
             </tbody>
           </table>
-          <div class="row justify-content-between ">
-            <div class="row-control col-8 col-md-5">
-              <div class="d-flex text-nowrap">
-                <span class="ms-3">Rows per page:</span>
-                <select name="" id="" class="border-0 ms-3">
-                  <option selected value="5">5</option>
-                  <option value="10">10</option>
-                  <option value="20">20</option>
-                  <option value="35">35</option>
-                  <option value="50">50</option>
-                </select>
-              </div>
-            </div>
-            <div class="pages col-4 col-md-2">
-              <div>
-                1-1 of 1
-              </div>
-            </div>
-            <div class="pages-control text-secondary text-center col-12 col-md-5 ">
-              <div class="mx-auto mt-3 mt-md-0">
-                <a class="prev text-secondary me-3">
-                  <i class="fa-solid fa-arrow-left-long me-2"></i>
-                  Previous
-                </a>
-                <a class="next text-secondary">
-                  Next
-                  <i class="fa-solid fa-arrow-right-long ms-2"></i>
-                </a>
-              </div>
-            </div>
-
-          </div>
         </div>
-
       </div>
     </div>
     <div class="col-12">
@@ -139,14 +81,42 @@
         </div>
         <div class="body border border-primary-subtle border-top-0 p-2 rounded-bottom-3 ">
           <div>
-            <input type="radio" name="clientToSendTo" id="sendNow" class="form-check-input me-2" checked>
+            <input type="radio" name="timeOption" formControlName="timeOption" id="sendNow"
+              class="form-check-input me-2" value="now">
             <label for="sendNow">Send Now</label>
           </div>
           <div>
-            <input type="radio" name="clientToSendTo" id="scheduleLater" class="form-check-input me-2">
+            <input type="radio" name="timeOption" formControlName="timeOption" id="scheduleLater"
+              class="form-check-input me-2" value="schedule">
             <label for="scheduleLater">Schedule Later</label>
+          </div>
+          <ng-container *ngIf="NewBroadCast.get('timeOption').value == 'schedule'">
+            <div class="">
+              <label for="broadcast-sendtime" class="col-form-label">{{ "Send Date" }}:</label>
+              <input type="date" class="form-control" id="broadcast-sendtime" formControlName="sendTime">
+            </div>
+            <div class="">
+              <label for="broadcast-timespan" class="col-form-label">{{ "Send Hour" }}:</label>
+              <input type="time" class="form-control" id="broadcast-timespan" formControlName="timeSpan">
+            </div>
+          </ng-container>
+
+        </div>
+      </div>
+    </div>
+    <div class="col-12">
+      <div class="row g-3">
+        <div class="col-6">
+          <div>
+            <button class="btn py-2 btn-primary w-100" type="submit">Save</button>
+          </div>
+        </div>
+        <div class="col-6">
+          <div>
+            <button class="btn py-2 btn-outline-primary w-100">Cancel</button>
           </div>
         </div>
       </div>
     </div>
   </div>
+</form>

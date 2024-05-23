@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { LoginResponse, loginUserData } from '../models/login';
-import {environment} from "../../../environments/environment";
+import { environment } from '../../../environments/environment';
 
 @Injectable({
   providedIn: 'root',
@@ -14,7 +14,7 @@ export class AuthService {
     let email: string = userData.emailAddress;
     let password: string = userData.password;
     return this.http.post<LoginResponse>(
-      `${environment.baseURL}/v1.0/Authentication/Login`,
+      `${environment.baseURL}/v1/Authentication/Login`,
       { emailAddress: email, password: password }
     );
   }
@@ -22,6 +22,4 @@ export class AuthService {
   getCurrentUser(): LoginResponse {
     return JSON.parse(sessionStorage.getItem('currentUser'));
   }
-
-
 }
