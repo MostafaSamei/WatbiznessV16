@@ -10,7 +10,13 @@ import { environment } from 'src/environments/environment';
 export class TemplateService {
   constructor(private http: HttpClient) {}
 
-  getTemplates(): Observable<any> {
+  getTemplates(pageSize: number, pageNumber: number): Observable<any> {
+    return this.http.get<any>(
+      `${environment.baseURL}/Chat/v1.0/Template/GetTemplates?PageSize=${pageSize}&PageNumber=${pageNumber}`,
+      { observe: 'response' }
+    );
+  }
+  getTemplatesNoPagation(): Observable<any> {
     return this.http.get<any>(
       `${environment.baseURL}/Chat/v1.0/Template/GetTemplates`
     );

@@ -14,9 +14,9 @@ export class BroadcastService {
       `${environment.baseURL}/Broadcast/v1.0/Broadcast/GetBroadcastStatistics`
     );
   }
-  getBroadCasts(): Observable<any> {
+  getBroadCasts(pageSize: number, pageNumber: number): Observable<any> {
     return this.http.get(
-      `${environment.baseURL}/Broadcast/v1.0/Broadcast/GetBroadcasts`,
+      `${environment.baseURL}/Broadcast/v1.0/Broadcast/GetBroadcasts?PageSize=${pageSize}&PageNumber=${pageNumber}`,
       { observe: 'response' }
     );
   }

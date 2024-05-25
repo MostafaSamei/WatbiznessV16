@@ -125,7 +125,10 @@
       </tr>
     </thead>
     <tbody>
-      <ng-container *ngFor="let broadcast of broadcasts">
+      <ng-container *ngFor="let broadcast of broadcasts | paginate: { id: 'pagination',
+      itemsPerPage: paginationDetails.PageSize,
+      currentPage: paginationDetails.CurrentPage,
+      totalItems: paginationDetails.TotalCount }">
         <tr class="text-center text-nowrap" [id]="broadcast.id">
           <td class="text-start">
             <h6 class="text-primary">{{broadcast.title}}</h6>
@@ -153,35 +156,35 @@
   </table>
 
 </div>
-<!-- <pagination-controls (pageChange)="p = $event">
 
-</pagination-controls> -->
 <div class="start-0 position-fixed bottom-0 w-100 mx-0 bg-white">
-  <div class="pagination row text-nowrap justify-content-center align-items-center py-4 pb-5 text-center">
+  <div class="pagination row text-nowrap justify-content-center align-items-center py-4 text-center">
     <div class="row-control col-6 col-md-3 col-lg-2">
       <div>
         <span class="ms-3">Rows per page:</span>
-        <select name="" id="" class="border-0 ms-3">
-          <option selected value="5">5</option>
-          <option value="10">10</option>
-          <option value="20">20</option>
-          <option value="35">35</option>
-          <option value="50">50</option>
+        <select name="" id="" class="border-0 ms-3" (change)="pageSizeChanged($event)">
+          <option [selected]="paginationDetails.PageSize==5" value="5">5</option>
+          <option [selected]="paginationDetails.PageSize==10" value="10">10</option>
+          <option [selected]="paginationDetails.PageSize==20" value="20">20</option>
+          <option [selected]="paginationDetails.PageSize==35" value="35">35</option>
+          <option [selected]="paginationDetails.PageSize==50" value="50">50</option>
         </select>
       </div>
     </div>
     <div class="pages col-6 col-md-2 col-lg-1">
       <div>
-        1-1 of 1
+        {{(paginationDetails.PageSize*(paginationDetails.CurrentPage-1))+1}}-{{paginationDetails.PageSize*paginationDetails.CurrentPage}}
+        of {{paginationDetails.TotalCount}}
       </div>
     </div>
     <div class="pages-control color-gray-600 col-12 col-md-3 col-lg-2">
       <div class="mx-auto mt-3 mt-md-0">
-        <a class="prev color-gray-600 me-3">
+        <a class="prev color-gray-600 me-3" (click)="previousPage()" *ngIf="1<paginationDetails.CurrentPage">
           <i class="fa-solid fa-arrow-left-long me-2"></i>
           Previous
         </a>
-        <a class="next color-gray-600">
+        <a class="next color-gray-600" (click)="nextPage()"
+          *ngIf="paginationDetails.CurrentPage<paginationDetails.TotalPages">
           Next
           <i class="fa-solid fa-arrow-right-long ms-2"></i>
         </a>

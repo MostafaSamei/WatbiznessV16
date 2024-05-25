@@ -49,7 +49,7 @@ export class NewBroadcastComponent {
   }
 
   getTemplates() {
-    this.templatesService.getTemplates().subscribe({
+    this.templatesService.getTemplatesNoPagation().subscribe({
       next: (resp) => {
         this.templates = resp;
       },

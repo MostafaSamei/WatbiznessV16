@@ -22,9 +22,7 @@ export class ContactsComponent {
   paginationDetails: any = {
     PageSize: 5,
     CurrentPage: 1,
-
     TotalCount: 0,
-
     TotalPages: 0,
   };
   constructor(private clientsService: ClientsService) {}

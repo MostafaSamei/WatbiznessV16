@@ -1,18 +1,19 @@
 import { Component, ViewChild, ViewContainerRef } from '@angular/core';
 import { NewBroadcastComponent } from '../new-broadcast/new-broadcast.component';
 import { Broadcast } from 'src/app/core/models/broadcast';
-import { DatePipe, NgFor } from '@angular/common';
+import { DatePipe, NgFor, NgIf } from '@angular/common';
 // import { NgxPaginationModule } from 'ngx-pagination';
 import { BroadcastService } from 'src/app/core/services/broadcast.service';
 import { BroadCastStatistics } from 'src/app/core/models/broad-cast-statistics';
 import { client } from 'src/app/core/models/client';
 import { ClientsService } from 'src/app/core/services/clients.service';
 import { ViewBroadcastComponent } from '../view-broadcast/view-broadcast.component';
+import { NgxPaginationModule } from 'ngx-pagination';
 
 @Component({
   selector: 'app-broadcast-history',
   standalone: true,
-  imports: [NewBroadcastComponent, NgFor, DatePipe],
+  imports: [NewBroadcastComponent, NgFor, DatePipe, NgIf, NgxPaginationModule],
   templateUrl: './broadcast-history.component.html',
   styleUrls: ['./broadcast-history.component.scss'],
 })
@@ -21,10 +22,6 @@ export class BroadcastHistoryComponent {
   container!: ViewContainerRef;
   offCanvusLable: string;
   clients: client[] = [];
-  ///pagination vars
-  pageSize: number = 5;
-  p: number = 1;
-  total: number = 0;
   constructor(
     private BroadcastService: BroadcastService,
     private clientService: ClientsService
@@ -34,6 +31,12 @@ export class BroadcastHistoryComponent {
     this.getStatistics();
     this.getBroadCasts();
   }
+  paginationDetails: any = {
+    PageSize: 5,
+    CurrentPage: 1,
+    TotalCount: 0,
+    TotalPages: 0,
+  };
   broadcasts: Broadcast[] = [];
   statistics: BroadCastStatistics = {
     sent: 0,
@@ -41,25 +44,37 @@ export class BroadcastHistoryComponent {
     failed: 0,
     replied: 0,
   };
+  pageSizeChanged($event) {
+    console.log($event.target.value);
+    this.getBroadCasts($event.target.value);
+  }
+  previousPage() {
+    this.getBroadCasts(
+      this.paginationDetails.PageSize,
+      this.paginationDetails.CurrentPage - 1
+    );
+  }
+  nextPage() {
+    this.getBroadCasts(
+      this.paginationDetails.PageSize,
+      this.paginationDetails.CurrentPage + 1
+    );
+  }
   getStatistics() {
     this.BroadcastService.getBroadcastStatistics().subscribe({
       next: (resp) => {
         this.statistics = resp;
-        // console.log(this.statistics);
       },
       error: (err) => {
         console.log(err);
       },
     });
   }
-  getBroadCasts() {
-    this.BroadcastService.getBroadCasts().subscribe({
+  getBroadCasts(pageSize = 5, pageNumber = 1) {
+    this.BroadcastService.getBroadCasts(pageSize, pageNumber).subscribe({
       next: (resp) => {
-        // console.log(resp);
         this.broadcasts = resp.body;
-        // this.statistics = resp;
-        this.pageSize = this.broadcasts.length;
-        this.total = this.broadcasts.length;
+        this.paginationDetails = JSON.parse(resp.headers.get('Pagination'));
       },
       error: (err) => {
         console.log(err);
