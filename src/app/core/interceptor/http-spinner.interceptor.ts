@@ -1,35 +1,38 @@
-import { Injectable } from '@angular/core';
+import {inject, Injectable} from '@angular/core';
 import {
   HttpRequest,
   HttpHandler,
   HttpEvent,
-  HttpInterceptor,
+  HttpInterceptor, HttpInterceptorFn, HttpHandlerFn,
 } from '@angular/common/http';
 import { Observable, finalize } from 'rxjs';
 import { NgxSpinnerService } from 'ngx-spinner';
+import {AuthService} from "../services/auth.service";
 
-@Injectable()
-export class LoadingSpinnerInterceptor implements HttpInterceptor {
-  counter: number = 0;
-  constructor(private spinner: NgxSpinnerService) {}
+export const LoadingSpinnerInterceptor: HttpInterceptorFn = (
+  req: HttpRequest<any>,
+  next: HttpHandlerFn
+): Observable<HttpEvent<any>> => {
+  let counter = 0;
 
-  intercept(
-    request: HttpRequest<unknown>,
-    next: HttpHandler
-  ): Observable<HttpEvent<unknown>> {
-    if (this.counter == 0) {
-      this.spinner.show();
-      document.getElementsByTagName('html')[0].style.overflow = 'hidden';
-    }
-    this.counter++;
-    return next.handle(request).pipe(
-      finalize(() => {
-        this.counter--;
-        if (this.counter == 0) {
-          this.spinner.hide();
-          document.getElementsByTagName('html')[0].style.overflow = 'auto';
-        }
-      })
-    );
+  const spinner = inject(NgxSpinnerService);
+
+  spinner.show().then(r => console.log(r));
+
+  if (counter == 0) {
+    spinner.show('loading');
+    document.getElementsByTagName('html')[0].style.overflow = 'hidden';
   }
-}
+
+  counter++;
+
+  return next(req).pipe(
+    finalize(() => {
+      counter--;
+      if (counter == 0) {
+        spinner.hide('loading');
+        document.getElementsByTagName('html')[0].style.overflow = 'auto';
+      }
+    })
+  );
+};

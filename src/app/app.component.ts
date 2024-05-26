@@ -13,13 +13,5 @@ import { NgxPaginationModule } from 'ngx-pagination';
 })
 export class AppComponent {
   title = 'WatbiznessV16';
-  spinner1 = 'sp1';
-  constructor(private spinner: NgxSpinnerService) {}
-  showSpinner(name: string) {
-    this.spinner.show(name);
-  }
-
-  hideSpinner(name: string) {
-    this.spinner.hide(name);
-  }
+  constructor() {}
 }
