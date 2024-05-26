@@ -9,7 +9,7 @@
             </h6>
           </div>
         </div>
-        <form [formGroup]="addClientForm" (ngSubmit)="addClient()">
+        <form [formGroup]="addClientForm" (ngSubmit)="method=='add'?addClient():updateClient()">
           <div class="body border border-primary-subtle border-top-0 p-2 rounded-bottom-3 ">
 
             <div class="mb-2">

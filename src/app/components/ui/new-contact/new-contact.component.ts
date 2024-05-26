@@ -22,29 +22,25 @@ export class NewContactComponent {
     private ClientsService: ClientsService
   ) {}
 
-  @Input() client: client;
+  @Input() client!: client;
   @Input() method: string;
 
   addClientForm: FormGroup;
 
   ngOnInit() {
-    if (this.client != null) {
-      this.addClientForm = this._formBuilder.group({
-        name: [
-          { value: this.client.name, disabled: true },
-          [Validators.required],
-        ],
-        phoneNumber: [
-          { value: this.client.phoneNumber, disabled: true },
-          [Validators.required],
-        ],
-      });
-    } else {
-      this.addClientForm = this._formBuilder.group({
-        name: ['', [Validators.required]],
-        phoneNumber: ['', [Validators.required]],
-      });
-    }
+    this.addClientForm = this._formBuilder.group({
+      name: [
+        { value: this.client?.name || '', disabled: this.method == 'view' },
+        [Validators.required],
+      ],
+      phoneNumber: [
+        {
+          value: this.client?.phoneNumber || '',
+          disabled: this.method == 'view',
+        },
+        [Validators.required],
+      ],
+    });
   }
 
   submitForm() {

@@ -14,8 +14,8 @@ import { NgxPaginationModule } from 'ngx-pagination';
 })
 export class ContactsComponent {
   @ViewChild('container', { read: ViewContainerRef })
-  currentPage: number;
   container!: ViewContainerRef;
+  currentPage: number;
   clients: client[];
   offCanvasLabel: string;
 
@@ -42,15 +42,6 @@ export class ContactsComponent {
       },
     });
   }
-  setLabel(method: string) {
-    if (method == 'add') {
-      this.offCanvasLabel = 'Add New';
-    } else if (method == 'edit') {
-      this.offCanvasLabel = 'Edit';
-    } else if (method == 'view') {
-      this.offCanvasLabel = 'View';
-    }
-  }
   pageSizeChanged($event) {
     console.log($event.target.value);
     this.gettingClients($event.target.value);
@@ -66,6 +57,15 @@ export class ContactsComponent {
       this.paginationDetails.PageSize,
       this.paginationDetails.CurrentPage + 1
     );
+  }
+  setLabel(method: string) {
+    if (method == 'add') {
+      this.offCanvasLabel = 'Add New';
+    } else if (method == 'edit') {
+      this.offCanvasLabel = 'Edit';
+    } else if (method == 'view') {
+      this.offCanvasLabel = 'View';
+    }
   }
   dynamicCompGeneration(method: string, client: client | null) {
     this.setLabel(method);

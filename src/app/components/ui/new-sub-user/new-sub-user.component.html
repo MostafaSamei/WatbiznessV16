@@ -1,0 +1,47 @@
+<div class="container-fluid">
+  <div class="row align-items-center justify-content-center g-0 g-md-2 g-lg-3">
+    <div class="col-12">
+      <div>
+        <div class="head bg-primary-subtle p-2 rounded-top-3">
+          <div class="d-flex justify-content-between align-items-center">
+            <h6 class="text-secondary text-primary-emphasis fw-semibold m-0">
+              Contact Information
+            </h6>
+          </div>
+        </div>
+        <form [formGroup]="addUserForm" (ngSubmit)="method=='add'?addUser():updateUser()">
+          <div class="body border border-primary-subtle border-top-0 p-2 rounded-bottom-3 ">
+
+            <div class="mb-2">
+              <p class="simi-small fw-semibold">First Name</p>
+              <input formControlName="firstName" type="text" class="form-control px-3 py-2" placeholder="First Name">
+            </div>
+            <div class="mb-2">
+              <p class="simi-small fw-semibold">last Name</p>
+              <input formControlName="lastName" type="text" class="form-control px-3 py-2" placeholder="last Name">
+            </div>
+            <div class="mb-2">
+              <p class="simi-small fw-semibold">Phone Number</p>
+              <input formControlName="phoneNumber" type="text" class="form-control px-3 py-2" placeholder="User Number">
+            </div>
+            <div class="mb-2">
+              <p class="simi-small fw-semibold">Email Address</p>
+              <input formControlName="emailAddress" type="email" class="form-control px-3 py-2"
+                placeholder="Email Address">
+            </div>
+            <div class="mb-2" *ngIf="method=='add'">
+              <p class="simi-small fw-semibold">Password</p>
+              <input formControlName="password" type="password" class="form-control px-3 py-2" placeholder="Password">
+            </div>
+
+
+          </div>
+          <button class="btn btn-primary mt-2 w-100 simi-small fw-semibold" type="submit" *ngIf="method !='view'">
+            {{method.slice(0,1).toLocaleUpperCase()+method.slice(1)}} Contact
+          </button>
+        </form>
+      </div>
+    </div>
+
+
+  </div>

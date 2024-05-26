@@ -27,7 +27,8 @@ export class BroadcastHistoryComponent {
     private clientService: ClientsService
   ) {}
   ngOnInit() {
-    this.getClients();
+    this.getClientsNoPagation();
+
     this.getStatistics();
     this.getBroadCasts();
   }
@@ -100,6 +101,17 @@ export class BroadcastHistoryComponent {
       },
     });
   }
+  getClientsNoPagation() {
+    this.clientService.getClientsNoPagation().subscribe({
+      next: (resp) => {
+        this.clients = resp;
+      },
+      error: (err) => {
+        console.log(err);
+      },
+    });
+  }
+
   dynamicCompGeneration(method: string, broadcase: Broadcast | null) {
     this.setLable(method);
     this.loadComponent(method, broadcase);

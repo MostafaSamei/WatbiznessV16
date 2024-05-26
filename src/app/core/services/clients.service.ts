@@ -19,6 +19,11 @@ export class ClientsService {
       { observe: 'response' }
     );
   }
+  getClientsNoPagation(): Observable<any> {
+    return this.http.get(
+      `${environment.baseURL}/Client/v1.0/Client/GetClients`
+    );
+  }
   addClient(Client: client): Observable<any> {
     let name: string = Client.name;
     let PhoneNumber: string = Client.phoneNumber;
