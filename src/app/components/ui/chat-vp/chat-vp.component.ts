@@ -11,7 +11,7 @@ import { SmallMediaNavigationService } from '../../pages/main-page/small-media-n
 import { ChatSettingsComponent } from '../chat-settings/chat-settings.component';
 import { QuickRepliesComponent } from '../quick-replies/quick-replies.component';
 import { PickerComponent } from '@ctrl/ngx-emoji-mart';
-import { DatePipe, NgForOf, NgIf } from '@angular/common';
+import { DatePipe, NgClass, NgForOf, NgIf } from '@angular/common';
 import { MessageService } from '../../../core/services/message.service';
 import { SignalRService } from '../../../core/services/signalr.service';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -30,6 +30,7 @@ import { TemplateService } from '../../../core/services/template.service';
     DatePipe,
     ReactiveFormsModule,
     FormsModule,
+    NgClass,
   ],
   templateUrl: './chat-vp.component.html',
   styleUrls: ['./chat-vp.component.scss'],
@@ -75,7 +76,12 @@ export class ChatVPComponent implements OnInit, AfterViewChecked {
     });
   }
   changeChatSettingsState() {
-    this.OpeningChatSettingsService.showSettings.next(true);
+    if (window.innerWidth < 768) {
+      document.getElementById('chatSettings').style.display = 'none';
+    }
+    this.OpeningChatSettingsService.showSettings.next(
+      !this.OpeningChatSettingsService.showSettings.getValue()
+    );
   }
   ngOnInit() {
     this.OpeningChatSettingsService.showSettings.subscribe((value) => {
@@ -194,5 +200,8 @@ export class ChatVPComponent implements OnInit, AfterViewChecked {
       this.myScrollContainer.nativeElement.scrollTop =
         this.myScrollContainer.nativeElement.scrollHeight;
     } catch (err) {}
+  }
+  ngOnDestroy() {
+    this.OpeningChatSettingsService.showSettings.next(false);
   }
 }

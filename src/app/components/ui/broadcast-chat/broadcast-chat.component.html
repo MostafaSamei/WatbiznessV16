@@ -1,4 +1,4 @@
-<div class="w-100 bg-gray-100 mt-3 py-4 px-3">
+<div class="w-100 bg-gray-100 mt-3 py-3 px-3">
   <div class="d-flex align-items-center justify-content-between">
     <h5 class="fw-bold m-0">
       Template list
@@ -49,8 +49,8 @@
     </div>
   </div>
 </div>
-<div class="px-3 pt-3 table-responsive">
-  <table class="table align-middle">
+<div class="px-3 table-responsive">
+  <table class="table align-middle m-0">
     <thead>
       <tr class="text-center">
         <th scope="col" class="py-3 text-start">Name</th>
@@ -102,13 +102,13 @@
 
 </div>
 
-<div class="start-0 position-fixed bottom-0 w-100 mx-0 bg-white">
+<div class="w-100 mx-0 bg-white">
   <div class="pagination row text-nowrap justify-content-center align-items-center py-4 text-center">
     <div class="row-control col-6 col-md-3 col-lg-2">
       <div>
         <span class="ms-3">Rows per page:</span>
         <select name="" id="" class="border-0 ms-3" (change)="pageSizeChanged($event)">
-          <option [selected]="paginationDetails.PageSize==5" value="5">5</option>
+          <option [selected]="paginationDetails.PageSize==8" value="5">8</option>
           <option [selected]="paginationDetails.PageSize==10" value="10">10</option>
           <option [selected]="paginationDetails.PageSize==20" value="20">20</option>
           <option [selected]="paginationDetails.PageSize==35" value="35">35</option>

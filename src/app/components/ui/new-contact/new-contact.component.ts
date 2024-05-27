@@ -67,6 +67,7 @@ export class NewContactComponent {
     }
   }
   updateClient() {
+    console.log(this.addClientForm.value);
     if (this.addClientForm.valid) {
       this.ClientsService.updateClient(
         this.addClientForm.value,
@@ -77,6 +78,9 @@ export class NewContactComponent {
         },
         error: (err) => {
           console.log(err);
+        },
+        complete: () => {
+          window.location.reload();
         },
       });
     } else if (this.addClientForm.invalid) {

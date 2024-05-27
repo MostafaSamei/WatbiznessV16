@@ -16,9 +16,13 @@
     max-width: 1440px !important;
   }
 }
+.container-fluid{
+  overflow: hidden !important;
+  position: relative !important;
+}
 
 .app-body{
-  // height: calc(100vh - 74px);
+  // height: calc(100vh - 85px);
 }
 
 /// login and regstration form wrong input

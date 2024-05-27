@@ -48,10 +48,19 @@ export class NewSubUserComponent {
         },
         [Validators.required],
       ],
+      id: [
+        {
+          value: this.user?.id || '',
+          disabled: this.method == 'view',
+        },
+        [Validators.required],
+      ],
       roleId: ['6d3a4beb-d4e6-49a3-a392-228d44f70e09', [Validators.required]],
     });
-    if (this.user == undefined) {
+    if (this.method != 'view') {
       this.addUserForm.addControl('password', this._formBuilder.control(''));
+    } else {
+      // console.log(this.user);
     }
     // console.log(this.addUserForm);
     // console.log(this.user);
@@ -76,16 +85,17 @@ export class NewSubUserComponent {
   }
 
   updateUser() {
+    // console.log(this.addUserForm.value);
     if (this.addUserForm.valid) {
-      this.SubUserService.updateSubUser(
-        this.addUserForm.value,
-        this.user.id
-      ).subscribe({
+      this.SubUserService.updateSubUser(this.addUserForm.value).subscribe({
         next: (respone) => {
           console.log(respone);
         },
         error: (err) => {
           console.log(err);
+        },
+        complete: () => {
+          // window.location.reload();
         },
       });
     } else if (this.addUserForm.invalid) {

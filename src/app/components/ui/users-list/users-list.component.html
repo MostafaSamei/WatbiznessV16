@@ -142,14 +142,37 @@
               data-bs-toggle="offcanvas" data-bs-target="#addNewUsers" aria-controls="addNewUsers">
               <i class="fa-regular fa-pen-to-square"></i>
             </button>
-            <button class="btn btn-outline-secondary" (click)="dynamicCompGeneration('view', user)" type="button"
+            <button class="btn btn-outline-secondary me-2" (click)="dynamicCompGeneration('view', user)" type="button"
               data-bs-toggle="offcanvas" data-bs-target="#addNewUsers" aria-controls="addNewUsers">
               <i class="fa-regular fa-eye"></i>
+            </button>
+            <button class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#exampleModal"
+              (click)="selectUser(user)" type="button">
+              <i class="fa-regular fa-trash-can"></i>
             </button>
           </td>
         </tr>
       </ng-container>
 
+
+      <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog p-0 rounded-3">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h1 class="modal-title fs-5" id="exampleModalLabel">Delete SubUser</h1>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              Are you sure you want to delete {{selectedUser?.fullName}}?
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+              <button type="button" class="btn btn-danger" (click)="deleteUser()"
+                data-bs-dismiss="modal">Delete</button>
+            </div>
+          </div>
+        </div>
+      </div>
 
 
 
@@ -157,7 +180,7 @@
   </table>
 
 </div>
-<div class="start-0 position-fixed bottom-0 w-100 mx-0 bg-white">
+<div class="w-100 mx-0 bg-white">
   <div class="pagination row text-nowrap justify-content-center align-items-center py-4 text-center">
     <div class="row-control col-6 col-md-3 col-lg-2">
       <div>

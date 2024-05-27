@@ -35,9 +35,14 @@ export class ClientsService {
   updateClient(Client: client, id: string): Observable<any> {
     let name: string = Client.name;
     let PhoneNumber: string = Client.phoneNumber;
-    return this.http.post(
-      `${environment.baseURL}/Client/v1.0/Client/CreateClient`,
+    return this.http.put(
+      `${environment.baseURL}/Client/v1.0/Client/UpdateClient`,
       { name: name, phoneNumber: PhoneNumber, id: id }
+    );
+  }
+  deleteClient(id: string): Observable<any> {
+    return this.http.delete(
+      `${environment.baseURL}/Client/v1.0/Client/DeleteClient?id=${id}`
     );
   }
 }

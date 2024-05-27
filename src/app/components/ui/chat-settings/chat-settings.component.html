@@ -1,8 +1,13 @@
-<div class="px-3 ff-inter">
+<div class="px-3 ff-inter menu" [ngClass]="showSettings?'m-0':'mr--100'">
   <div class="chat-management">
-    <h6 class="m-0 mt-3 font-bold text-sm">
-      Chat Management
-    </h6>
+    <div class="d-flex justify-content-between align-items-center">
+      <h6 class="m-0 mt-3 font-bold text-sm">
+        Chat Management
+      </h6>
+      <button class="bg-transparent border-0 p-0 mt-3" (click)="closeMenu()">
+        <i class="fa-regular fa-circle-xmark"></i>
+      </button>
+    </div>
     <ul>
       <li class="border-bottom color-gray-600 py-3">
         <a>

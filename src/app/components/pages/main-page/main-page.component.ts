@@ -23,7 +23,7 @@ import { ChatService } from '../../../core/services/chat.service';
 export class MainPageComponent {
   selection: boolean = false;
   activeChat: chat;
-  showSettings: boolean;
+  showSettings: boolean = false;
 
   constructor(
     private _smallMediaNav: SmallMediaNavigationService,

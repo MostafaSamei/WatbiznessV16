@@ -14,6 +14,7 @@ import { NewSubUserComponent } from '../new-sub-user/new-sub-user.component';
 })
 export class UsersListComponent {
   constructor(private SubUserService: SubUserService) {}
+  selectedUser: SubUser | null = null;
   users: SubUser[] = [];
   offCanvasLabel: string;
   @ViewChild('container', { read: ViewContainerRef })
@@ -33,7 +34,7 @@ export class UsersListComponent {
       next: (resp) => {
         this.paginationDetails = JSON.parse(resp.headers.get('Pagination'));
         this.users = resp.body;
-        console.log(resp);
+        // console.log(resp);
       },
       error: (err) => {
         console.log(err);
@@ -41,6 +42,21 @@ export class UsersListComponent {
     });
   }
 
+  selectUser(SubUser: SubUser) {
+    this.selectedUser = SubUser;
+  }
+  deleteUser() {
+    this.SubUserService.deleteSubUser(this.selectedUser.id).subscribe({
+      next: (resp) => {
+        console.log(resp);
+
+        this.getSubUsers();
+      },
+      error: (err) => {
+        console.log(err);
+      },
+    });
+  }
   pageSizeChanged($event) {
     console.log($event.target.value);
     this.getSubUsers($event.target.value);

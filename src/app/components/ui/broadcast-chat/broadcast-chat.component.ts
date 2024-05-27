@@ -29,7 +29,7 @@ export class BroadcastChatComponent {
   ngOnInit() {
     this.getTemplates();
   }
-  getTemplates(pageSize = 5, pageNumber = 1) {
+  getTemplates(pageSize = 8, pageNumber = 1) {
     this.templatesService.getTemplates(pageSize, pageNumber).subscribe({
       next: (resp) => {
         this.templates = resp.body;

@@ -32,10 +32,23 @@ export class SubUserService {
       }
     );
   }
-  updateSubUser(body: SubUser, id: string): Observable<any> {
+  updateSubUser(body: SubUser): Observable<any> {
     return this.http.post(
       `${environment.baseURL}/SubUser/v1.0/SubUser/CreateSubUser`,
-      { body, id }
+      {
+        firstName: body.firstName,
+        lastName: body.lastName,
+        roleId: body.roleId,
+        password: body.password,
+        emailAddress: body.emailAddress,
+        phoneNumber: body.phoneNumber,
+        id: body.id,
+      }
+    );
+  }
+  deleteSubUser(id: string): Observable<any> {
+    return this.http.delete(
+      `${environment.baseURL}/SubUser/v1.0/SubUser/DeleteSubUser?id=${id}`
     );
   }
 }

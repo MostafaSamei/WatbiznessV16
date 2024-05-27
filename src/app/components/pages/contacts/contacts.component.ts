@@ -18,6 +18,7 @@ export class ContactsComponent {
   currentPage: number;
   clients: client[];
   offCanvasLabel: string;
+  selectedclient: client | null = null;
 
   paginationDetails: any = {
     PageSize: 5,
@@ -29,13 +30,29 @@ export class ContactsComponent {
   ngOnInit() {
     this.gettingClients();
   }
-  gettingClients(pageSize = 5, pageNumber = 1) {
+  gettingClients(pageSize = 10, pageNumber = 1) {
     this.clientsService.getClients(pageSize, pageNumber).subscribe({
       next: (resp) => {
         this.paginationDetails = JSON.parse(resp.headers.get('Pagination'));
-        console.log(this.paginationDetails);
+        console.log(resp.body);
 
         this.clients = resp.body;
+      },
+      error: (err) => {
+        console.log(err);
+      },
+    });
+  }
+
+  selectUser(SubUser: client) {
+    this.selectedclient = SubUser;
+  }
+  deleteUser() {
+    this.clientsService.deleteClient(this.selectedclient.userId).subscribe({
+      next: (resp) => {
+        console.log(resp);
+
+        this.gettingClients();
       },
       error: (err) => {
         console.log(err);
