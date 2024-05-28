@@ -1,9 +1,10 @@
+<ngx-spinner name="loading" bdColor="rgba(0, 0, 0, 0.8)" size="medium" color="#0b5ed7"
+             type="ball-clip-rotate-multiple" [fullScreen]="true">
+  <p style="color: white"> Loading... </p>
+</ngx-spinner>
+
 <div class="position-relative">
   <router-outlet></router-outlet>
-  <ngx-spinner name="loading" bdColor="rgba(0, 0, 0, 0.8)" size="medium" color="#0b5ed7"
-    type="ball-clip-rotate-multiple" [fullScreen]="true">
-    <p style="color: white"> Loading... </p>
-  </ngx-spinner>
   <ngx-spinner name="login" [fullScreen]="true">
     <div class="login-Success bg-white rounded-4 p-5 text-center position-relative" style="margin-top: -100px;">
       <div class="login-Success-img ">
