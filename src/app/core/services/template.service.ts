@@ -26,4 +26,9 @@ export class TemplateService {
       `${environment.baseURL}/Chat/v1.0/Template/SyncTemplates`
     );
   }
+  deleteTemplate(TemplateId: string): Observable<any> {
+    return this.http.delete<any>(
+      `${environment.baseURL}/Chat/v1.0/Template/DeleteTemplate?id=${TemplateId}`
+    );
+  }
 }

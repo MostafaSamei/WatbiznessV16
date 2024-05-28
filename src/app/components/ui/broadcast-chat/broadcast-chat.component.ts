@@ -42,6 +42,17 @@ export class BroadcastChatComponent {
       },
     });
   }
+  deleteTemplate(template: Template) {
+    console.log(template.id);
+    this.templatesService.deleteTemplate(template.id).subscribe({
+      next: (resp) => {
+        console.log(resp);
+      },
+      error: (err) => {
+        // console.log(err);
+      },
+    });
+  }
 
   pageSizeChanged($event) {
     console.log($event.target.value);

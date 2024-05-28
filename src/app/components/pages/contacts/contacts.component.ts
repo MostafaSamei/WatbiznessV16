@@ -2,13 +2,13 @@ import { Component, ViewChild, ViewContainerRef } from '@angular/core';
 import { NewContactComponent } from '../../ui/new-contact/new-contact.component';
 import { ClientsService } from 'src/app/core/services/clients.service';
 import { client } from 'src/app/core/models/client';
-import { NgFor, NgIf } from '@angular/common';
+import { NgClass, NgFor, NgIf } from '@angular/common';
 import { NgxPaginationModule } from 'ngx-pagination';
 
 @Component({
   selector: 'app-contacts',
   standalone: true,
-  imports: [NewContactComponent, NgFor, NgIf, NgxPaginationModule],
+  imports: [NewContactComponent, NgFor, NgIf, NgxPaginationModule, NgClass],
   templateUrl: './contacts.component.html',
   styleUrls: ['./contacts.component.scss'],
 })

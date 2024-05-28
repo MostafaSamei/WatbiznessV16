@@ -16,9 +16,13 @@
     max-width: 1440px !important;
   }
 }
+
 .container-fluid{
   overflow: hidden !important;
   position: relative !important;
+}
+.navbar .container-fluid{
+  overflow: visible !important;
 }
 
 .app-body{

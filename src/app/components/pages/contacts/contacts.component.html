@@ -63,10 +63,9 @@
       <thead>
         <tr class="text-center">
           <th scope="col" class="py-3 text-start">Name and Phone</th>
-          <th scope="col" class="py-3">Attributes</th>
-          <th scope="col" class="py-3">Email Address</th>
+
           <th scope="col" class="py-3">Status</th>
-          <th scope="col" class="py-3">Actions</th>
+          <th scope="col" class="py-3 w-auto">Actions</th>
         </tr>
       </thead>
       <tbody>
@@ -79,11 +78,11 @@
               <h6 class="text-primary m-0">{{client.name}}</h6>
               <span>{{client.phoneNumber}}</span>
             </td>
-            <td></td>
-            <td>user&#x40;company.com</td>
+
             <td>
-              <span class="small fw-semibold text-success bg-success-subtle btn">
-                Solved
+              <span class="small fw-semibold  btn"
+                [ngClass]="client.isBlocked?'text-danger bg-danger-subtle':'text-success bg-success-subtle'">
+                {{client.isBlocked?'Blocked':'Active'}}
               </span>
             </td>
             <td>
