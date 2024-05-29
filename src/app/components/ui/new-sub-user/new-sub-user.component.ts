@@ -1,3 +1,4 @@
+import { RolesService } from './../../../core/services/roles.service';
 import { Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { SubUser } from 'src/app/core/models/sub-user';
@@ -21,10 +22,13 @@ export class NewSubUserComponent {
   @Input() method: string;
   constructor(
     private _formBuilder: FormBuilder,
-    private SubUserService: SubUserService
+    private SubUserService: SubUserService,
+    private RolesService: RolesService
   ) {}
   addUserForm: FormGroup;
+  roles: any;
   ngOnInit() {
+    this.getRoles();
     this.addUserForm = this._formBuilder.group({
       firstName: [
         { value: this.user?.firstName || '', disabled: this.method == 'view' },
@@ -55,7 +59,13 @@ export class NewSubUserComponent {
         },
         [Validators.required],
       ],
-      roleId: ['6d3a4beb-d4e6-49a3-a392-228d44f70e09', [Validators.required]],
+      roleId: [
+        {
+          value: this.user?.roleId || 'Default',
+          disabled: this.method == 'view',
+        },
+        [Validators.required],
+      ],
     });
     if (this.method != 'view') {
       this.addUserForm.addControl('password', this._formBuilder.control(''));
@@ -102,5 +112,16 @@ export class NewSubUserComponent {
       console.log('form unvalid');
       return;
     }
+  }
+  getRoles() {
+    this.RolesService.getRoles().subscribe({
+      next: (resp) => {
+        console.log(resp);
+        this.roles = resp;
+      },
+      error: (err) => {
+        console.log(err);
+      },
+    });
   }
 }
