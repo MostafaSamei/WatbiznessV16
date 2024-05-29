@@ -1,5 +1,5 @@
 import { OpeningChatSettingsService } from './opening-chat-settings.service';
-import { Component } from '@angular/core';
+import {Component, EventEmitter, Output} from '@angular/core';
 import { SidebarComponent } from '../../ui/sidebar/sidebar.component';
 import { ChatVPComponent } from '../../ui/chat-vp/chat-vp.component';
 import { ChatSettingsComponent } from '../../ui/chat-settings/chat-settings.component';

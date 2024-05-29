@@ -2,9 +2,9 @@ import { OpeningChatSettingsService } from './../../pages/main-page/opening-chat
 import {
   AfterViewChecked,
   Component,
-  ElementRef,
+  ElementRef, EventEmitter,
   Input,
-  OnInit,
+  OnInit, Output,
   ViewChild,
 } from '@angular/core';
 import { SmallMediaNavigationService } from '../../pages/main-page/small-media-navigation.service';
@@ -60,7 +60,7 @@ export class ChatVPComponent implements OnInit, AfterViewChecked {
     private messageService: MessageService,
     private signalRService: SignalRService,
     private templateService: TemplateService,
-    private OpeningChatSettingsService: OpeningChatSettingsService
+    private openingChatSettingsService: OpeningChatSettingsService
   ) {
     signalRService.messageReceived$.subscribe((msg) => {
       // Handle incoming messages
@@ -71,22 +71,29 @@ export class ChatVPComponent implements OnInit, AfterViewChecked {
       });
 
       this.chat.opened = true;
+      this.refreshGroupChats();
 
       this.scrollToBottom();
     });
   }
+
+  private refreshGroupChats() {
+    this.openingChatSettingsService.reloadSidebarGroupChats.next(!this.openingChatSettingsService.reloadSidebarGroupChats.value);
+  }
+
   changeChatSettingsState() {
     if (window.innerWidth < 768) {
       document.getElementById('chatSettings').style.display = 'none';
     }
-    this.OpeningChatSettingsService.showSettings.next(
-      !this.OpeningChatSettingsService.showSettings.getValue()
+    this.openingChatSettingsService.showSettings.next(
+      !this.openingChatSettingsService.showSettings.getValue()
     );
   }
   ngOnInit() {
-    this.OpeningChatSettingsService.showSettings.subscribe((value) => {
+    this.openingChatSettingsService.showSettings.subscribe((value) => {
       this.showSettings = value;
     });
+
     this.selectionListener();
     this.scrollToBottom();
     this.loadTemplateMessages();
@@ -120,6 +127,7 @@ export class ChatVPComponent implements OnInit, AfterViewChecked {
         fileUrl: messageResult.fileUrl,
       });
 
+      this.refreshGroupChats();
       this.resetMessageInput();
     });
   }
@@ -201,7 +209,8 @@ export class ChatVPComponent implements OnInit, AfterViewChecked {
         this.myScrollContainer.nativeElement.scrollHeight;
     } catch (err) {}
   }
+
   ngOnDestroy() {
-    this.OpeningChatSettingsService.showSettings.next(false);
+    this.openingChatSettingsService.showSettings.next(false);
   }
 }
