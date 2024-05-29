@@ -73,6 +73,13 @@ export const routes: Routes = [
                 './components/ui/broadcast-chat/broadcast-chat.component'
               ).then((m) => m.BroadcastChatComponent),
           },
+          {
+            path: 'Scheduled',
+            loadComponent: () =>
+              import(
+                './components/ui/broadcast-history/broadcast-history.component'
+              ).then((m) => m.BroadcastHistoryComponent),
+          },
         ],
       },
       {

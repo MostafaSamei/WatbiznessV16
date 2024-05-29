@@ -9,6 +9,7 @@ import { client } from 'src/app/core/models/client';
 import { ClientsService } from 'src/app/core/services/clients.service';
 import { ViewBroadcastComponent } from '../view-broadcast/view-broadcast.component';
 import { NgxPaginationModule } from 'ngx-pagination';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-broadcast-history',
@@ -22,15 +23,22 @@ export class BroadcastHistoryComponent {
   container!: ViewContainerRef;
   offCanvusLable: string;
   clients: client[] = [];
+  path!: string;
   constructor(
     private BroadcastService: BroadcastService,
-    private clientService: ClientsService
+    private clientService: ClientsService,
+    private route: ActivatedRoute
   ) {}
   ngOnInit() {
     this.getClientsNoPagation();
-
     this.getStatistics();
-    this.getBroadCasts();
+    this.path = this.route.snapshot.url[0].path;
+    if (this.path == 'history') {
+      this.getBroadCasts();
+    } else if (this.path == 'Scheduled') {
+      this.getBroadCasts(5, 1, false);
+    }
+    console.log();
   }
   paginationDetails: any = {
     PageSize: 5,
@@ -71,11 +79,16 @@ export class BroadcastHistoryComponent {
       },
     });
   }
-  getBroadCasts(pageSize = 5, pageNumber = 1) {
-    this.BroadcastService.getBroadCasts(pageSize, pageNumber).subscribe({
+  getBroadCasts(pageSize = 5, pageNumber = 1, isSendTimeNow = null) {
+    this.BroadcastService.getBroadCasts(
+      pageSize,
+      pageNumber,
+      isSendTimeNow
+    ).subscribe({
       next: (resp) => {
         this.broadcasts = resp.body;
         this.paginationDetails = JSON.parse(resp.headers.get('Pagination'));
+        console.log(resp.body);
       },
       error: (err) => {
         console.log(err);
@@ -94,7 +107,8 @@ export class BroadcastHistoryComponent {
   getClients() {
     this.clientService.getClients(1000, 1).subscribe({
       next: (resp) => {
-        this.clients = resp.body;console.log(resp.body)
+        this.clients = resp.body;
+        console.log(resp.body);
       },
       error: (err) => {
         console.log(err);

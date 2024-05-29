@@ -14,9 +14,17 @@ export class BroadcastService {
       `${environment.baseURL}/Broadcast/v1.0/Broadcast/GetBroadcastStatistics`
     );
   }
-  getBroadCasts(pageSize: number, pageNumber: number): Observable<any> {
+  getBroadCasts(
+    pageSize: number,
+    pageNumber: number,
+    isSendTimeNow: boolean | null = null
+  ): Observable<any> {
     return this.http.get(
-      `${environment.baseURL}/Broadcast/v1.0/Broadcast/GetBroadcasts?PageSize=${pageSize}&PageNumber=${pageNumber}`,
+      `${
+        environment.baseURL
+      }/Broadcast/v1.0/Broadcast/GetBroadcasts?PageSize=${pageSize}&PageNumber=${pageNumber}${
+        isSendTimeNow != null ? `&IsSendTimeNow=${isSendTimeNow}` : ''
+      }`,
       { observe: 'response' }
     );
   }

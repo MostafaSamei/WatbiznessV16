@@ -18,6 +18,7 @@ import { NgxPaginationModule } from 'ngx-pagination';
   styleUrls: ['./broadcast-chat.component.scss'],
 })
 export class BroadcastChatComponent {
+  selectedTemplate: Template;
   constructor(private templatesService: TemplateService) {}
   paginationDetails: any = {
     PageSize: 5,
@@ -42,9 +43,8 @@ export class BroadcastChatComponent {
       },
     });
   }
-  deleteTemplate(template: Template) {
-    console.log(template.id);
-    this.templatesService.deleteTemplate(template.id).subscribe({
+  deleteTemplate() {
+    this.templatesService.deleteTemplate(this.selectedTemplate.id).subscribe({
       next: (resp) => {
         console.log(resp);
       },
@@ -52,6 +52,9 @@ export class BroadcastChatComponent {
         // console.log(err);
       },
     });
+  }
+  selectUser(template: Template) {
+    this.selectedTemplate = template;
   }
 
   pageSizeChanged($event) {
