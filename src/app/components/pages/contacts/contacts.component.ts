@@ -1,6 +1,6 @@
 import {
   Component,
-  ElementRef, EventEmitter,
+  ElementRef,
   TemplateRef,
   ViewChild,
   ViewContainerRef,
@@ -19,19 +19,12 @@ import { NgxPaginationModule } from 'ngx-pagination';
   styleUrls: ['./contacts.component.scss'],
 })
 export class ContactsComponent {
-  // @ViewChild('container', { read: ViewContainerRef })
-  @ViewChild(NewContactComponent) contactModal!: NewContactComponent
-
+  @ViewChild('container', { read: ViewContainerRef })
   container!: ViewContainerRef;
   currentPage: number;
   clients: client[];
   offCanvasLabel: string;
   selectedclient: client | null = null;
-
-  // edit contact modal
-  client: client;
-  method: string;
-
 
   paginationDetails: any = {
     PageSize: 5,
@@ -49,6 +42,7 @@ export class ContactsComponent {
     this.clientsService.getClients(pageSize, pageNumber).subscribe({
       next: (resp) => {
         this.paginationDetails = JSON.parse(resp.headers.get('Pagination'));
+        console.log(resp.body);
 
         this.clients = resp.body;
       },
@@ -58,17 +52,17 @@ export class ContactsComponent {
     });
   }
 
-  refreshContacts() {
-    this.gettingClients();
-    this.closeOffCanvas();
+  closeOffCanvas(): void {
+    document.getElementById('closeOffCanvasBtn')?.click();
   }
-
   selectUser(SubUser: client) {
     this.selectedclient = SubUser;
   }
   deleteUser() {
-    this.clientsService.deleteClient(this.selectedclient.id).subscribe({
+    this.clientsService.deleteClient(this.selectedclient.userId).subscribe({
       next: (resp) => {
+        console.log(resp);
+
         this.gettingClients();
       },
       error: (err) => {
@@ -92,7 +86,6 @@ export class ContactsComponent {
       this.paginationDetails.CurrentPage + 1
     );
   }
-
   setLabel(method: string) {
     if (method == 'add') {
       this.offCanvasLabel = 'Add New';
@@ -102,14 +95,21 @@ export class ContactsComponent {
       this.offCanvasLabel = 'View';
     }
   }
-
   dynamicCompGeneration(method: string, client: client | null) {
     this.setLabel(method);
-    this.contactModal.initializeClient(client, method);
+    this.loadComponent(method, client);
   }
 
-  private closeOffCanvas(): void {
-    document.getElementById('closeOffCanvasBtn')?.click();
+  loadComponent(method, client) {
+    this.container.clear();
+    const compRef = this.container.createComponent(NewContactComponent);
+    compRef.instance.clickEvent.subscribe(this.closeOffCanvas);
+    compRef.instance.method = method;
+    if (client != null) {
+      compRef.instance.client = client;
+    }
   }
-
+  clearContainer() {
+    this.container.clear();
+  }
 }

@@ -8,7 +8,6 @@ import {
 } from '@angular/forms';
 import { client } from 'src/app/core/models/client';
 import { NgIf } from '@angular/common';
-import {ElementSchemaRegistry} from "@angular/compiler";
 
 @Component({
   selector: 'app-new-contact',
@@ -18,25 +17,41 @@ import {ElementSchemaRegistry} from "@angular/compiler";
   styleUrls: ['./new-contact.component.scss'],
 })
 export class NewContactComponent {
-  @Output() refreshContactsEvent: EventEmitter<MouseEvent> = new EventEmitter<MouseEvent>();
-  constructor(private formBuilder: FormBuilder, private ClientsService: ClientsService) {}
+  @Output() clickEvent: EventEmitter<MouseEvent> =
+    new EventEmitter<MouseEvent>();
+  constructor(
+    private _formBuilder: FormBuilder,
+    private ClientsService: ClientsService
+  ) {}
 
-  client!: client;
-  method: string;
+  @Input() client!: client;
+  @Input() method: string;
 
   addClientForm: FormGroup;
 
   ngOnInit() {
-    this.addClientForm = this.formBuilder.group({
+    this.addClientForm = this._formBuilder.group({
       name: [
-        { value: '', disabled: this.method == 'view' }, [Validators.required]
+        { value: this.client?.name || '', disabled: this.method == 'view' },
+        [Validators.required],
       ],
       phoneNumber: [
-        {value: '', disabled: this.method == 'view'},[Validators.required],
+        {
+          value: this.client?.phoneNumber || '',
+          disabled: this.method == 'view',
+        },
+        [Validators.required],
       ],
     });
   }
 
+  submitForm() {
+    if (this.method == 'add') {
+      this.addClient();
+    } else if (this.method == 'edit') {
+      this.updateClient();
+    }
+  }
   addClient() {
     if (this.addClientForm.valid) {
       this.ClientsService.addClient(this.addClientForm.value).subscribe({
@@ -47,7 +62,7 @@ export class NewContactComponent {
           console.log(err);
         },
         complete: () => {
-          this.refreshContactsEvent.emit();
+          this.clickEvent.emit();
         },
       });
     } else if (this.addClientForm.invalid) {
@@ -55,36 +70,26 @@ export class NewContactComponent {
       return;
     }
   }
-
   updateClient() {
+    console.log(this.addClientForm.value);
     if (this.addClientForm.valid) {
-
-      this.ClientsService.updateClient(this.addClientForm.value, this.client.id)
-        .subscribe({
-          next: (response) => {
-            console.log(response);
-          },
-          error: (err) => {
-            console.log(err);
-          },
-          complete: () => {
-            this.refreshContactsEvent.emit();
-          },
+      this.ClientsService.updateClient(
+        this.addClientForm.value,
+        this.client.id
+      ).subscribe({
+        next: (respone) => {
+          console.log(respone);
+        },
+        error: (err) => {
+          console.log(err);
+        },
+        complete: () => {
+          this.clickEvent.emit();
+        },
       });
-
     } else if (this.addClientForm.invalid) {
-      console.log('form invalid');
+      console.log('form unvalid');
       return;
     }
-  }
-
-  initializeClient(client: client, method: string) {
-    this.client = client;
-    this.method = method;
-
-    if (client != null)
-      this.addClientForm.patchValue(client);
-    else
-      this.addClientForm.reset();
   }
 }
