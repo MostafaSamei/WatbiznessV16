@@ -9,7 +9,7 @@
             </h6>
           </div>
         </div>
-        <form [formGroup]="addClientForm" (ngSubmit)="method=='add'?addClient():updateClient()">
+        <form [formGroup]="addClientForm" (ngSubmit)="method == 'add' ? addClient() : updateClient()">
           <div class="body border border-primary-subtle border-top-0 p-2 rounded-bottom-3 ">
 
             <div class="mb-2">
@@ -20,13 +20,12 @@
               <div class="d-flex justify-content-between">
                 <p class="simi-small fw-semibold">Phone Number</p>
               </div>
-              <input formControlName="phoneNumber" type="text" class="form-control px-3 py-2"
-                placeholder="Contact Number">
+              <input formControlName="phoneNumber" type="text" class="form-control px-3 py-2" placeholder="Contact Number">
 
             </div>
 
           </div>
-          <button class="btn btn-primary mt-2 w-100 simi-small fw-semibold" type="submit" *ngIf="method !='view'">
+          <button class="btn btn-primary mt-2 w-100 simi-small fw-semibold" type="submit" *ngIf="method && method !='view'">
             {{method.slice(0,1).toLocaleUpperCase()+method.slice(1)}} Contact
           </button>
         </form>
