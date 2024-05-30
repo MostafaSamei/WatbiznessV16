@@ -136,6 +136,14 @@ export class BroadcastHistoryComponent {
     let compRef;
     if (method == 'add') {
       compRef = this.container.createComponent(NewBroadcastComponent);
+      compRef.instance.clickEvent.subscribe((val) => {
+        this.closeOffCanvas();
+        if (this.path == 'history') {
+          this.getBroadCasts();
+        } else if (this.path == 'Scheduled') {
+          this.getBroadCasts(5, 1, true);
+        }
+      });
       compRef.instance.clients = this.clients;
     } else if (method == 'view') {
       compRef = this.container.createComponent(ViewBroadcastComponent);
@@ -144,5 +152,8 @@ export class BroadcastHistoryComponent {
   }
   clearContainer() {
     this.container.clear();
+  }
+  closeOffCanvas(): void {
+    document.getElementById('closeOffCanvasBtn')?.click();
   }
 }

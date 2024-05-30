@@ -1,5 +1,5 @@
 import { RolesService } from './../../../core/services/roles.service';
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { SubUser } from 'src/app/core/models/sub-user';
 import {
@@ -18,6 +18,8 @@ import { SubUserService } from 'src/app/core/services/sub-user.service';
   styleUrls: ['./new-sub-user.component.scss'],
 })
 export class NewSubUserComponent {
+  @Output() clickEvent: EventEmitter<MouseEvent> =
+    new EventEmitter<MouseEvent>();
   @Input() user!: SubUser;
   @Input() method: string;
   constructor(
@@ -87,6 +89,9 @@ export class NewSubUserComponent {
         error: (err) => {
           console.log(err);
         },
+        complete: () => {
+          this.clickEvent.emit();
+        },
       });
     } else if (this.addUserForm.invalid) {
       console.log('form unvalid');
@@ -105,7 +110,7 @@ export class NewSubUserComponent {
           console.log(err);
         },
         complete: () => {
-          // window.location.reload();
+          this.clickEvent.emit();
         },
       });
     } else if (this.addUserForm.invalid) {

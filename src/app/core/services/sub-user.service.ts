@@ -33,8 +33,8 @@ export class SubUserService {
     );
   }
   updateSubUser(body: SubUser): Observable<any> {
-    return this.http.post(
-      `${environment.baseURL}/SubUser/v1.0/SubUser/CreateSubUser`,
+    return this.http.put(
+      `${environment.baseURL}/SubUser/v1.0/SubUser/UpdateSubUser`,
       {
         firstName: body.firstName,
         lastName: body.lastName,

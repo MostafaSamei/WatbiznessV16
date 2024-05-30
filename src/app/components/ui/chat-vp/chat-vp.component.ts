@@ -2,9 +2,11 @@ import { OpeningChatSettingsService } from './../../pages/main-page/opening-chat
 import {
   AfterViewChecked,
   Component,
-  ElementRef, EventEmitter,
+  ElementRef,
+  EventEmitter,
   Input,
-  OnInit, Output,
+  OnInit,
+  Output,
   ViewChild,
 } from '@angular/core';
 import { SmallMediaNavigationService } from '../../pages/main-page/small-media-navigation.service';
@@ -78,7 +80,9 @@ export class ChatVPComponent implements OnInit, AfterViewChecked {
   }
 
   private refreshGroupChats() {
-    this.openingChatSettingsService.reloadSidebarGroupChats.next(!this.openingChatSettingsService.reloadSidebarGroupChats.value);
+    this.openingChatSettingsService.reloadSidebarGroupChats.next(
+      !this.openingChatSettingsService.reloadSidebarGroupChats.value
+    );
   }
 
   changeChatSettingsState() {
@@ -160,11 +164,13 @@ export class ChatVPComponent implements OnInit, AfterViewChecked {
         });
 
         // hide the modal
-
+        this.closeModal();
         this.resetMessageInput();
       });
   }
-
+  closeModal() {
+    document.getElementById('modalSaveBtn')?.click();
+  }
   select($event: any) {
     this.selectedEmoji = $event.emoji.native;
     // let lastValue = document.getElementById('messagingField');
