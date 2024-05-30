@@ -29,10 +29,10 @@ export class NewContactComponent {
   ngOnInit() {
     this.addClientForm = this.formBuilder.group({
       name: [
-        { value: '' }, [Validators.required]
+        { value: '', disabled: this.method == 'view' }, [Validators.required]
       ],
       phoneNumber: [
-        {value: ''},[Validators.required],
+        {value: '', disabled: this.method == 'view'},[Validators.required],
       ],
     });
   }
@@ -83,13 +83,8 @@ export class NewContactComponent {
     this.method = method;
 
     if (client != null)
-      this.addClientForm.patchValue(client)
+      this.addClientForm.patchValue(client);
     else
       this.addClientForm.reset();
-
-    if (method == 'view')
-      this.addClientForm.disable();
-    else
-      this.addClientForm.enable();
   }
 }
