@@ -90,6 +90,10 @@ export class UsersListComponent {
   loadComponent(method, SubUser) {
     this.container.clear();
     const compRef = this.container.createComponent(NewSubUserComponent);
+    compRef.instance.clickEvent.subscribe((val) => {
+      this.closeOffCanvas();
+      this.getSubUsers();
+    });
     compRef.instance.method = method;
     if (SubUser != null) {
       compRef.instance.user = SubUser;
@@ -97,5 +101,8 @@ export class UsersListComponent {
   }
   clearContainer() {
     this.container.clear();
+  }
+  closeOffCanvas(): void {
+    document.getElementById('closeOffCanvasBtn')?.click();
   }
 }

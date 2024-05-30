@@ -1,10 +1,4 @@
-import {
-  Component,
-  ElementRef,
-  TemplateRef,
-  ViewChild,
-  ViewContainerRef,
-} from '@angular/core';
+import { Component, ViewChild, ViewContainerRef } from '@angular/core';
 import { NewContactComponent } from '../../ui/new-contact/new-contact.component';
 import { ClientsService } from 'src/app/core/services/clients.service';
 import { client } from 'src/app/core/models/client';
@@ -52,9 +46,6 @@ export class ContactsComponent {
     });
   }
 
-  closeOffCanvas(): void {
-    document.getElementById('closeOffCanvasBtn')?.click();
-  }
   selectUser(SubUser: client) {
     this.selectedclient = SubUser;
   }
@@ -67,6 +58,10 @@ export class ContactsComponent {
       },
       error: (err) => {
         console.log(err);
+      },
+
+      complete: () => {
+        document.getElementById('closeModalBtn')?.click();
       },
     });
   }
@@ -103,7 +98,10 @@ export class ContactsComponent {
   loadComponent(method, client) {
     this.container.clear();
     const compRef = this.container.createComponent(NewContactComponent);
-    compRef.instance.clickEvent.subscribe(this.closeOffCanvas);
+    compRef.instance.clickEvent.subscribe((val) => {
+      this.closeOffCanvas();
+      this.gettingClients();
+    });
     compRef.instance.method = method;
     if (client != null) {
       compRef.instance.client = client;
@@ -111,5 +109,8 @@ export class ContactsComponent {
   }
   clearContainer() {
     this.container.clear();
+  }
+  closeOffCanvas(): void {
+    document.getElementById('closeOffCanvasBtn')?.click();
   }
 }

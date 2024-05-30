@@ -1,5 +1,5 @@
 import { BroadcastService } from 'src/app/core/services/broadcast.service';
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { TemplateService } from 'src/app/core/services/template.service';
 import { Template } from 'src/app/core/models/template';
 import { client } from 'src/app/core/models/client';
@@ -27,7 +27,8 @@ export class NewBroadcastComponent {
     private templatesService: TemplateService,
     private BroadcastService: BroadcastService
   ) {}
-
+  @Output() clickEvent: EventEmitter<MouseEvent> =
+    new EventEmitter<MouseEvent>();
   broadcase: Broadcast;
   templates: Template[] = [];
   @Input() clients: client[] = [];
@@ -95,6 +96,9 @@ export class NewBroadcastComponent {
         },
         error: (err) => {
           console.log(err);
+        },
+        complete: () => {
+          this.clickEvent.emit();
         },
       });
     }
