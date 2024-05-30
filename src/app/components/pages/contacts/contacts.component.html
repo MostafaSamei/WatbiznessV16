@@ -162,7 +162,8 @@
 <div class="offcanvas offcanvas-end" tabindex="-1" id="addNewClient" aria-labelledby="offcanvasExampleLabel">
   <div class="offcanvas-header d-flex justify-content-between">
     <h5 class="offcanvas-title" id="offcanvasExampleLabel">{{offCanvasLabel}} Contact</h5>
-    <button type="button" class="btn p-0" data-bs-dismiss="offcanvas" aria-label="Close" (click)="clearContainer()">
+    <button id="closeOffCanvasBtn" type="button" class="btn p-0" data-bs-dismiss="offcanvas" aria-label="Close"
+      (click)="clearContainer()">
       <i class="fa-regular fa-circle-xmark"></i>
     </button>
   </div>
@@ -170,4 +171,6 @@
     <ng-container #container></ng-container>
     <!-- <app-new-contact></app-new-contact> -->
   </div>
+
+  <!-- <button (click)="closeOffCanvasBtn.click()"> clickme</button> -->
 </div>

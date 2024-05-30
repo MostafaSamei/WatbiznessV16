@@ -1,4 +1,10 @@
-import { Component, ViewChild, ViewContainerRef } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  TemplateRef,
+  ViewChild,
+  ViewContainerRef,
+} from '@angular/core';
 import { NewContactComponent } from '../../ui/new-contact/new-contact.component';
 import { ClientsService } from 'src/app/core/services/clients.service';
 import { client } from 'src/app/core/models/client';
@@ -26,10 +32,12 @@ export class ContactsComponent {
     TotalCount: 0,
     TotalPages: 0,
   };
+
   constructor(private clientsService: ClientsService) {}
   ngOnInit() {
     this.gettingClients();
   }
+
   gettingClients(pageSize = 10, pageNumber = 1) {
     this.clientsService.getClients(pageSize, pageNumber).subscribe({
       next: (resp) => {
@@ -44,6 +52,9 @@ export class ContactsComponent {
     });
   }
 
+  closeOffCanvas(): void {
+    document.getElementById('closeOffCanvasBtn')?.click();
+  }
   selectUser(SubUser: client) {
     this.selectedclient = SubUser;
   }
@@ -92,6 +103,7 @@ export class ContactsComponent {
   loadComponent(method, client) {
     this.container.clear();
     const compRef = this.container.createComponent(NewContactComponent);
+    compRef.instance.clickEvent.subscribe(this.closeOffCanvas);
     compRef.instance.method = method;
     if (client != null) {
       compRef.instance.client = client;

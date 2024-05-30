@@ -1,7 +1,7 @@
 <div class="w-100 bg-gray-100 mt-3 py-4 px-3">
   <div class="d-flex align-items-center justify-content-between">
     <h5 class="fw-bold m-0">
-      Users list
+      Roles list
     </h5>
     <div class="controll-buttons d-none d-md-block">
       <button class="btn btn-outline-primary me-3">
@@ -10,194 +10,54 @@
           Filter
         </span>
       </button>
+    </div>
 
-      <button class="btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#addNewUsers"
-        aria-controls="addNewUsers">
-        <i class="fa-solid fa-circle-plus me-1"></i>
-        <span>
-          New Users
-        </span>
-      </button>
-    </div>
-    <div class="dropdown d-block d-md-none">
-      <button class="btn btn-secondary rounded-icon" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-        <i class="fa-solid fa-angle-down"></i>
-      </button>
-      <ul class="dropdown-menu ">
-        <li class="btn text-primary">
-          <i class="fa-solid fa-filter me-1"></i>
-          Filter
-        </li>
-        <li class="btn text-primary">
-          <i class="fa-solid fa-download me-1"></i>
-          Export
-        </li>
-        <li class="btn  text-nowrap">
-          <button class="btn p-0 text-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#addNewUsers"
-            aria-controls="addNewUsers">
-            <i class="fa-solid fa-circle-plus me-1"></i>
-            New Users
-          </button>
-        </li>
-      </ul>
-    </div>
   </div>
 </div>
 <div class="px-3 pt-3 table-responsive">
   <table class="table align-middle">
     <thead>
       <tr class="text-center">
-        <th scope="col" class="py-3 text-start">Name</th>
-        <th scope="col" class="py-3">Successful</th>
-        <th scope="col" class="py-3">Read</th>
-        <th scope="col" class="py-3">Replied</th>
-        <th scope="col" class="py-3">Recipients</th>
-        <th scope="col" class="py-3">Failed</th>
-        <th scope="col" class="py-3">Status</th>
-        <th scope="col" class="py-3">Actions</th>
+        <th scope="col" class="py-3 text-start">Role Name</th>
+        <th scope="col" class="py-3">Create Message</th>
+        <th scope="col" class="py-3">Read Broadcast</th>
+        <th scope="col" class="py-3">last Updated At</th>
+
       </tr>
     </thead>
     <tbody>
-      <tr class="text-center text-nowrap">
-        <td class="text-start">
-          <h6 class="text-primary">Test - 01</h6>
-          <span>2023-12-09 05:51 PM</span>
-        </td>
-        <td>0%</td>
-        <td>0%</td>
-        <td>0%</td>
-        <td> 1 Contacts</td>
-        <td> 0 Contacts</td>
-        <td> completed</td>
-        <td>
-          <button class="btn btn-outline-secondary me-2">
-            <i class="fa-regular fa-pen-to-square"></i>
-          </button>
-          <button class="btn btn-outline-secondary">
-            <i class="fa-regular fa-eye"></i>
-          </button>
-        </td>
-      </tr>
-      <tr class="text-center">
-        <td class="text-start">
-          <h6 class="text-primary">Test - 02</h6>
-          <span>2023-12-09 05:51 PM</span>
-        </td>
-        <td>0%</td>
-        <td>0%</td>
-        <td>0%</td>
-        <td> 1 Contacts</td>
-        <td> 0 Contacts</td>
-        <td> completed</td>
-        <td>
-          <button class="btn btn-outline-secondary me-2">
-            <i class="fa-regular fa-pen-to-square"></i>
-          </button>
-          <button class="btn btn-outline-secondary">
-            <i class="fa-regular fa-eye"></i>
-          </button>
-        </td>
-      </tr>
-      <tr class="text-center">
-        <td class="text-start">
-          <h6 class="text-primary">Test - 03</h6>
-          <span>2023-12-09 05:51 PM</span>
-        </td>
-        <td>0%</td>
-        <td>0%</td>
-        <td>0%</td>
-        <td> 1 Contacts</td>
-        <td> 0 Contacts</td>
-        <td> completed</td>
-        <td>
-          <button class="btn btn-outline-secondary me-2">
-            <i class="fa-regular fa-pen-to-square"></i>
-          </button>
-          <button class="btn btn-outline-secondary">
-            <i class="fa-regular fa-eye"></i>
-          </button>
-        </td>
-      </tr>
-      <tr class="text-center">
-        <td class="text-start">
-          <h6 class="text-primary">Test - 04</h6>
-          <span>2023-12-09 05:51 PM</span>
-        </td>
-        <td>0%</td>
-        <td>0%</td>
-        <td>0%</td>
-        <td> 1 Contacts</td>
-        <td> 0 Contacts</td>
-        <td> completed</td>
-        <td>
-          <button class="btn btn-outline-secondary me-2">
-            <i class="fa-regular fa-pen-to-square"></i>
-          </button>
-          <button class="btn btn-outline-secondary">
-            <i class="fa-regular fa-eye"></i>
-          </button>
-        </td>
-      </tr>
-      <tr class="text-center">
-        <td class="text-start">
-          <h6 class="text-primary">Test - 06</h6>
-          <span>2023-12-09 05:51 PM</span>
-        </td>
-        <td>0%</td>
-        <td>0%</td>
-        <td>0%</td>
-        <td> 1 Contacts</td>
-        <td> 0 Contacts</td>
-        <td> completed</td>
-        <td>
-          <button class="btn btn-outline-secondary me-2">
-            <i class="fa-regular fa-pen-to-square"></i>
-          </button>
-          <button class="btn btn-outline-secondary">
-            <i class="fa-regular fa-eye"></i>
-          </button>
-        </td>
-      </tr>
-      <tr class="text-center">
-        <td class="text-start">
-          <h6 class="text-primary">Test - 07</h6>
-          <span>2023-12-09 05:51 PM</span>
-        </td>
-        <td>0%</td>
-        <td>0%</td>
-        <td>0%</td>
-        <td> 1 Contacts</td>
-        <td> 0 Contacts</td>
-        <td> completed</td>
-        <td>
-          <button class="btn btn-outline-secondary me-2">
-            <i class="fa-regular fa-pen-to-square"></i>
-          </button>
-          <button class="btn btn-outline-secondary">
-            <i class="fa-regular fa-eye"></i>
-          </button>
-        </td>
-      </tr>
-      <tr class="text-center">
-        <td class="text-start">
-          <h6 class="text-primary">Test - 08</h6>
-          <span>2023-12-09 05:51 PM</span>
-        </td>
-        <td>0%</td>
-        <td>0%</td>
-        <td>0%</td>
-        <td> 1 Contacts</td>
-        <td> 0 Contacts</td>
-        <td> completed</td>
-        <td>
-          <button class="btn btn-outline-secondary me-2">
-            <i class="fa-regular fa-pen-to-square"></i>
-          </button>
-          <button class="btn btn-outline-secondary">
-            <i class="fa-regular fa-eye"></i>
-          </button>
-        </td>
-      </tr>
+      <ng-container *ngFor="let role of roles">
+        <tr class="text-center text-nowrap">
+          <td class="text-start">
+            <h6 class="text-primary">{{role.name}}</h6>
+            <span>{{role.createdAt | date :"yyyy-MM-dd hh:mm a"}}</span>
+          </td>
+          <td>
+            <ng-container *ngIf="permessionMap(role, 'Create Message')">
+              <i class="fa-solid fa-check"></i>
+            </ng-container>
+            <ng-container *ngIf="!permessionMap(role, 'Create Message')">
+              <i class="fa-solid fa-xmark"></i>
+            </ng-container>
+          </td>
+          <td>
+            <ng-container *ngIf="permessionMap(role, 'Read Broadcast')">
+              <i class="fa-solid fa-check"></i>
+            </ng-container>
+            <ng-container *ngIf="!permessionMap(role, 'Read Broadcast')">
+              <i class="fa-solid fa-xmark"></i>
+            </ng-container>
+          </td>
+          <td>
+            <span>
+              {{role.lastUpdatedAt | date :"yyyy-MM-dd hh:mm a"}}
+            </span>
+          </td>
+
+        </tr>
+      </ng-container>
+
+
 
 
 

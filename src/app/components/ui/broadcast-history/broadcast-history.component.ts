@@ -36,7 +36,7 @@ export class BroadcastHistoryComponent {
     if (this.path == 'history') {
       this.getBroadCasts();
     } else if (this.path == 'Scheduled') {
-      this.getBroadCasts(5, 1, false);
+      this.getBroadCasts(5, 1, true);
     }
     console.log();
   }

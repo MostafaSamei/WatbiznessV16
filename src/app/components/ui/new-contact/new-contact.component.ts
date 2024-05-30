@@ -1,5 +1,5 @@
 import { ClientsService } from 'src/app/core/services/clients.service';
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import {
   FormBuilder,
   FormGroup,
@@ -17,6 +17,8 @@ import { NgIf } from '@angular/common';
   styleUrls: ['./new-contact.component.scss'],
 })
 export class NewContactComponent {
+  @Output() clickEvent: EventEmitter<MouseEvent> =
+    new EventEmitter<MouseEvent>();
   constructor(
     private _formBuilder: FormBuilder,
     private ClientsService: ClientsService
@@ -55,10 +57,12 @@ export class NewContactComponent {
       this.ClientsService.addClient(this.addClientForm.value).subscribe({
         next: (respone) => {
           console.log(respone);
-          window.location.reload();
         },
         error: (err) => {
           console.log(err);
+        },
+        complete: () => {
+          this.clickEvent.emit();
         },
       });
     } else if (this.addClientForm.invalid) {
@@ -80,7 +84,7 @@ export class NewContactComponent {
           console.log(err);
         },
         complete: () => {
-          window.location.reload();
+          this.clickEvent.emit();
         },
       });
     } else if (this.addClientForm.invalid) {
