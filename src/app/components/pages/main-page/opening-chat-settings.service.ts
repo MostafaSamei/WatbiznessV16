@@ -6,6 +6,7 @@ import { BehaviorSubject } from 'rxjs';
 })
 export class OpeningChatSettingsService {
   public showSettings = new BehaviorSubject<boolean>(false);
+  public reloadSidebarGroupChats = new BehaviorSubject<boolean>(false);
 
   constructor() {}
 }

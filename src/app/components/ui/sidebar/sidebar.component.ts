@@ -5,6 +5,7 @@ import { groupchat } from '../../../core/models/groupchat';
 import { DatePipe, NgForOf, NgIf } from '@angular/common';
 import { chatStatusEnum } from '../../../core/models/chat';
 import { FormsModule } from '@angular/forms';
+import {OpeningChatSettingsService} from "../../pages/main-page/opening-chat-settings.service";
 
 @Component({
   selector: 'app-sidebar',
@@ -25,11 +26,15 @@ export class SidebarComponent implements OnInit {
 
   constructor(
     private _smallMediaNav: SmallMediaNavigationService,
-    private chatService: ChatService
+    private chatService: ChatService,
+    private openingChatSettingsService: OpeningChatSettingsService
   ) {}
 
   ngOnInit() {
     this.loadGroupChats();
+    this.openingChatSettingsService.reloadSidebarGroupChats.subscribe(bool => {console.log("sidebargroupchat is fired");
+        this.loadGroupChats();
+    });
   }
 
   toggleAndOpen(clientId: string) {
