@@ -50,7 +50,7 @@ export class ContactsComponent {
     this.selectedclient = SubUser;
   }
   deleteUser() {
-    this.clientsService.deleteClient(this.selectedclient.userId).subscribe({
+    this.clientsService.deleteClient(this.selectedclient.id).subscribe({
       next: (resp) => {
         console.log(resp);
 

@@ -59,7 +59,6 @@ export class NewSubUserComponent {
           value: this.user?.id || '',
           disabled: this.method == 'view',
         },
-        [Validators.required],
       ],
       roleId: [
         {
@@ -71,20 +70,15 @@ export class NewSubUserComponent {
     });
     if (this.method != 'view') {
       this.addUserForm.addControl('password', this._formBuilder.control(''));
-    } else {
-      // console.log(this.user);
     }
-    // console.log(this.addUserForm);
-    // console.log(this.user);
   }
 
   addUser() {
-    console.log(this.addUserForm.value);
+    console.log(this.addUserForm);
     if (this.addUserForm.valid) {
       this.SubUserService.addSubUser(this.addUserForm.value).subscribe({
         next: (respone) => {
           console.log(respone);
-          window.location.reload();
         },
         error: (err) => {
           console.log(err);
