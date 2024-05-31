@@ -99,9 +99,7 @@ export class UsersListComponent {
       compRef.instance.user = SubUser;
     }
   }
-  clearContainer() {
-    this.container.clear();
-  }
+
   closeOffCanvas(): void {
     document.getElementById('closeOffCanvasBtn')?.click();
   }

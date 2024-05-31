@@ -132,7 +132,7 @@
             <h6 class="text-primary">{{user.fullName}}</h6>
             <span>{{user.createdAt | date : 'YYYY-MM-dd hh:mm a'}}</span>
           </td>
-          <td><a href="tel:201068679912">201068679912</a></td>
+          <td><a href="tel:{{ user.phoneNumber }}">{{ user.phoneNumber }}</a></td>
           <td>{{user.role.name}}</td>
           <td>{{user.emailAddress}}</td>
           <td> {{user.lastUpdatedAt| date : 'YYYY-MM-dd hh:mm a'}}</td>
