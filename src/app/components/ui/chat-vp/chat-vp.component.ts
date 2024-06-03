@@ -66,8 +66,7 @@ export class ChatVPComponent implements OnInit, AfterViewChecked {
   ) {
     signalRService.messageReceived$.subscribe((msg) => {
       // Handle incoming messages
-console.log(this.chat.clientId);
-console.log(msg.clientId);
+
       if (this.chat.clientId == msg.clientId) {
         this.chat.messages.push({
           content: msg.message,
@@ -76,12 +75,13 @@ console.log(msg.clientId);
         });
 
         this.playNotification();
+
+        this.chat.opened = true;
+        this.refreshGroupChats();
+
+        this.scrollToBottom();
       }
-
-      this.chat.opened = true;
-      this.refreshGroupChats();
-
-      this.scrollToBottom();
+      
     });
   }
 
