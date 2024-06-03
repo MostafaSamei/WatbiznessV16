@@ -173,9 +173,6 @@ export class ChatVPComponent implements OnInit, AfterViewChecked {
   }
   select($event: any) {
     this.selectedEmoji = $event.emoji.native;
-    // let lastValue = document.getElementById('messagingField');
-    // console.log(lastValue);
-    // lastValue += this.selectedEmoji;
     this.messageContent += this.selectedEmoji;
   }
   onKey(event: any) {
