@@ -74,14 +74,14 @@ export class ChatVPComponent implements OnInit, AfterViewChecked {
           createdAt: Date.now(),
         });
 
-        this.playNotification();
-
         this.chat.opened = true;
-        this.refreshGroupChats();
 
         this.scrollToBottom();
       }
-      
+
+      this.playNotification();
+      this.refreshGroupChats();
+
     });
   }
 
