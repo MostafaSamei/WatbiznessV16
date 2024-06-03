@@ -66,23 +66,23 @@ export class ChatVPComponent implements OnInit, AfterViewChecked {
   ) {
     signalRService.messageReceived$.subscribe((msg) => {
       // Handle incoming messages
-      this.chat.messages.push({
-        content: msg.message,
-        sentByUser: false,
-        createdAt: Date.now(),
-      });
+console.log(this.chat.clientId);
+console.log(msg.clientId);
+      if (this.chat.clientId == msg.clientId) {
+        this.chat.messages.push({
+          content: msg.message,
+          sentByUser: false,
+          createdAt: Date.now(),
+        });
+
+        this.playNotification();
+      }
 
       this.chat.opened = true;
       this.refreshGroupChats();
 
       this.scrollToBottom();
     });
-  }
-
-  private refreshGroupChats() {
-    this.openingChatSettingsService.reloadSidebarGroupChats.next(
-      !this.openingChatSettingsService.reloadSidebarGroupChats.value
-    );
   }
 
   changeChatSettingsState() {
@@ -201,6 +201,19 @@ export class ChatVPComponent implements OnInit, AfterViewChecked {
 
   changeSelectedTemplate(event: any) {
     this.selectedMessageTemplateId = event.target.value;
+  }
+
+  private playNotification(){
+    let audio = new Audio();
+    audio.src = "../../../assets/sounds/notification.wav";
+    audio.load();
+    audio.play();
+  }
+
+  private refreshGroupChats() {
+    this.openingChatSettingsService.reloadSidebarGroupChats.next(
+      !this.openingChatSettingsService.reloadSidebarGroupChats.value
+    );
   }
 
   private resetMessageInput() {

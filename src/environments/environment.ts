@@ -1,4 +1,4 @@
 ﻿export const environment = {
   production: false,
-  baseURL: 'https://localhost:7018',
+  baseURL: 'https://watbizness-api.eslamboully.online',
 };

@@ -11,7 +11,7 @@ export class SignalRService {
   private hubConnection: signalR.HubConnection;
 
   // Observable to emit messages received from the server
-  private messageReceived = new Subject<{ userId: string, message: string }>();
+  private messageReceived = new Subject<{ userId: string, clientId: string, message: string }>();
   messageReceived$ = this.messageReceived.asObservable();
 
   constructor() {
@@ -23,8 +23,8 @@ export class SignalRService {
 
     // Handle the "ReceiveMessage" event from the server
     this.hubConnection
-      .on('ReceiveMessage', (userId: string, message: string, file: string, type: string) => {
-      this.messageReceived.next({ userId, message });
+      .on('ReceiveMessage', (userId: string, clientId: string, message: string, file: string, type: string) => {
+      this.messageReceived.next({ userId, clientId, message });
     });
 
     // Start the connection
