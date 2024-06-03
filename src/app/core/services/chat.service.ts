@@ -23,8 +23,8 @@ export class ChatService {
     return this.http.get<chat>(environment.baseURL + `/Chat/v1.0/Chat/GetChat?clientId=` + clientId);
   }
 
-  public CreateChat(chat: any): Observable<chat> {
-    return this.http.post<chat>(environment.baseURL + `/Chat/v1.0/Chat/CreateChat`, chat);
+  public CreateChat(createChat: any): Observable<chat> {
+    return this.http.post<chat>(environment.baseURL + `/Chat/v1.0/Chat/CreateChat`, createChat);
   }
 
   public DeleteChat(id: string): Observable<any> {

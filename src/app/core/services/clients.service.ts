@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from '../../../environments/environment';
 import { client } from '../models/client';
+import {Dictionary} from "../models/dictionary";
 
 @Injectable({
   providedIn: 'root',
@@ -19,6 +20,11 @@ export class ClientsService {
       { observe: 'response' }
     );
   }
+
+  getLookUpClients(): Observable<Dictionary<string>> {
+    return this.http.get<Dictionary<string>>(`${environment.baseURL}/Client/v1.0/Client/GetClientLookUps`);
+  }
+
   getClientsNoPagation(): Observable<any> {
     return this.http.get(
       `${environment.baseURL}/Client/v1.0/Client/GetClients`

@@ -34,9 +34,9 @@ export class BroadcastHistoryComponent {
     this.getStatistics();
     this.path = this.route.snapshot.url[0].path;
     if (this.path == 'history') {
-      this.getBroadCasts(5, 1, false);
-    } else if (this.path == 'Scheduled') {
       this.getBroadCasts(5, 1, true);
+    } else if (this.path == 'Scheduled') {
+      this.getBroadCasts(5, 1, false);
     }
     console.log();
   }
@@ -69,7 +69,7 @@ export class BroadcastHistoryComponent {
       this.paginationDetails.CurrentPage + 1
     );
   }
-  
+
   getStatistics() {
     this.BroadcastService.getBroadcastStatistics().subscribe({
       next: (resp) => {
@@ -143,7 +143,7 @@ export class BroadcastHistoryComponent {
         if (this.path == 'history') {
           this.getBroadCasts();
         } else if (this.path == 'Scheduled') {
-          this.getBroadCasts(5, 1, true);
+          this.getBroadCasts(5, 1, false);
         }
       });
       compRef.instance.clients = this.clients;

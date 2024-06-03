@@ -6,6 +6,11 @@ import { DatePipe, NgForOf, NgIf } from '@angular/common';
 import { chatStatusEnum } from '../../../core/models/chat';
 import { FormsModule } from '@angular/forms';
 import {OpeningChatSettingsService} from "../../pages/main-page/opening-chat-settings.service";
+import {client} from "../../../core/models/client";
+import {ClientsService} from "../../../core/services/clients.service";
+import {Dictionary} from "../../../core/models/dictionary";
+import {Template} from "../../../core/models/template";
+import {TemplateService} from "../../../core/services/template.service";
 
 @Component({
   selector: 'app-sidebar',
@@ -24,13 +29,23 @@ export class SidebarComponent implements OnInit {
 
   inputValue: string;
 
+  clients: Dictionary<string>;
+  selectedContactId: string;
+
+  messageTemplates: Template[];
+  selectedMessageTemplateId: string;
+
   constructor(
     private _smallMediaNav: SmallMediaNavigationService,
     private chatService: ChatService,
+    private clientService: ClientsService,
+    private templateService: TemplateService,
     private openingChatSettingsService: OpeningChatSettingsService
   ) {}
 
   ngOnInit() {
+    this.loadClients();
+    this.loadTemplateMessages();
     this.loadGroupChats();
     this.openingChatSettingsService.reloadSidebarGroupChats.subscribe(bool => {console.log("sidebargroupchat is fired");
         this.loadGroupChats();
@@ -68,6 +83,38 @@ export class SidebarComponent implements OnInit {
       .filter((group) => group.chats.length > 0);
   }
 
+  changeSelectedContact(event: any) {
+    this.selectedContactId = event.target.value;
+  }
+
+  changeSelectedTemplate(event: any) {
+    this.selectedMessageTemplateId = event.target.value;
+  }
+
+  sendMessageTemplate() {
+    this.chatService
+      .CreateChat({
+        clientId: this.selectedContactId,
+        templateId: this.selectedMessageTemplateId,
+      })
+      .subscribe((a) => {
+        this.loadGroupChats();
+
+        // hide the modal
+        this.closeModal();
+      });
+  }
+
+  private closeModal() {
+    document.getElementById('closeNewChatModalBtn')?.click();
+  }
+
+  private loadTemplateMessages() {
+    this.templateService
+      .getTemplatesNoPagation()
+      .subscribe((templates) => (this.messageTemplates = templates));
+  }
+
   private loadGroupChats(nameOrPhone: string = '') {
     this.chatService.GetGroupChats(nameOrPhone).subscribe((groupChats) => {
       this.allGroupChats = groupChats;
@@ -75,5 +122,12 @@ export class SidebarComponent implements OnInit {
     });
   }
 
+  private loadClients() {
+    this.clientService.getLookUpClients().subscribe(clients => {
+      this.clients = clients;
+    });
+  }
+
   protected readonly chatStatusEnum = chatStatusEnum;
+  protected readonly Object = Object;
 }
